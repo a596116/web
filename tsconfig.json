@@ -1,6 +1,15 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": [
+    "types/module.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "vite.config.ts",
+    "vite/**/*.ts",
+    "mock/**/*.ts",
+    "types/**/*.d.ts",
+    "types/**/*.ts"
+  ],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -12,5 +21,6 @@
     {
       "path": "./tsconfig.vite-config.json"
     }
-  ]
+  ],
+  "types": ["element-plus/global", "echarts", "lodash"]
 }

@@ -1,12 +1,15 @@
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-
 import App from './App.vue'
-import router from './router'
+import router, { setupRouter } from './router'
+import { setupPlugins } from './plugins'
+import 'animate.css'
 
-const app = createApp(App)
+async function main() {
+  const app = createApp(App)
+  setupPlugins(app)
+  setupRouter(app)
 
-app.use(createPinia())
-app.use(router)
-
-app.mount('#app')
+  await router.isReady()
+  app.mount('#app')
+}
+main()

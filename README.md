@@ -1,40 +1,29 @@
-# web
+# 浩呆前端
 
-This template should help get you started developing with Vue 3 in Vite.
+<img src='https://img.shields.io/badge/3.2.26-vue-green'><img src='https://img.shields.io/badge/1.3.0-element--plus-blue'>
 
-## Recommended IDE Setup
+<img src='https://img.shields.io/badge/9.6.1-firebase-orange'><img src='https://img.shields.io/badge/2.0.9-pinia-yellowgreen'><img src='https://img.shields.io/badge/7.4.1-swiper-9cf'>
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
+<img align= "right" src='./src/assets/img/1.png' alt='haodai' style='width:200px;'/>
+<br><br><br><br>
 
-## Type Support for `.vue` Imports in TS
+### 網站：[https://haodai.tw](https://haodai.tw)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+### 後台：[https://haodai.tw/admin](https://haodai.tw/admin)
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+### 蠟筆小新：[https://haodai.tw/xio](https://haodai.tw/xio)
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+---
 
-## Customize configuration
+## 使用的套件
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- Firebase
+- element ui plus
+- pinia
+- fortawesome
+- swiper
 
-## Project Setup
+## 啓動項目
 
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
+1. 使用`npm install`下載依賴，然後執行`npm run dev`即可啓動項目
+2. 訪問http://127.0.0.1:3000/可以打開前端展示頁。
