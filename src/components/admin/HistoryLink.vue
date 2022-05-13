@@ -7,7 +7,7 @@
         <router-link :to="{ name: link.route }">{{ link.title }}</router-link>
 
         <div @click="menuStore.removeHistoryMenu(link)">
-          <i class="fas fa-times ml-1 cursor-pointer hover:text-orange-800 z-20"></i>
+          <i class="fas fa-times text-lg ml-2 cursor-pointer hover:text-orange-800 z-20"></i>
         </div>
       </div>
     </div>

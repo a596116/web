@@ -1,7 +1,6 @@
 import { CacheEnum } from '@/enum/cacheEnum'
 import { store } from '@/utils'
 import type { RouteLocationNormalized, Router } from 'vue-router'
-
 class Guard {
   constructor(private router: Router) { }
   public run() {
@@ -9,8 +8,13 @@ class Guard {
   }
 
   private async beforeEach(to: RouteLocationNormalized, from: RouteLocationNormalized) {
-    if (to.meta.auth && !this.token()) return { name: 'login' }
+    if (to.meta.auth && !this.token()) {
+      store.set(CacheEnum.REDIRECT_ROUTE_NAME, to.name)
+      return { name: 'login' }
+    }
     if (to.meta.guest && this.token()) return from
+
+
   }
 
   private token(): string | null {

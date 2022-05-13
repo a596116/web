@@ -17,7 +17,7 @@ export default {
       path: '404',
       component: () => import('@/views/error/404.vue'),
       meta: {
-        menu: { title: '404頁面' },
+        menu: { title: '404頁面' }, permission: ''
       },
     },
     {

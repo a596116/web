@@ -9,7 +9,7 @@ export const autoImport = (plugin: Plugin[]) => {
         AutoImport({
             resolvers: [ElementPlusResolver()],
 
-            imports: ['vue', 'vue-router'],
+            imports: ['vue', 'vue-router', 'pinia',],
             // 為true時在項目根目錄自動創建
             dts: 'types/auto-imports.d.ts',
         }),

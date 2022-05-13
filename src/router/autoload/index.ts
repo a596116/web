@@ -11,18 +11,18 @@ if (env.VITE_ROUTER_AUTOLOAD) {
   routes = autoloadModuleRoutes()
 }
 
-function autoload(router: Router) {
+export default async (router: Router) => {
   const user = userStore()
   routes = routes.map((route) => {
     route.children = route.children?.filter((child) => {
       const permission = child.meta?.permission
-      return permission ? user.info?.permissions.includes(permission) : true
+      return permission ? user.info?.permissions?.includes(permission) : true
     })
+
     return route
   })
+
   routes.forEach((route) => {
     router.addRoute(route)
   })
 }
-
-export default autoload

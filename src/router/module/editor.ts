@@ -16,13 +16,13 @@ export default {
       name: 'admin/wang',
       path: 'wang',
       component: () => import('@/views/editor/wang.vue'),
-      meta: { menu: { title: '富文本' }, permission: 'editor_markdown' },
+      meta: { menu: { title: '富文本' }, permission: 'editor' },
     },
     {
       name: 'admin/markdown',
       path: 'markdown',
       component: () => import('@/views/editor/markdown.vue'),
-      meta: { menu: { title: 'markdown' }, permission: 'editor_markdown' },
+      meta: { menu: { title: 'markdown' }, permission: '' },
     },
   ],
 } as RouteRecordRaw

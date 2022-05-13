@@ -3,7 +3,7 @@
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/' }">首頁</el-breadcrumb-item>
       <template v-if="menuStore.route">
-        <el-breadcrumb-item :to="{ path: r.path }" v-for="(r, index) in menuStore.route.matched" :key="index">
+        <el-breadcrumb-item v-for="(r, index) in menuStore.route.matched" :key="index">
           {{ r.meta.menu?.title }}
         </el-breadcrumb-item>
       </template>
@@ -16,4 +16,5 @@ import { menus } from '@/stores/menuStore'
 const menuStore = menus()
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

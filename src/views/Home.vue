@@ -1,17 +1,57 @@
 <script setup lang="ts">
-// import { user } from '@/utils'
+import router from '@/router'
 </script>
 
 <template>
-  <div class="h-screen w-screen bg-gray-700 flex flex-col justify-center items-center">
-    <img src="/img/logo.png" class="w-60 h-60 object-contain rounded-full border-8 border-white mb-5" />
-    <div>
-      <router-link :to="{ name: 'hd' }"
-        class="bg-purple-500 text-white w-full p-2 rounded-md m-5 hover:bg-purple-600 duration-300">首頁</router-link>
-      <router-link :to="{ name: 'admin/home' }"
-        class="bg-purple-500 text-white w-full p-2 rounded-md m-5 hover:bg-purple-600 duration-300">後台管理</router-link>
-      <!-- <router-link v-if="!user.isLogin()" :to="{ name: 'login' }" class="hd-button hd-danger ml-3">用戶登入</router-link> -->
+  <div class="h-screen w-screen bg-gray-600 flex flex-col justify-center items-center relative">
+    <div class="w-80 h-80 rounded-full border-8 border-white z-10 flex justify-center items-center">
+      <img src="/img/logo.png"
+        class="w-72 h-72 object-contain rounded-full animate__animated animate__bounce animate__infinite" />
     </div>
-    <div class="text-gray-200 text-4xl font-mono drop-shadow-md mt-6">浩呆</div>
+    <div class="absolute top-0 left-0 w-full h-full flex">
+      <div data-text="網站首頁" class="title hover:bg-orange-200" @click="router.push({ name: 'hd' })">
+      </div>
+      <div data-text="後台管理" class="title hover:bg-green-200" @click="router.push({ name: 'admin/home' })">
+      </div>
+    </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+img {
+  animation-duration: 2s;
+}
+
+.title {
+  @apply text-white w-[50%] duration-300 relative cursor-pointer;
+
+  &::before {
+    @apply content-[attr(data-text)] absolute top-[50%] left-[50%] text-[10vw] font-bold opacity-0;
+    transform: translate(-50%, calc(-50% + 100px));
+    transition: 0.5s;
+  }
+
+  &:hover::before {
+    opacity: 1;
+    transform: translate(-50%, calc(-50% + 150px));
+  }
+}
+
+@keyframes vertical {
+
+  0%,
+  60%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+
+  20% {
+    transform: translateY(5px);
+  }
+
+  40% {
+    transform: translateY(-20px);
+  }
+}
+</style>

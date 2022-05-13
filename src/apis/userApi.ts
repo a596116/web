@@ -2,17 +2,29 @@ import { http } from '@/plugins/axios'
 
 export interface User {
   name: string
-  age: number
-  avatar: string
-  permissions: string[]
+  age?: number
+  avatar?: string
+  permissions?: string[]
 }
 
 export interface Login {
   token: string
 }
+export interface IRegisterData {
+  account: string
+  password: string
+  name: string
+  avatar?: string
+  token?: string
+}
 export interface ILoginData {
   account: string
   password: string
+}
+export interface UpdataUserData {
+  displayName?: string
+  photoURL?: string
+  permissions?: string[]
 }
 class userApi {
   info() {

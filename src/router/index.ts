@@ -1,8 +1,8 @@
-import App from '../App.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import { userStore } from '@/stores/userStore'
 import autoload from './autoload'
 import guard from './guard'
-import { userStore } from '@/stores/userStore'
+import type { App } from 'vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

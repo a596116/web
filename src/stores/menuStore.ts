@@ -1,4 +1,3 @@
-import { defineStore } from 'pinia'
 import type { IMenu } from 'types/menu'
 import router from '@/router'
 import type { RouteLocationNormalized, RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
@@ -7,12 +6,14 @@ import { CacheEnum } from '@/enum/cacheEnum'
 
 export const menus = defineStore({
   id: 'menu',
+
   state: () => ({
     menus: [] as IMenu[],
     historyMenus: [] as IMenu[],
-    close: store.get(CacheEnum.MENU_IS_CLOSE) ?? true,
+    isMenuCollapse: store.get(CacheEnum.MENU_IS_CLOSE) ?? true,
     route: null as RouteLocationNormalized | null,
   }),
+
   actions: {
     init() {
       this.getMenuByRoute()
@@ -27,19 +28,21 @@ export const menus = defineStore({
       })
     },
     removeHistoryMenu(menu: IMenu) {
+      if (this.historyMenus.length === 1) return
       const index = this.historyMenus.indexOf(menu)
       this.historyMenus.splice(index, 1)
       store.set(CacheEnum.HISTORY_MENU, this.historyMenus)
+
     },
     addHistoryMenu(route: RouteLocationNormalized) {
       if (!route.meta?.menu) return
       this.route = route
 
       const menu: IMenu = { ...route.meta?.menu, route: route.name as string }
-      const isHas = this.historyMenus.some((menu) => menu.route === route.name)
-      if (!isHas) this.historyMenus.unshift(menu)
+      const index = Object.entries(this.historyMenus).findIndex(([key, value]) => value.route === route.name)
+      if (index !== -1) this.historyMenus.splice(index, 1)
+      this.historyMenus.unshift(menu)
       if (this.historyMenus.length > 10) this.historyMenus.pop()
-
       store.set(CacheEnum.HISTORY_MENU, this.historyMenus)
     },
     setCurrentMenu(route: RouteLocationNormalizedLoaded) {
@@ -73,8 +76,8 @@ export const menus = defineStore({
 
     // 開關菜單
     toggleMenu() {
-      this.close = !this.close
-      store.set(CacheEnum.MENU_IS_CLOSE, this.close)
+      this.isMenuCollapse = !this.isMenuCollapse
+      store.set(CacheEnum.MENU_IS_CLOSE, this.isMenuCollapse)
     },
   },
 })

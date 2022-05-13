@@ -1,3 +1,5 @@
+// 存儲localstorage
+
 export interface IData {
   expire?: number
   data: any

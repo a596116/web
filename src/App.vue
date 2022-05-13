@@ -1,6 +1,3 @@
-<script setup lang="ts">
-import { RouterView } from 'vue-router'
-</script>
 
 <template>
   <suspense>
@@ -8,6 +5,6 @@ import { RouterView } from 'vue-router'
   </suspense>
 </template>
 
-<style>
-@import '@/assets/base.css';
+<style lang="scss">
+@import '@/assets/base.scss';
 </style>

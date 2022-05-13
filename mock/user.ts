@@ -13,7 +13,7 @@ export default [
           name: '浩呆',
           age: 21,
           avatar: '/img/logo.png',
-          permissions: ['editor_markdown', 'article_edit'],
+          permissions: ['editor_markdown'],
         },
       }
     },
