@@ -42,7 +42,6 @@ const handle = (pmenu: IMenu, cmenu?: IMenu) => {
 
 }
 watch(route, () => {
-  menuStore.setCurrentMenu(route)
   active_menu.value = route.path.split('/')[2]
 }, { immediate: true })
 

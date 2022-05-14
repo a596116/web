@@ -1,16 +1,12 @@
 // 存儲localstorage
 
-export interface IData {
-  expire?: number
-  data: any
-}
 export default {
+  // expire 單位秒 token存放時間
   set(key: string, data: any, expire?: number): void {
-    const cache: IData = { data }
     if (expire) {
-      cache.expire = new Date().getTime() + expire * 1000
+      expire = new Date().getTime() + expire * 1000
     }
-    localStorage.setItem(key, JSON.stringify(cache))
+    localStorage.setItem(key, JSON.stringify({ data, expire }))
   },
   get(key: string): any {
     const cacheStore = localStorage.getItem(key)

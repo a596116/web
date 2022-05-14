@@ -3,7 +3,6 @@ import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, updateProfile,
 import store from '@/utils/store'
 import router from '@/router'
 import { CacheEnum } from '@/enum/cacheEnum'
-import { db } from "@/stores/firebase/firebase"
 
 export const userStore = defineStore({
   id: 'user',
@@ -29,6 +28,9 @@ export const userStore = defineStore({
           }
         })
       })
+    },
+    isLogin() {
+      return Boolean(store.get(CacheEnum.TOKEN_NAME))
     },
     login(loginForm: ILoginData) {
       signInWithEmailAndPassword(this.auth, loginForm.account, loginForm.password)

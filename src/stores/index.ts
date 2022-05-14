@@ -1,6 +1,6 @@
 import { collection, addDoc, doc, getDocs, getDoc, onSnapshot, query, updateDoc, where, deleteDoc, } from "firebase/firestore"
 
-import { db } from "./firebase"
+import { db } from "../plugins/firebase"
 
 // (新增資料)  await add({id: 1, name: "王"})
 export const add_data = async (data: any, obj: object) => {

@@ -27,17 +27,10 @@ export const menus = defineStore({
         return routes.some((r) => r.name === m.route)
       })
     },
-    removeHistoryMenu(menu: IMenu) {
-      if (this.historyMenus.length === 1) return
-      const index = this.historyMenus.indexOf(menu)
-      this.historyMenus.splice(index, 1)
-      store.set(CacheEnum.HISTORY_MENU, this.historyMenus)
 
-    },
     addHistoryMenu(route: RouteLocationNormalized) {
       if (!route.meta?.menu) return
       this.route = route
-
       const menu: IMenu = { ...route.meta?.menu, route: route.name as string }
       const index = Object.entries(this.historyMenus).findIndex(([key, value]) => value.route === route.name)
       if (index !== -1) this.historyMenus.splice(index, 1)
@@ -45,18 +38,14 @@ export const menus = defineStore({
       if (this.historyMenus.length > 10) this.historyMenus.pop()
       store.set(CacheEnum.HISTORY_MENU, this.historyMenus)
     },
-    setCurrentMenu(route: RouteLocationNormalizedLoaded) {
-      this.menus.forEach((menu) => {
-        menu.isClick = false
-        menu.children?.forEach((child) => {
-          child.isClick = false
-          if (child.route === route.name) {
-            menu.isClick = true
-            child.isClick = true
-          }
-        })
-      })
+
+    removeHistoryMenu(menu: IMenu) {
+      if (this.historyMenus.length === 1) return
+      const index = this.historyMenus.indexOf(menu)
+      this.historyMenus.splice(index, 1)
+      store.set(CacheEnum.HISTORY_MENU, this.historyMenus)
     },
+
     // 根據路由獲取菜單
     getMenuByRoute() {
       this.menus = router

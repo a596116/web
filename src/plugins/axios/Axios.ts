@@ -7,7 +7,6 @@ export default class Axios {
   private instance
   constructor(config: AxiosRequestConfig) {
     this.instance = axios.create(config)
-
     this.interceptors()
   }
 

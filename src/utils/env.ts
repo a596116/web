@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import type { ViteEnv } from 'types/viteEnv'
 const env: any = _.cloneDeep(import.meta.env)
 Object.entries(import.meta.env as Record<string, any>).forEach(([key, value]) => {
   if (value == 'true' || value == 'false') {

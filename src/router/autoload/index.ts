@@ -1,5 +1,4 @@
 import { userStore } from '@/stores/userStore'
-import { env } from '@/utils'
 import type { Router, RouteRecordRaw } from 'vue-router'
 import autoloadModuleRoutes from './module'
 import getRoutes from './view'
