@@ -13,8 +13,6 @@ class Guard {
       return { name: 'login' }
     }
     if (to.meta.guest && this.token()) return from
-
-
   }
 
   private token(): string | null {

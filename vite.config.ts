@@ -1,18 +1,15 @@
 import { fileURLToPath, URL } from 'url'
 
-import { loadEnv, type ConfigEnv } from 'vite'
-import { parseEnv } from './vite/util'
+import type { ConfigEnv } from 'vite'
 import { setupPlugins } from './vite/plugins'
 
 import visualizer from 'rollup-plugin-visualizer'
 
-export default ({ command, mode }: ConfigEnv): any => {
+export default ({ command }: ConfigEnv): any => {
   const isBuild = command === 'build'
-  const root = process.cwd()
-  const env = parseEnv(loadEnv(mode, root))
 
   return {
-    plugins: [...setupPlugins(isBuild, env), visualizer()],
+    plugins: [...setupPlugins(isBuild), visualizer()],
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
