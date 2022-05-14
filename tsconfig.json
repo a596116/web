@@ -4,6 +4,7 @@
     "types/module.d.ts",
     "src/**/*",
     "src/**/*.vue",
+    "src/**/*.ts",
     "vite.config.ts",
     "vite/**/*.ts",
     "mock/**/*.ts",

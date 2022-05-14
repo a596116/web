@@ -1,0 +1,27 @@
+.el-input__wrapper {
+  background: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+// Menu
+.el-sub-menu__title:hover {
+  * {
+    color: rgb(241, 185, 44) !important;
+  }
+}
+.el-menu-item:hover {
+  background-color: rgba(235, 186, 63, 0.6);
+}
+.is-active .el-sub-menu__title * {
+  color: rgb(241, 185, 44) !important;
+}
+.el-menu-item.is-active {
+  background: rgb(241, 185, 44) !important;
+}
+.form-container input::placeholder {
+  color: #fff !important;
+}
+.el-menu.el-menu--collapse {
+  @apply w-0 md:w-[64px];
+}

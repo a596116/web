@@ -1,10 +1,11 @@
 <template>
     <div>
-        <el-container>
+        <el-container class="relative">
             <!-- Menu -->
             <el-scrollbar>
                 <admin-menu />
             </el-scrollbar>
+            <div class="bg md:hidden" @click="closeMenu" :class="{ 'close': !menu.isMenuCollapse }"></div>
 
             <el-container class="grid min-h-screen">
                 <div class="content bg-gray-100 grid grid-rows-[auto_1fr]">
@@ -33,11 +34,16 @@ import { menus } from '@/stores/menuStore'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-menus().init()
+const menu = menus()
+menu.init()
 watch(route, async () => {
-    menus().addHistoryMenu(route)
+    menu.addHistoryMenu(route)
 },
     { immediate: true })
+
+const closeMenu = () => {
+    menu.toggleMenu()
+}
 </script>
 
 <style scoped lang="scss">
@@ -47,5 +53,14 @@ watch(route, async () => {
 
 .animate__bounceOutLeft {
     animation-duration: 0.5s;
+}
+
+.bg {
+    z-index: 99;
+    @apply absolute h-screen w-screen bg-yellow-200 top-0 opacity-20;
+
+    &.close {
+        @apply hidden;
+    }
 }
 </style>

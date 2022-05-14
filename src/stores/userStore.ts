@@ -4,8 +4,6 @@ import store from '@/utils/store'
 import router from '@/router'
 import { CacheEnum } from '@/enum/cacheEnum'
 import { db } from "@/stores/firebase/firebase"
-import { ElMessage } from 'element-plus'
-import autoload from '@/router/autoload'
 
 export const userStore = defineStore({
   id: 'user',
@@ -49,6 +47,7 @@ export const userStore = defineStore({
     logout() {
       signOut(this.auth).then(() => {
         store.remove(CacheEnum.TOKEN_NAME)
+        store.remove(CacheEnum.HISTORY_MENU)
         router.push('/')
         this.info = null
       }).catch((error) => {

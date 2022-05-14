@@ -254,7 +254,8 @@ section {
           }
 
           .el-button {
-            @apply bg-white text-black rounded-[20px] mt-[40px] px-[70px] py-[8px] border-0 font-black cursor-pointer relative text-center overflow-hidden;
+            @apply bg-white text-black rounded-[20px] mt-[40px] px-[50px] py-[8px] border-0 font-black cursor-pointer relative text-center overflow-hidden;
+            letter-spacing: 8px;
 
             &::before,
             &::after {
@@ -263,13 +264,13 @@ section {
 
             &::before {
               @apply content-[''] w-[120%] h-0 pb-[120%] top-[-110%] left-[-10%] rounded-[50%];
-              background: #ecd2899c;
+              background: #90d0ec86;
               transform: translate3d(0, 68%, 0) scale3d(0, 0, 0);
             }
 
             &:after {
               content: "";
-              background: #ecd2899c;
+              background: #90d0ec86;
               transform: translate3d(0, -100%, 0);
               transition: transform 0.4s cubic-bezier(0.1, 0, 0.3, 1);
             }

@@ -5,6 +5,7 @@
         class="duration-200 text-xl mr-3">
         <icon-menu-unfold theme="outline" size="24" class="text-gray-600 cursor-pointer" />
       </section>
+
       <admin-breadcrumb class="hidden md:block" />
     </div>
 

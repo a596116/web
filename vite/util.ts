@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import type { ViteEnv } from 'types/viteEnv'
 
 export const parseEnv = (env: Record<string, any>): ViteEnv => {
     const envs: any = _.cloneDeep(env)

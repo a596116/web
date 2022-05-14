@@ -1,4 +1,5 @@
 import vue from '@vitejs/plugin-vue'
+import type { ViteEnv } from 'types/viteEnv'
 import type { Plugin } from 'vite'
 import { autoImport } from './autoImport'
 import { setupMockPlugin } from './mock'

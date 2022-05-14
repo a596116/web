@@ -9,7 +9,18 @@ export const autoImport = (plugin: Plugin[]) => {
         AutoImport({
             resolvers: [ElementPlusResolver()],
 
-            imports: ['vue', 'vue-router', 'pinia',],
+            imports: ['vue', 'vue-router', 'pinia',
+                {
+                    '@/utils': [
+                        'env',  // import { env } from '@/utils',
+                        // ['env', 'myenv'] // import { env as myenv } from '@/utils',
+                    ],
+                    // 'axios': [
+                    //     // default imports
+                    //     ['default', 'axios'], // import { default as axios } from 'axios',
+                    // ],
+                },
+            ],
             // 為true時在項目根目錄自動創建
             dts: 'types/auto-imports.d.ts',
         }),
@@ -21,5 +32,6 @@ export const autoImport = (plugin: Plugin[]) => {
             // 指定類型聲明文件，為true時在項目根目錄創建
             dts: 'types/components.d.ts',
         }),
+
     )
 }
