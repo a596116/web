@@ -26,6 +26,7 @@
     "mockjs": "^1.1.0",
     "pinia": "^2.0.13",
     "sass": "^1.51.0",
+    "vite-plugin-cdn-import": "^0.3.5",
     "vite-plugin-mock": "^2.9.6",
     "vue": "^3.2.33",
     "vue-router": "^4.0.14"

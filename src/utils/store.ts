@@ -1,5 +1,4 @@
 // 存儲localstorage
-
 export default {
   // expire 單位秒 token存放時間
   set(key: string, data: any, expire?: number): void {

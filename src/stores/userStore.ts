@@ -10,8 +10,6 @@ export const userStore = defineStore({
     info: {} as null | User,
     auth: getAuth(),
   }),
-  getters: {
-  },
   actions: {
     getUserInfo() {
       return new Promise((resolve) => {
@@ -39,11 +37,15 @@ export const userStore = defineStore({
           store.set(CacheEnum.TOKEN_NAME, user.uid)
           const routeName = store.get(CacheEnum.REDIRECT_ROUTE_NAME) ?? 'home'
           await router.push({ name: routeName })
-          // 刷新一次獲取需過濾的路由
-          location.reload()
+          ElMessage({
+            message: `歡迎${user.displayName}`,
+            center: true,
+            type: 'success',
+          })
         })
         .catch((error) => {
           ElMessage.error('帳號或密碼錯誤')
+          console.error(error)
         })
     },
     logout() {
@@ -52,6 +54,11 @@ export const userStore = defineStore({
         store.remove(CacheEnum.HISTORY_MENU)
         router.push('/')
         this.info = null
+        ElMessage({
+          message: '退出登入',
+          center: true,
+          type: 'success',
+        })
       }).catch((error) => {
         console.error(error)
       })
@@ -81,7 +88,6 @@ export const userStore = defineStore({
     updateUserInfo(obj: UpdataUserData) {
       if (this.auth.currentUser) {
         updateProfile(this.auth.currentUser, {
-
         }).then(() => {
           console.log('update success')
         }).catch((error) => {

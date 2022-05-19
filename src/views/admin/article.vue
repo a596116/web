@@ -1,8 +1,10 @@
 <template>
-  <div class="article">
-    <animate-list tag="ul">
-      <li :data-index="index" v-for="(article, index) in articles" :key="article.id">{{ article.title }}</li>
-    </animate-list>
+  <div class="">
+    <div class="article">
+      <animate-list tag="ul">
+        <li :data-index="index" v-for="(article, index) in articles" :key="article.id">{{ article.title }}</li>
+      </animate-list>
+    </div>
   </div>
 </template>
 
@@ -17,13 +19,15 @@ articleApi.article().then((res) => {
 <style scoped lang="scss">
 .article {
   padding: 30px;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   height: 100%;
   position: relative;
   background: #34495e;
+
   ul {
     position: relative;
+
     li {
       padding: 10px;
       margin-bottom: 20px;

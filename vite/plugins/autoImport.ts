@@ -8,7 +8,6 @@ export const autoImport = (plugin: Plugin[]) => {
     plugin.push(
         AutoImport({
             resolvers: [ElementPlusResolver()],
-
             imports: ['vue', 'vue-router', 'pinia',
                 {
                     '@/utils': [

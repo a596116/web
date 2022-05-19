@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="grid md:grid-cols-4 gap-3">
-      <el-card shadow="hover" :body-style="{ padding: '20px' }" v-for="(card, index) in cards" :key="index" class="cursor-pointer">
+      <el-card shadow="hover" :body-style="{ padding: '20px' }" v-for="(card, index) in cards" :key="index"
+        class="cursor-pointer">
         <template #header>
           <div class="flex justify-between items-center">
             {{ card.title }}
             <el-tag type="danger" size="small" effect="dark">月</el-tag>
           </div>
         </template>
-        <!-- card body -->
         <section class="flex justify-between items-center mt-3">
           <span class="text-3xl">$12345</span>
           <i :class="[card.icon, card.iconColor]" class="text-5xl"></i>
@@ -19,6 +19,8 @@
         </section>
       </el-card>
     </div>
+
+    <admin-quick-bar class="mt-5" />
 
     <div class="mt-5 grid md:grid-cols-2 gap-3">
       <el-card shadow="hover" :body-style="{ padding: '20px' }">
@@ -39,18 +41,9 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, ref } from 'vue'
 import { echart1, echart2 } from './echart'
 import * as echarts from 'echarts'
 
-interface ICard {
-  title: string
-  price: number
-  icon: string
-  iconColor: string
-  totaltle: string
-  total: number
-}
 
 const cards = ref<ICard[]>([
   { title: '人數', price: 215646, icon: 'fab fa-algolia', totaltle: '總人數', total: 89764561, iconColor: 'text-amber-600' },
@@ -59,8 +52,14 @@ const cards = ref<ICard[]>([
   { title: '評論數', price: 75123, icon: 'fab fa-avianex', totaltle: '總評論數', total: 1057673, iconColor: 'text-red-600' },
 ])
 
+
+
 nextTick(() => {
   echarts.init(document.getElementById('echart1') as HTMLDivElement).setOption(echart1)
   echarts.init(document.getElementById('echart2') as HTMLDivElement).setOption(echart2)
 })
 </script>
+
+
+<style lang="scss" scoped>
+</style>

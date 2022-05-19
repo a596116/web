@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-breadcrumb separator="/">
-      <el-breadcrumb-item :to="{ path: '/' }">首頁</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ name: 'admin/home' }">首頁</el-breadcrumb-item>
       <template v-if="menuStore.route">
         <el-breadcrumb-item v-for="(r, index) in menuStore.route.matched" :key="index">
           {{ r.meta.menu?.title }}

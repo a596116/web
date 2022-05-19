@@ -4,11 +4,7 @@ import autoloadModuleRoutes from './module'
 import getRoutes from './view'
 
 let routes = [] as RouteRecordRaw[]
-if (env.VITE_ROUTER_AUTOLOAD) {
-  routes = getRoutes()
-} else {
-  routes = autoloadModuleRoutes()
-}
+routes = env.VITE_ROUTER_AUTOLOAD ? getRoutes() : autoloadModuleRoutes()
 
 export default async (router: Router) => {
   const user = userStore()
@@ -17,10 +13,8 @@ export default async (router: Router) => {
       const permission = child.meta?.permission
       return permission ? user.info?.permissions?.includes(permission) : true
     })
-
     return route
   })
-
   routes.forEach((route) => {
     router.addRoute(route)
   })

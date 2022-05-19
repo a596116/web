@@ -1,15 +1,11 @@
 import { fileURLToPath, URL } from 'url'
-
-import type { ConfigEnv } from 'vite'
+import { loadEnv, type ConfigEnv } from 'vite'
 import { setupPlugins } from './vite/plugins'
-
-import visualizer from 'rollup-plugin-visualizer'
-
-export default ({ command }: ConfigEnv): any => {
+export default ({ command, mode }: ConfigEnv): any => {
   const isBuild = command === 'build'
-
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
   return {
-    plugins: [...setupPlugins(isBuild), visualizer()],
+    plugins: [...setupPlugins(isBuild)],
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -21,7 +17,6 @@ export default ({ command }: ConfigEnv): any => {
           entryFileNames: `assets/[name].js`,
           chunkFileNames: `assets/[name].js`,
           assetFileNames: `assets/[name].[ext]`,
-
           manualChunks(id: string) {
             if (id.includes('node_modules')) {
               return id.toString().split('node_modules/')[1].split('/')[0].toString()
@@ -30,5 +25,12 @@ export default ({ command }: ConfigEnv): any => {
         },
       },
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@import "@/styles/base.scss";'
+        }
+      }
+    }
   }
 }

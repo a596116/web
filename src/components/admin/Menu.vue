@@ -1,7 +1,8 @@
 <template>
-  <el-menu :collapse="!menuStore.isMenuCollapse" :default-active="active_menu" class="max-w-[150px] md:max-w-[200px]">
+  <el-menu :collapse="!menuStore.isMenuCollapse" :default-active="active_menu" class="max-w-[150px] md:max-w-[200px]"
+    :unique-opened="true">
     <div class="logo">
-      <img src="/img/logo.png" alt="haodai">
+      <img src="/img/haodai.png" alt="haodai">
       <span class="text-lg">浩呆</span>
     </div>
 
@@ -64,10 +65,12 @@ watch(route, () => {
 
 
   .logo {
-    @apply flex items-center text-gray-500 p-4 w-[200px];
+    @apply flex items-center p-4 w-[200px];
 
     img {
       @apply w-[40px];
+      background-color: transparent !important;
+      filter: invert(100%) brightness(100%) drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.7));
     }
 
     span {

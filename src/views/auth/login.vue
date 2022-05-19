@@ -70,10 +70,11 @@
 </template>
 
 <script setup lang="ts">
-import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
 import type { ILoginData, IRegisterData } from '../../apis/userApi'
 import { userStore } from '@/stores/userStore'
 import router from '@/router'
+import userApi from '../../apis/userApi'
 
 class InitData {
   loginForm: ILoginData = {
@@ -117,12 +118,12 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   await formEl?.validate((valid: boolean) => {
     if (valid) {
       user.login(loginForm)
-
     }
   })
 }
 const submitRegisterForm = async (formEl: FormInstance | undefined) => {
   await formEl?.validate((valid: boolean) => {
+
     if (valid) {
       if (RegiserForm.token == "890621") {
         user.createUser(RegiserForm)
@@ -132,6 +133,7 @@ const submitRegisterForm = async (formEl: FormInstance | undefined) => {
     }
   })
 }
+
 </script>
 
 <style scoped lang="scss">

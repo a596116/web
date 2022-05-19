@@ -1,5 +1,4 @@
 import type { RouteRecordRaw } from 'vue-router'
-
 export default {
   name: 'admin',
   path: '/admin',
@@ -9,7 +8,7 @@ export default {
     auth: true,
     menu: {
       title: 'Dashboard',
-      icon: 'DashboardOne',
+      icon: 'Dashboard',
     },
   },
   children: [
@@ -19,6 +18,14 @@ export default {
       component: () => import('@/views/admin/home.vue'),
       meta: {
         menu: { title: '工作台', }
+      },
+    },
+    {
+      name: 'admin/article',
+      path: 'article',
+      component: () => import('@/views/admin/article.vue'),
+      meta: {
+        menu: { title: 'List', }
       },
     },
   ],
