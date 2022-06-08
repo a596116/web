@@ -1,9 +1,8 @@
 import { fileURLToPath, URL } from 'url'
-import { loadEnv, type ConfigEnv } from 'vite'
+import type { ConfigEnv } from 'vite'
 import { setupPlugins } from './vite/plugins'
-export default ({ command, mode }: ConfigEnv): any => {
+export default ({ command }: ConfigEnv): any => {
   const isBuild = command === 'build'
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
   return {
     plugins: [...setupPlugins(isBuild)],
     resolve: {

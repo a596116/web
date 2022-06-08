@@ -9,6 +9,11 @@ export const setupCdnPlugin = (plugin: any) => {
           var: 'lodash',
           path: `https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js`
         },
+        {
+          name: 'Typed',
+          var: 'Typed',
+          path: `https://cdn.jsdelivr.net/npm/typed.js@2.0.12`
+        },
       ]
     })
   )

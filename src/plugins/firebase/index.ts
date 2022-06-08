@@ -1,7 +1,5 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
-
-
 const firebaseConfig = {
     apiKey: env.VITE_API_KEY,
     authDomain: env.VITE_AUTH_DOMAIN,
@@ -11,9 +9,6 @@ const firebaseConfig = {
     appId: env.VITE_APP_ID,
     measurementId: env.VITE_MEASUREMENT_ID
 }
-console.log(firebaseConfig)
-
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
-
 export { db }

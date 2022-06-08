@@ -23,7 +23,7 @@ articleApi.article().then((res) => {
   min-height: 100vh;
   height: 100%;
   position: relative;
-  background: #34495e;
+  // background: #34495e;
 
   ul {
     position: relative;

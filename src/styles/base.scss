@@ -13,7 +13,11 @@ html,
 #app {
   width: 100%;
   height: 100%;
+  scroll-behavior: smooth;
 }
 
-$hd-bg-white: #e0e0e0;
+$hd-bg-white: #f1f2f6;
+$hd-text-black: #6b7280;
+
 $hd-bg-black: #414659;
+$hd-text-white: #e0e0e0;

@@ -1,8 +1,8 @@
 interface ICard {
     title: string
-    price: number
+    price: Array
     icon: string
-    iconColor: string
+    unit: string
     totaltle: string
     total: number
 }

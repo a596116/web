@@ -8,13 +8,13 @@
             <div class="bg md:hidden" @click="closeMenu" :class="{ 'close': !menu.isMenuCollapse }"></div>
 
             <el-container class="grid min-h-screen">
-                <div class="content bg-gray-100 grid grid-rows-[auto_1fr]">
+                <div class="content bg-[#f1f2f6] grid grid-rows-[auto_1fr]">
                     <div class="">
                         <admin-nav-bar />
-                        <admin-history-link class="hidden md:block" />
+                        <!-- <admin-history-link class="hidden md:block" /> -->
                     </div>
 
-                    <div class="m-3 relative overflow-y-auto">
+                    <div class="main m-3 relative overflow-y-auto">
                         <router-view #default="{ Component, route }">
                             <Transition appear class="animate__animated"
                                 :enter-active-class="route.meta.enterClass ?? 'animate__bounceInRight'"
@@ -62,5 +62,9 @@ const closeMenu = () => {
     &.close {
         @apply hidden;
     }
+}
+
+.main::-webkit-scrollbar {
+    display: none;
 }
 </style>

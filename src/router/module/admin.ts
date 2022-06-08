@@ -15,7 +15,7 @@ export default {
     {
       name: 'admin/home',
       path: 'home',
-      component: () => import('@/views/admin/home.vue'),
+      component: () => import('@/views/admin/dashboard.vue'),
       meta: {
         menu: { title: '工作台', }
       },

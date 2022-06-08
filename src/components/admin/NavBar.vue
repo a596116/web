@@ -1,12 +1,13 @@
 <template>
-  <div class="bg-white p-3 px-5 flex justify-between items-center">
-    <div class="flex items-center justify-center">
+  <div class="bg-[#f1f2f6] p-3 px-5 flex justify-between items-center">
+    <div class="flex items-center justify-center re">
       <section @click="menuStore.toggleMenu" :class="{ 'rotate-180': menuStore.isMenuCollapse }"
         class="duration-200 text-xl mr-3">
-        <icon-menu-unfold theme="outline" size="24" class="text-gray-600 cursor-pointer" />
+        <!-- <icon-menu-unfold theme="outline" size="24" class="text-gray-600 cursor-pointer" /> -->
+        <icon-right-square theme="outline" size="26" class="text-gray-600 cursor-pointer" />
       </section>
 
-      <admin-breadcrumb class="hidden md:block" />
+      <!-- <admin-breadcrumb class="hidden md:block" /> -->
     </div>
 
     <div class="flex items-center justify-center">

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import router from '@/router'
-</script>
+</script>　
 
 <template>
   <div class="h-screen w-screen bg-gray-600 flex flex-col justify-center items-center relative">

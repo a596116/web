@@ -1,8 +1,8 @@
 <template>
   <div class="notification">
-    <div @click.stop="show = !show" class="cursor-pointer text-lg">
-      <icon-application-menu theme="outline" size="24" fill="#000000" />
-    </div>
+    <el-badge :is-dot="isMessage" @click.stop="show = !show" class="cursor-pointer text-lg">
+      <icon-remind theme="outline" size="24" fill="#000000" />
+    </el-badge>
     <el-tabs v-model="activeName" class="lists" v-show="show" @click.stop>
       <el-tab-pane label="系統通知" name="site">
         <a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium aut ipsa magnam? Odio quia
@@ -24,6 +24,7 @@
 import { nextTick } from 'vue'
 import { ref } from 'vue'
 
+const isMessage = ref(true)
 const activeName = ref('site')
 const show = ref(false)
 nextTick(() => {

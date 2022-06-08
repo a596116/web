@@ -1,14 +1,14 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": [
-    // "types/module.d.ts",
-    // "src/**/*",
-    // "src/**/*.vue",
-    // "vite.config.ts",
-    // "vite/**/*.ts",
-    // "mock/**/*.ts",
-    // "types/**/*.d.ts",
-    // "types/**/*.ts"
+    "types/module.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "vite.config.ts",
+    "vite/**/*.ts",
+    "mock/**/*.ts",
+    "types/**/*.d.ts",
+    "types/**/*.ts"
   ],
   "compilerOptions": {
     "baseUrl": ".",

@@ -5,6 +5,7 @@ const views = import.meta.globEager('../../views/**/*.vue')
 // 獲取父路由
 const getRouteByModule = (file: string, module: { [key: string]: any }) => {
   const name = file.replace(/.+layout\/|.+views\/|\.vue/gi, '')
+  console.log(name)
   const route = {
     path: `/${name}`,
     name: name,
