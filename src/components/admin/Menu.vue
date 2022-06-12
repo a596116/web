@@ -1,9 +1,9 @@
 <template>
-  <el-menu :collapse="!menuStore.isMenuCollapse" :default-active="active_menu" class="max-w-[150px] md:max-w-[200px]"
-    :unique-opened="true">
+  <el-menu :collapse="!menuStore.isMenuCollapse" :default-active="active_menu"
+    class="admin-menu max-w-[150px] md:max-w-[200px]" :unique-opened="true">
     <div class="logo">
       <img src="/img/haodai.png" alt="haodai" @click="router.push({ name: 'admin/home' })">
-      <div class="ml-[14px] text-gray-500 flex flex-col md:flex-row text-2xl">
+      <div class="ml-[14px] flex flex-col md:flex-row text-2xl">
         <span>🅷🅰🅾️</span>
         <span>🅳🅰🅘</span>
       </div>
@@ -11,10 +11,10 @@
 
     <el-sub-menu v-for="(menu, index) in menuStore.menus" :key="index" :index="menu.icon">
       <template #title>
-        <section class="menu-icon hidden md:block">
-          <component :is="icons[menu.icon!]" theme="outline" size="24"></component>
+        <section class="hidden md:block">
+          <component :is="(icons as any)[menu.icon!]" theme="outline" size="24"></component>
         </section>
-        <span class="menu-title m-2 md:m-7">{{ menu.title }}</span>
+        <span class="m-2 md:m-7">{{ menu.title }}</span>
       </template>
 
       <el-menu-item v-for="(cmenu, index) in menu.children" :key="index" :index="cmenu?.route?.split('/')[1]"
@@ -32,11 +32,11 @@
 
 <script setup lang="ts">
 import type { IMenu } from '../../../types/menu'
-import { menus } from '@/stores/menuStore'
+import { menuStores } from '@/stores/menuStore'
 import router from '@/router'
 import * as icons from '@icon-park/vue-next'
 const route = useRoute()
-const menuStore = menus()
+const menuStore = menuStores()
 const active_menu = ref(route.path.split('/')[2])
 
 const handle = (pmenu: IMenu, cmenu?: IMenu) => {
@@ -50,18 +50,16 @@ watch(route, () => {
 }, { immediate: true })
 
 
-
-
 </script>
 
 <style scoped lang="scss">
-.el-menu {
+.admin-menu {
   transition: width 0.3s ease-in-out;
   z-index: 100;
-  @apply min-h-screen border-0 bg-[#dfe4ea];
+  @apply min-h-screen border-0 bg-hd-bg-black;
 
   * {
-    @apply bg-[#dfe4ea] text-gray-500;
+    @apply text-hd-black1 bg-hd-bg-black;
   }
 
   .logo {
@@ -75,25 +73,70 @@ watch(route, () => {
 
   }
 
-  .menu-icon {
-    @apply text-xl bg-transparent text-gray-500;
-  }
-
-  .menu-title {
-    @apply bg-transparent text-gray-500;
-  }
-
   .menubottom {
-    @apply w-[200px] absolute bottom-0 flex justify-between items-center px-5 cursor-pointer text-gray-500 border-t-2 border-gray-400;
+    @apply w-[200px] absolute bottom-0 flex justify-between items-center px-5 cursor-pointer;
 
     * {
       transition: all 0.3s ease-in-out;
     }
 
     &:hover * {
-      @apply text-[#fad390];
+      @apply text-hd-theme-color;
     }
   }
 
+}
+</style>
+<style lang="scss">
+// Menu
+.el-sub-menu__title,
+.el-menu-item {
+
+  span,
+  i {
+    transition: 0.3s ease-in-out !important;
+  }
+
+  &:hover {
+
+    span,
+    i {
+      color: var(--hd-theme-color) !important;
+    }
+  }
+}
+
+.el-menu-item {
+
+  &:hover,
+  &.is-active {
+    span {
+      color: var(--hd-theme-color) !important;
+    }
+
+    border-right: 4px solid var(--hd-theme-color);
+  }
+}
+
+.is-active .el-sub-menu__title * {
+  color: var(--hd-theme-color) !important;
+}
+
+.el-menu--collapse .is-active .el-sub-menu__title {
+  border-right: 4px solid var(--hd-theme-color);
+}
+
+.form-container input::placeholder {
+  color: #fff !important;
+}
+
+.el-menu.el-menu--collapse {
+  @apply w-0;
+}
+
+@media (min-width: 768px) {
+  .admin-menu.el-menu--collapse {
+    width: 64px;
+  }
 }
 </style>

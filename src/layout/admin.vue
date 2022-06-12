@@ -5,13 +5,14 @@
             <el-scrollbar>
                 <admin-menu />
             </el-scrollbar>
-            <div class="bg md:hidden" @click="closeMenu" :class="{ 'close': !menu.isMenuCollapse }"></div>
+            <div class="mask md:hidden" @click="closeMenu" :class="{ 'close': !menuStore.isMenuCollapse }"></div>
 
             <el-container class="grid min-h-screen">
-                <div class="content bg-[#f1f2f6] grid grid-rows-[auto_1fr]">
+                <div class="content bg-hd-bg-white grid grid-rows-[auto_1fr]">
                     <div class="">
                         <admin-nav-bar />
-                        <!-- <admin-history-link class="hidden md:block" /> -->
+                        <admin-history-link class="hidden md:block"
+                            :class="{ 'md:hidden': !menuStore.isHistoryCollapse }" />
                     </div>
 
                     <div class="main m-3 relative overflow-y-auto">
@@ -30,19 +31,18 @@
 </template>
 
 <script setup lang="ts">
-import { menus } from '@/stores/menuStore'
-import { useRoute } from 'vue-router'
-
+import { menuStores } from '@/stores/menuStore'
 const route = useRoute()
-const menu = menus()
-menu.init()
+const menuStore = menuStores()
+
+menuStore.init()
 watch(route, async () => {
-    menu.addHistoryMenu(route)
+    menuStore.addHistoryMenu(route)
 },
     { immediate: true })
 
 const closeMenu = () => {
-    menu.toggleMenu()
+    menuStore.toggleMenu()
 }
 </script>
 
@@ -55,7 +55,7 @@ const closeMenu = () => {
     animation-duration: 0.5s;
 }
 
-.bg {
+.mask {
     z-index: 99;
     @apply absolute h-screen w-screen bg-yellow-200 top-0 opacity-20;
 

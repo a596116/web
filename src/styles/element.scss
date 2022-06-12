@@ -3,36 +3,3 @@
   background-color: transparent !important;
   box-shadow: none !important;
 }
-
-// Menu
-.el-sub-menu__title,
-.el-menu-item {
-  span,
-  i {
-    transition: 0.3s ease-in-out !important;
-  }
-  &:hover {
-    span,
-    i {
-      color: #fad390 !important;
-    }
-  }
-}
-.el-menu-item {
-  &:hover,
-  &.is-active {
-    span {
-      color: #fad390 !important;
-    }
-    border-right: 4px solid #fdcb6e;
-  }
-}
-.is-active .el-sub-menu__title * {
-  color: #fdcb6e !important;
-}
-.form-container input::placeholder {
-  color: #fff !important;
-}
-.el-menu.el-menu--collapse {
-  @apply w-0 md:w-[64px];
-}

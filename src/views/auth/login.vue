@@ -72,7 +72,7 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
 import type { ILoginData, IRegisterData } from '../../apis/userApi'
-import { userStore } from '@/stores/userStore'
+import { userStores } from '@/stores/userStore'
 import router from '@/router'
 import userApi from '../../apis/userApi'
 
@@ -113,11 +113,11 @@ const rules = reactive<FormRules>({
 })
 
 
-const user = userStore()
+const userStore = userStores()
 const submitForm = async (formEl: FormInstance | undefined) => {
   await formEl?.validate((valid: boolean) => {
     if (valid) {
-      user.login(loginForm)
+      userStore.login(loginForm)
     }
   })
 }
@@ -126,7 +126,7 @@ const submitRegisterForm = async (formEl: FormInstance | undefined) => {
 
     if (valid) {
       if (RegiserForm.token == "890621") {
-        user.createUser(RegiserForm)
+        userStore.createUser(RegiserForm)
       } else {
         ElMessage.error('認證碼錯誤')
       }
@@ -247,7 +247,7 @@ section {
           }
 
           .el-input {
-            @apply w-full w-full border-0 outline-none px-[20px] py-[10px] rounded-[35px] text-base text-white;
+            @apply w-full border-0 outline-none px-[20px] py-[10px] rounded-[35px] text-base text-white;
             border: 1px solid rgba(255, 255, 255, 0.5);
             border-right: 1px solid rgba(255, 255, 255, 0.2);
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);

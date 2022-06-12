@@ -12,9 +12,20 @@
 </template>
 
 <script setup lang="ts">
-import { menus } from '@/stores/menuStore'
-const menuStore = menus()
+import { menuStores } from '@/stores/menuStore'
+const menuStore = menuStores()
 </script>
 
-<style scoped>
+<style lang="scss">
+.el-breadcrumb__inner {
+  color: var(--hd-black1) !important;
+}
+
+.el-breadcrumb__inner.is-link {
+  color: var(--hd-black2) !important;
+}
+
+.el-breadcrumb__inner.is-link:hover {
+  color: var(--hd-theme-color) !important;
+}
 </style>

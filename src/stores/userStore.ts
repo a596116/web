@@ -4,7 +4,7 @@ import store from '@/utils/store'
 import router from '@/router'
 import { CacheEnum } from '@/enum/cacheEnum'
 
-export const userStore = defineStore({
+export const userStores = defineStore({
   id: 'user',
   state: () => ({
     info: {} as null | User,

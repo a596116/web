@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { userStore } from '@/stores/userStore'
+import { userStores } from '@/stores/userStore'
 import autoload from './autoload'
 import guard from './guard'
 import { routes } from './routes'
@@ -11,7 +11,7 @@ const router = createRouter({
 })
 
 export const setupRouter = async (app: App) => {
-  await userStore().getUserInfo()
+  await userStores().getUserInfo()
   autoload(router)
   guard(router)
   app.use(router)

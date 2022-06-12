@@ -1,7 +1,7 @@
 import { CacheEnum } from "@/enum/cacheEnum"
 import { store } from "@/utils"
 
-export const echartStore = defineStore({
+export const echartStores = defineStore({
     id: 'echart',
     state: () => ({
         cardIndex: store.get(CacheEnum.DASHBOARD_CARD_INDEX) || 0,

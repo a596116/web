@@ -29,22 +29,21 @@
 </template>
 
 <script setup lang="ts">
-const active = ref(0)
-const menutoggle = ref(false)
-const menulist = ["首頁", "介紹", "創作", "照片"]
+const active = ref<number>(0)
+const menutoggle = ref<boolean>(false)
+const menulist: string[] = ["首頁", "介紹", "創作", "照片"]
 nextTick(() => {
     window.addEventListener("scroll", onScroll, false)
 })
 
 const onScroll = () => {
     const navContents = document.querySelectorAll("section .content") as NodeListOf<HTMLElement>
-    let offsetTopArr = <number[]>[]
-    navContents.forEach((item) => {
+    let offsetTopArr: number[] = []
+    navContents.forEach((item: HTMLElement): void => {
         offsetTopArr.push(item.offsetTop - 350)
     })
-    const scrollTop =
-        document.documentElement.scrollTop || document.body.scrollTop
-    let navIndex = 0
+    const scrollTop: number = document.documentElement.scrollTop || document.body.scrollTop
+    let navIndex: number = 0
     for (let n = 0; n < offsetTopArr.length; n++) {
         if (scrollTop >= offsetTopArr[n]) {
             navIndex = n
@@ -53,9 +52,9 @@ const onScroll = () => {
     active.value = navIndex
 }
 
-const scrollTo = (index: number) => {
-    let targetOffsetTop = (document.querySelector(`.content:nth-child(${index + 1})`) as HTMLElement).offsetTop
-    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+const scrollTo = (index: number): void => {
+    let targetOffsetTop: number = (document.querySelector(`.content:nth-child(${index + 1})`) as HTMLElement).offsetTop
+    let scrollTop: number = document.documentElement.scrollTop || document.body.scrollTop
     const STEP = 500
     if (scrollTop > targetOffsetTop) {
         smoothUp()

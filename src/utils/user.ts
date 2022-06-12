@@ -1,7 +1,7 @@
 import userApi, { type ILoginData } from '../apis/userApi'
 import { CacheEnum } from '../enum/cacheEnum'
 import router from '../router'
-import { userStore } from '../stores/userStore'
+import { userStores } from '../stores/userStore'
 import store from './store'
 
 export function isLogin() {
@@ -20,5 +20,5 @@ export async function login(values: ILoginData) {
 export function logout() {
   store.remove(CacheEnum.TOKEN_NAME)
   router.push('/')
-  userStore().info = null
+  userStores().info = null
 }

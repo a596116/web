@@ -1,7 +1,7 @@
 <template>
   <div class="notification">
-    <el-badge :is-dot="isMessage" @click.stop="show = !show" class="cursor-pointer text-lg">
-      <icon-remind theme="outline" size="24" fill="#000000" />
+    <el-badge :is-dot="isMessage" @click.stop="show = !show" class="cursor-pointer text-lg text-hd-black2">
+      <icon-remind theme="outline" size="24" />
     </el-badge>
     <el-tabs v-model="activeName" class="lists" v-show="show" @click.stop>
       <el-tab-pane label="系統通知" name="site">
@@ -45,9 +45,22 @@ nextTick(() => {
       @apply truncate overflow-hidden block border-b pb-2 my-2;
 
       &:hover {
-        color: rgb(236, 171, 87);
+        color: var(--hd-theme-color);
       }
     }
+  }
+}
+</style>
+<style lang="scss">
+.notification {
+
+  .el-tabs__item.is-active,
+  .el-tabs__item:hover {
+    color: var(--hd-theme-color);
+  }
+
+  .el-tabs__active-bar {
+    background-color: var(--hd-theme-color);
   }
 }
 </style>

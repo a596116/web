@@ -4,14 +4,16 @@ import type { RouteLocationNormalized, RouteLocationNormalizedLoaded, RouteRecor
 import { store } from '@/utils'
 import { CacheEnum } from '@/enum/cacheEnum'
 
-export const menus = defineStore({
+export const menuStores = defineStore({
   id: 'menu',
 
   state: () => ({
     menus: [] as IMenu[],
     historyMenus: [] as IMenu[],
-    isMenuCollapse: store.get(CacheEnum.MENU_IS_CLOSE) ?? true,
     route: null as RouteLocationNormalized | null,
+    isMenuCollapse: <boolean>store.get(CacheEnum.MENU_IS_CLOSE) ?? true,
+    isHistoryCollapse: <boolean>store.get(CacheEnum.HISTORYLINK_IS_SHOW) ?? false,
+    isBreadcrumbCollapse: <boolean>store.get(CacheEnum.BREADCRUMB_IS_SHOW) ?? false,
   }),
 
   actions: {
@@ -68,5 +70,14 @@ export const menus = defineStore({
       this.isMenuCollapse = !this.isMenuCollapse
       store.set(CacheEnum.MENU_IS_CLOSE, this.isMenuCollapse)
     },
+
+    // 開關歷史菜單
+    toggleHistoryLink() {
+      store.set(CacheEnum.HISTORYLINK_IS_SHOW, this.isHistoryCollapse)
+    },
+    // 開關麵包屑
+    toggleBreadcrumb() {
+      store.set(CacheEnum.BREADCRUMB_IS_SHOW, this.isBreadcrumbCollapse)
+    }
   },
 })

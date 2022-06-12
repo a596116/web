@@ -1,11 +1,12 @@
 <template>
     <el-card shadow="never" :body-style="{ padding: '20px' }" class="bg-transparent">
         <template #header>
-            <div>快速導覽</div>
+            <div class="text-hd-black2">快速導覽</div>
         </template>
         <div class="flex justify-around items-center flex-wrap">
             <router-link :to="{ name: quick.route }" class="quick-icon" v-for="quick, index in quickList" :key="index">
-                <component :is="icons[quick.icon!]" theme="outline" class="icon" :class="[quick.iconColor]"></component>
+                <component :is="(icons as any)[quick.icon!]" theme="outline" class="icon" :class="[quick.iconColor]">
+                </component>
                 <span class="title">{{ quick.title }}</span>
             </router-link>
         </div>
@@ -37,7 +38,7 @@ const quickList = ref<IQuick[]>([
     }
 
     .title {
-        @apply pt-2;
+        @apply pt-2 text-hd-black1;
     }
 
 }
