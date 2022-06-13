@@ -16,6 +16,7 @@
       "@/*": ["./src/*"]
     },
     "composite": true,
-    "types": ["node"]
+    "types": ["node"],
+    "module": "es2022"
   }
 }

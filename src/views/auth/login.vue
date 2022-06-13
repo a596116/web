@@ -37,18 +37,18 @@
           <el-form ref="RegisterFormRef" :model="RegiserForm" status-icon :rules="rules" class="form">
             <h1>註冊帳號</h1>
             <el-form-item prop="name">
-              <el-input v-model="RegiserForm.name" autocomplete="off" clearable placeholder="名稱：" class="mt-[5px]" />
+              <el-input v-model="RegiserForm.name" autocomplete="off" clearable placeholder="名稱：" />
             </el-form-item>
             <el-form-item prop="account">
               <el-input v-model="RegiserForm.account" autocomplete="off" clearable placeholder="電子郵箱："
-                class="mt-[5px]" />
+                class="mt-[15px]" />
             </el-form-item>
             <el-form-item prop="password">
               <el-input v-model="RegiserForm.password" type="password" autocomplete="off" clearable placeholder="密碼："
-                class="mt-[5px]" />
+                class="mt-[15px]" />
             </el-form-item>
             <el-form-item>
-              <el-input v-model="RegiserForm.token" autocomplete="off" clearable placeholder="認證碼：" class="mt-[5px]" />
+              <el-input v-model="RegiserForm.token" autocomplete="off" clearable placeholder="邀請碼" class="mt-[15px]" />
             </el-form-item>
             <div class="flex gap-4 justify-center items-center mt-5">
               <span class="text-sm text-gray-600 hover:text-orange-300 hover:font-bold cursor-pointer"
@@ -198,26 +198,24 @@ section {
     }
 
     .form-container {
-      transform-style: preserve-3d;
-      perspective: 1000px;
+      perspective: 900px;
       position: relative;
 
       .container {
         @apply relative w-[400px] min-h-[400px] rounded-[10px] flex justify-center items-center;
         background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(5px);
         box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.5);
         border-right: 1px solid rgba(255, 255, 255, 0.2);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        backface-visibility: hidden;
-        transform: rotateY(0deg);
+        border-bottom: 1p x solid rgba(255, 255, 255, 0.2);
         transform-style: preserve-3d;
+        backface-visibility: hidden;
+        visibility: visible;
+        transform: rotateY(0deg);
         transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
 
         &.sigin {
           transform: rotateY(-180deg);
-          transform-style: preserve-3d;
         }
 
         &:nth-child(2) {
@@ -226,11 +224,9 @@ section {
           left: 0;
           width: 100%;
           transform: rotateY(180deg);
-          transform-style: preserve-3d;
 
           &.sigin {
             transform: rotateY(0deg);
-            transform-style: preserve-3d;
           }
         }
 
@@ -238,26 +234,32 @@ section {
           @apply relative w-full h-full p-[40px];
 
           h1 {
-            @apply relative text-white text-[24px] font-semibold mb-[40px];
+            @apply relative text-hd-black1 text-[24px] font-semibold mb-[40px];
             letter-spacing: 1px;
 
             &::before {
-              @apply content-[''] absolute left-0 bottom-[-10px] w-[80px] h-[4px] bg-white;
+              @apply content-[''] absolute left-0 bottom-[-10px] w-[80px] h-[4px] bg-hd-black1;
             }
           }
 
           .el-input {
-            @apply w-full border-0 outline-none px-[20px] py-[10px] rounded-[35px] text-base text-white;
+            @apply w-full border-0 outline-none px-[20px] py-[10px] rounded-[35px] text-base;
             border: 1px solid rgba(255, 255, 255, 0.5);
             border-right: 1px solid rgba(255, 255, 255, 0.2);
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             letter-spacing: 1px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+
+            ::placeholder {
+              color: var(--hd-black1) !important;
+            }
           }
 
           .el-button {
             @apply bg-white text-black rounded-[20px] mt-[40px] px-[50px] py-[8px] border-0 font-black cursor-pointer relative text-center overflow-hidden;
             letter-spacing: 8px;
+
+
 
             &::before,
             &::after {

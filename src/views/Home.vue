@@ -3,7 +3,7 @@ import router from '@/router'
 </script>　
 
 <template>
-  <div class="h-screen w-screen bg-gray-600 flex flex-col justify-center items-center relative">
+  <div class="h-screen w-screen bg-gray-600 flex justify-center items-center relative">
     <div class="w-80 h-80 rounded-full border-8 border-white z-10 flex justify-center items-center">
       <img src="/img/logo.png"
         class="w-72 h-72 object-contain rounded-full animate__animated animate__bounce animate__infinite" />

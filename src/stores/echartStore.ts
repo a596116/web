@@ -25,7 +25,7 @@ export const echartStores = defineStore({
                     }
                 ],
                 title: {
-                    text: `${state.cards[state.cardIndex].totaltle} : ${state.cards[state.cardIndex].total} ${state.cards[state.cardIndex].unit}`,
+                    text: `${state.cards[state.cardIndex].totaltle} :${window.innerWidth < 500 ? '\n' : ''} ${state.cards[state.cardIndex].total} ${state.cards[state.cardIndex].unit}`,
                     textStyle: {
                         color: '#576574'
                     }

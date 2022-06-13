@@ -11,7 +11,7 @@ export const menuStores = defineStore({
     menus: [] as IMenu[],
     historyMenus: [] as IMenu[],
     route: null as RouteLocationNormalized | null,
-    isMenuCollapse: <boolean>store.get(CacheEnum.MENU_IS_CLOSE) ?? true,
+    isMenuCollapse: <boolean>store.get(CacheEnum.MENU_IS_CLOSE) ?? false,
     isHistoryCollapse: <boolean>store.get(CacheEnum.HISTORYLINK_IS_SHOW) ?? false,
     isBreadcrumbCollapse: <boolean>store.get(CacheEnum.BREADCRUMB_IS_SHOW) ?? false,
   }),

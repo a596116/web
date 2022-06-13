@@ -2,13 +2,14 @@
   <div ref="dashboard">
     <admin-quick-bar />
     <div class="flex flex-col bg-hd-bg-white px-6">
-      <div class="flex md:justify-start justify-center flex-wrap gap-8">
-        <div class="card" v-for="item, index in echartStore.cards" :key="index" @click="changeEchart(index)">
+      <div class="flex md:justify-start justify-between flex-wrap md:gap-8">
+        <div class="card w-auto h-auto md:w-[170px] md:h-[100px] p-2 md:px-7" v-for="item, index in echartStore.cards"
+          :key="index" @click="changeEchart(index)">
           <div class="flex justify-between text-hd-black1">
             <component :is="(icons as any)[item.icon!]" theme="outline" class="text-4xl"></component>
-            <span class="mt-3">{{ item.totaltle }}</span>
+            <span class="mt-3 hidden md:block">{{ item.totaltle }}</span>
           </div>
-          <div class="flex items-end text-hd-white">
+          <div class="items-end text-hd-white hidden md:flex">
             <span class="mt-3 text-2xl truncate">{{ item.total }}</span>
             <span class="text-sm ml-1">{{ item.unit }}</span>
           </div>
@@ -51,13 +52,12 @@ const changeEchart = (index: number) => {
   echart1.setOption(echartStore.echart1)
 }
 
-
 </script>
 
 
 <style lang="scss" scoped>
 .card {
-  @apply w-[170px] h-[100px] flex flex-col justify-center rounded-[30px] duration-300 my-6 px-7 cursor-pointer;
+  @apply flex flex-col justify-center rounded-[30px] duration-300 my-6 cursor-pointer;
   // box-shadow: 10px 10px 30px #ededed,
   //   -10px -10px 30px #ededed;
 

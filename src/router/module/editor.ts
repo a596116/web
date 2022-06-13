@@ -22,7 +22,7 @@ export default {
       name: 'admin/markdown',
       path: 'markdown',
       component: () => import('@/views/editor/markdown.vue'),
-      meta: { menu: { title: 'markdown' }, permission: '' },
+      meta: { menu: { title: 'markdown' } },
     },
   ],
 } as RouteRecordRaw
