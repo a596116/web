@@ -12,6 +12,7 @@ node_modules
 dist
 dist-ssr
 *.local
+stats.html
 
 /cypress/videos/
 /cypress/screenshots/
@@ -25,3 +26,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+.firebase
+.firebaserc
+firebase.json
+firestore-debug.json
+firestore.indexes.json
+firestore.rules
+storage.rules
