@@ -5,6 +5,7 @@ export default {
   component: () => import('@/layout/admin.vue'),
   meta: {
     auth: true,
+    page: 'admin',
     menu: {
       title: '編輯器',
       icon: 'Editor',

@@ -4,24 +4,36 @@
     <div class="logo">
       <img src="/img/haodai.png" alt="haodai" @click="router.push({ name: 'admin/home' })">
       <div class="ml-[14px] flex flex-col md:flex-row text-2xl">
-        <span>🅷🅰🅾️</span>
-        <span>🅳🅰🅘</span>
+        <span class="">🅷🅰🅾</span>
+        <span>🅳🅰🅸</span>
       </div>
     </div>
 
-    <el-sub-menu v-for="(menu, index) in menuStore.menus" :key="index" :index="menu.icon">
-      <template #title>
+    <div class="" v-for="(menu, index) in menuStore.menus" :key="index">
+      <el-sub-menu v-if="menu.children?.length != 1" :index="menu.icon">
+        <template #title>
+          <section class="hidden md:block">
+            <component :is="(icons as any)[menu.icon!]" theme="outline" size="24"></component>
+          </section>
+          <span class="m-2 md:m-7">{{ menu.title }}</span>
+        </template>
+
+        <el-menu-item v-for="(cmenu, index) in menu.children" :key="index" :index="cmenu?.route?.split('/')[1]"
+          @click="handle(menu, cmenu)">
+          <span class="menu-title">{{ cmenu.title }}</span>
+        </el-menu-item>
+      </el-sub-menu>
+
+      <el-menu-item v-else :index="menu.children[0]?.route?.split('/')[1]" @click="handle(menu, menu.children![0])">
         <section class="hidden md:block">
           <component :is="(icons as any)[menu.icon!]" theme="outline" size="24"></component>
         </section>
-        <span class="m-2 md:m-7">{{ menu.title }}</span>
-      </template>
-
-      <el-menu-item v-for="(cmenu, index) in menu.children" :key="index" :index="cmenu?.route?.split('/')[1]"
-        @click="handle(menu, cmenu)">
-        <span class="menu-title">{{ cmenu.title }}</span>
+        <span class="m-2 md:m-7">{{ menu.children[0].title }}</span>
       </el-menu-item>
-    </el-sub-menu>
+    </div>
+
+
+
     <div class="menubottom" @click="router.push({ name: 'hd' })">
       <icon-home-two theme="outline" size="24" class="hidden md:block" />
       <div class="m-2 md:m-4 md:pr-6">首頁</div>

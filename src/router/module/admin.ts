@@ -6,6 +6,7 @@ export default {
   component: () => import('@/layout/admin.vue'),
   meta: {
     auth: true,
+    page: 'admin',
     menu: {
       title: 'Dashboard',
       icon: 'Dashboard',
@@ -18,14 +19,6 @@ export default {
       component: () => import('@/views/admin/dashboard.vue'),
       meta: {
         menu: { title: '工作台', }
-      },
-    },
-    {
-      name: 'admin/article',
-      path: 'article',
-      component: () => import('@/views/admin/article.vue'),
-      meta: {
-        menu: { title: 'List', }
       },
     },
   ],

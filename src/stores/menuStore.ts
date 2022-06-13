@@ -17,8 +17,8 @@ export const menuStores = defineStore({
   }),
 
   actions: {
-    init() {
-      this.getMenuByRoute()
+    init(page: string) {
+      this.getMenuByRoute(page)
       this.historyMenus = this.getHistoryMenu()
     },
     getHistoryMenu() {
@@ -49,10 +49,10 @@ export const menuStores = defineStore({
     },
 
     // 根據路由獲取菜單
-    getMenuByRoute() {
+    getMenuByRoute(page: string) {
       this.menus = router
         .getRoutes()
-        .filter((route) => route.children.length && route.meta.menu)
+        .filter((route) => route.meta.page === page && route.meta.menu)
         .map((route) => {
           const menu: IMenu = { ...route.meta?.menu }
           menu.children = route.children
@@ -62,7 +62,6 @@ export const menuStores = defineStore({
             }) as IMenu[]
           return menu
         })
-        .filter((menu) => menu.children?.length)
     },
 
     // 開關菜單

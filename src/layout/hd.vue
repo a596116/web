@@ -1,33 +1,3 @@
-<template>
-    <div class="w-full min-h-screen">
-        <nav>
-            <img src="/img/haodai.png" alt="haodai" class="logo" @click="scrollTo(0)" />
-            <ul class="navigation">
-                <li v-for="(item, index) in menulist" :key="index">
-                    <span :class="{ active: active === index }" @click="scrollTo(index)">{{ item }}</span>
-                </li>
-            </ul>
-            <div class="top_button" @click="scrollTo(0)">
-                <icon-arrow-up theme="outline" size="24" />
-            </div>
-        </nav>
-        <section>
-            <div class="content ">
-                <hd-home />
-            </div>
-            <div class="content bg-red-400">
-                123
-            </div>
-            <div class="content bg-green-200">
-                456
-            </div>
-            <div class="content bg-blue-200">
-                789
-            </div>
-        </section>
-    </div>
-</template>
-
 <script setup lang="ts">
 const active = ref<number>(0)
 const menutoggle = ref<boolean>(false)
@@ -90,6 +60,37 @@ const scrollTo = (index: number): void => {
 
 </script>
 
+<template>
+    <div class="w-full min-h-screen">
+        <nav>
+            <img src="/img/haodai.png" alt="haodai" class="logo hidden md:block" @click="scrollTo(0)" />
+            <ul class="navigation">
+                <li v-for="(item, index) in menulist" :key="index">
+                    <span class="px-0 md:px-5" :class="{ active: active === index }" @click="scrollTo(index)">{{ item
+                    }}</span>
+                </li>
+            </ul>
+            <div class="top_button" @click="scrollTo(0)">
+                <icon-arrow-up theme="outline" size="24" />
+            </div>
+        </nav>
+        <section>
+            <div class="content ">
+                <hd-home />
+            </div>
+            <div class="content bg-red-400">
+                123
+            </div>
+            <div class="content bg-green-200">
+                456
+            </div>
+            <div class="content bg-blue-200">
+                789
+            </div>
+        </section>
+    </div>
+</template>
+
 <style scoped lang="scss">
 nav {
     @apply fixed top-0 left-0 w-full px-20 py-2 flex justify-between items-center z-20 bg-white opacity-90;
@@ -111,7 +112,7 @@ nav {
             list-style: none;
 
             span {
-                @apply text-gray-500 text-xl font-medium cursor-pointer px-5 py-2 duration-300;
+                @apply text-gray-500 text-xl font-medium cursor-pointer py-2 duration-300;
             }
 
             .active {

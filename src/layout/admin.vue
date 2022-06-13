@@ -35,7 +35,7 @@ import { menuStores } from '@/stores/menuStore'
 const route = useRoute()
 const menuStore = menuStores()
 
-menuStore.init()
+menuStore.init('admin')
 watch(route, async () => {
     menuStore.addHistoryMenu(route)
 },

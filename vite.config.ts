@@ -10,20 +10,20 @@ export default ({ command }: ConfigEnv): any => {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       }
     },
-    build: {
-      rollupOptions: {
-        output: {
-          entryFileNames: `assets/[name].js`,
-          chunkFileNames: `assets/[name].js`,
-          assetFileNames: `assets/[name].[ext]`,
-          manualChunks(id: string) {
-            if (id.includes('node_modules')) {
-              return id.toString().split('node_modules/')[1].split('/')[0].toString()
-            }
-          },
-        },
-      },
-    },
+    // build: {
+    //   rollupOptions: {
+    //     output: {
+    //       entryFileNames: `assets/[name].js`,
+    //       chunkFileNames: `assets/[name].js`,
+    //       assetFileNames: `assets/[name].[ext]`,
+    //       manualChunks(id: string) {
+    //         if (id.includes('node_modules')) {
+    //           return id.toString().split('node_modules/')[1].split('/')[0].toString()
+    //         }
+    //       },
+    //     },
+    //   },
+    // },
     css: {
       preprocessorOptions: {
         scss: {

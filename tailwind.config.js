@@ -4,6 +4,7 @@ module.exports = {
     extend: {
       colors: {
         'hd-theme-color': 'var(--hd-theme-color)',
+        'hd-theme-hover-color': 'var(--hd-theme-hover-color)',
         'hd-white': 'var(--hd-white)',
         'hd-black1': 'var(--hd-black1)',
         'hd-black2': 'var(--hd-black2)',
