@@ -1,8 +1,8 @@
 # 浩呆前端
 
-<img src='https://img.shields.io/badge/3.2.26-vue-green'><img src='https://img.shields.io/badge/1.3.0-element--plus-blue'>
+<img src='https://img.shields.io/badge/3.2.33-vue-green'><img src='https://img.shields.io/badge/2.1.11-element--plus-blue'>
 
-<img src='https://img.shields.io/badge/9.6.1-firebase-orange'><img src='https://img.shields.io/badge/2.0.9-pinia-yellowgreen'><img src='https://img.shields.io/badge/7.4.1-swiper-9cf'>
+<img src='https://img.shields.io/badge/9.8.3-firebase-orange'><img src='https://img.shields.io/badge/2.0.13-pinia-yellowgreen'>
 
 <img align= "right" src='./src/assets/img/1.png' alt='haodai' style='width:200px;'/>
 <br><br><br><br>
