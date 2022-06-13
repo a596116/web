@@ -4,7 +4,7 @@
 
 <img src='https://img.shields.io/badge/9.8.3-firebase-orange'><img src='https://img.shields.io/badge/2.0.13-pinia-yellowgreen'>
 
-<img align= "right" src='./src/assets/img/1.png' alt='haodai' style='width:200px;'/>
+<img align= "right" src='./public/img/logo.png' alt='haodai' style='width:200px;'/>
 <br><br><br><br>
 
 ### 網站：[https://haodai.tw](https://haodai.tw)
