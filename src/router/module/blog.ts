@@ -16,7 +16,7 @@ export default {
             name: 'article/blog',
             path: 'blog',
             component: () => import('@/views/article/blog.vue'),
-            meta: { menu: { title: 'blog' } },
+            meta: { menu: { title: 'blog' }, permission: '浩呆' },
         },
         {
             name: 'article/article',

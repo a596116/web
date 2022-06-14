@@ -3,23 +3,22 @@ import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, updateProfile,
 import store from '@/utils/store'
 import router from '@/router'
 import { CacheEnum } from '@/enum/cacheEnum'
+import { firebaseStores } from './firebaseStore'
+import { msg } from '@/utils/msg'
 
 export const userStores = defineStore({
   id: 'user',
   state: () => ({
     info: {} as null | User,
     auth: getAuth(),
+    firebasestore: firebaseStores()
   }),
   actions: {
     getUserInfo() {
       return new Promise((resolve) => {
-        onAuthStateChanged(this.auth, (user) => {
+        onAuthStateChanged(this.auth, async (user) => {
           if (user) {
-            this.info = {
-              name: user.displayName || user.email || '',
-              avatar: user.photoURL || 'https://upload.cc/i1/2022/05/12/C5ogOU.png',
-              permissions: ['editor'],
-            }
+            this.info = await this.firebasestore.get('users', user.displayName!) as null | User
             resolve(user)
           } else {
             resolve(user)
@@ -31,17 +30,13 @@ export const userStores = defineStore({
       return Boolean(store.get(CacheEnum.TOKEN_NAME))
     },
     login(loginForm: ILoginData) {
-      signInWithEmailAndPassword(this.auth, loginForm.account, loginForm.password)
-        .then(async (userCredential) => {
+      signInWithEmailAndPassword(this.auth, `${loginForm.account}@gmail.com`, loginForm.password)
+        .then((userCredential) => {
           const user = userCredential.user
           store.set(CacheEnum.TOKEN_NAME, user.uid)
           const routeName = store.get(CacheEnum.REDIRECT_ROUTE_NAME) ?? 'home'
-          await router.push({ name: routeName })
-          ElMessage({
-            message: `歡迎${user.displayName}`,
-            center: true,
-            type: 'success',
-          })
+          router.push({ name: routeName })
+          msg(`歡迎${user.displayName}`)
         })
         .catch((error) => {
           ElMessage.error('帳號或密碼錯誤')
@@ -54,28 +49,26 @@ export const userStores = defineStore({
         store.remove(CacheEnum.HISTORY_MENU)
         router.push('/')
         this.info = null
-        ElMessage({
-          message: '退出登入',
-          center: true,
-          type: 'success',
-        })
+        msg('退出登入')
       }).catch((error) => {
         console.error(error)
       })
     },
 
     createUser(userForm: IRegisterData,) {
-      createUserWithEmailAndPassword(this.auth, userForm.account, userForm.password)
+      createUserWithEmailAndPassword(this.auth, `${userForm.account}@gmail.com`, userForm.password)
         .then((userCredential) => {
           const user = userCredential.user
           store.set(CacheEnum.TOKEN_NAME, user.uid)
           const routeName = store.get(CacheEnum.REDIRECT_ROUTE_NAME) ?? 'home'
           router.push({ name: routeName })
+          msg(`歡迎${userForm.name}`)
           if (this.auth.currentUser) {
             updateProfile(this.auth.currentUser, {
               displayName: userForm.name
             }).then(() => {
               this.getUserInfo()
+              this.firebasestore.add('users', userForm.name, userForm)
             }).catch((error) => {
               console.error(error)
             })

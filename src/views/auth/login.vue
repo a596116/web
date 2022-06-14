@@ -78,7 +78,7 @@ import userApi from '../../apis/userApi'
 
 class InitData {
   loginForm: ILoginData = {
-    account: "a596116@gmail.com",
+    account: "a596116",
     password: "a0988640301"
   }
   RegiserForm: IRegisterData = {

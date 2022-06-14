@@ -9,6 +9,20 @@ export const routes = [
         name: 'hd',
         component: () => import('../layout/hd.vue'),
     },
+    // {
+    //     path: '/admin',
+    //     name: 'admin',
+    //     redirect: '/admin/home',
+    //     component: () => import('@/layout/admin.vue'),
+    //     meta: {
+    //         auth: true,
+    //         page: 'admin',
+    //         menu: {
+    //             title: 'Dashboard',
+    //             icon: 'Dashboard',
+    //         },
+    //     },
+    // },
     {
         path: '/login',
         name: 'login',
