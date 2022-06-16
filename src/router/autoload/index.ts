@@ -1,21 +1,25 @@
 import { userStores } from '@/stores/userStore'
 import type { Router, RouteRecordRaw } from 'vue-router'
 import autoloadModuleRoutes from './module'
-import getRoutes from './view'
+// 不知為啥刪掉排版會錯誤
+const layout = import.meta.globEager('../../layout/*.vue')
+const views = import.meta.globEager('../../views/**/*.vue')
 
 let routes = [] as RouteRecordRaw[]
-routes = env.VITE_ROUTER_AUTOLOAD ? getRoutes() : autoloadModuleRoutes()
+export const permissionList = [] as RouteRecordRaw[]
+routes = autoloadModuleRoutes()
 
 export default async (router: Router) => {
   const user = userStores()
-  routes = routes.map((route) => {
-    route.children = route.children?.filter((child) => {
-      const permission = child.meta?.permission
-      return permission ? user.info?.permissions?.includes(permission) : true
-    })
-    return route
+  routes = routes.filter((r) => {
+    const permission = r.meta?.permission
+    if (permission) { // 儲存需權限的路由
+      permissionList.push(r)
+    }
+    return permission ? user.info?.permissions?.includes(permission) : true
   })
-  routes.forEach((route) => {
-    router.addRoute(route)
+  routes.forEach((route) => { // 添加一般的路由
+    router.addRoute(route.meta?.page?.name!, route)
   })
+
 }

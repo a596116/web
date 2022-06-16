@@ -20,7 +20,9 @@ export default {
     }
     return null
   },
-  remove(key: string) {
-    localStorage.removeItem(key)
+  remove(...key: string[]) {
+    key.forEach((v) => {
+      localStorage.removeItem(v)
+    })
   },
 }

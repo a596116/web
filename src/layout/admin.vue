@@ -44,6 +44,15 @@ watch(route, async () => {
 const closeMenu = () => {
     menuStore.toggleMenu()
 }
+
+
+// 測試加載畫面
+// const a = await fetch('https://www.fastmock.site/mock/4bf6346337ffebcb0e1c206b762803f3/api/api/info')
+//     .then(r => {
+//         return new Promise(res => {
+//             setTimeout(() => res(r.json()), 3000)
+//         })
+//     })
 </script>
 
 <style scoped lang="scss">

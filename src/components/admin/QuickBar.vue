@@ -17,7 +17,7 @@
 import * as icons from '@icon-park/vue-next'
 
 const quickList = ref<IQuick[]>([
-    { title: '用戶管理', icon: 'User', iconColor: 'text-[#f8c291]', route: 'error/404' },
+    { title: '用戶管理', icon: 'User', iconColor: 'text-[#f8c291]', route: 'admin/users' },
     { title: '菜單管理', icon: 'ApplicationMenu', iconColor: 'text-[#6a89cc]', route: 'error/404' },
     { title: '庫存數據', icon: 'DataSheet', iconColor: 'text-[#82ccdd]', route: 'error/404' },
     { title: '評論', icon: 'Communication', iconColor: 'text-[#b8e994]', route: 'error/404' },

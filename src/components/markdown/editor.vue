@@ -5,7 +5,6 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick } from 'vue'
 import ToastEditor from './toastEditor'
 
 export interface IProps {
@@ -34,6 +33,7 @@ nextTick(() => {
 #toasteditor {
   z-index: 5;
   @apply bg-white;
+
   .toastui-editor-mode-switch {
     display: none !important;
   }

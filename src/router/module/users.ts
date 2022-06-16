@@ -4,18 +4,17 @@ export default {
     auth: true,
     name: 'admin',
     menu: {
-      title: 'Dashboard',
-      icon: 'Dashboard',
+      title: 'User',
+      icon: 'User',
     },
   },
   children: [
     {
-      name: 'admin/home',
-      path: 'home',
-      component: () => import('@/views/admin/dashboard.vue'),
+      name: 'admin/users',
+      path: 'users',
+      component: () => import('@/views/auth/users.vue'),
       meta: {
-        menu: { title: '工作台' }
-        , number: 1
+        menu: { title: '用戶', }, permission: '浩呆', number: 2
       },
     },
   ],

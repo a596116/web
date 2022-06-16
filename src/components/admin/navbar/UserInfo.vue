@@ -11,17 +11,18 @@
             <template #dropdown>
                 <el-dropdown-menu class="px-1 py-3">
                     <el-dropdown-item class="text-hd-black hover:!text-hd-theme-color"
-                        @click="router.push({ name: 'hd' })">
+                        @click="router.push({ name: 'admin/member/info' })">
                         <icon-home theme="outline" size="16" class="mr-1" />
-                        首頁
+                        會員訊息
                     </el-dropdown-item>
-                    <el-dropdown-item class="text-hd-black hover:!text-hd-theme-color">
+                    <!-- <el-dropdown-item class="text-hd-black hover:!text-hd-theme-color"
+                        @click="router.push({ name: 'admin/member/info' })">
                         <icon-setting-config theme="outline" size="16" class="mr-1" />
                         設定
-                    </el-dropdown-item>
+                    </el-dropdown-item> -->
                     <el-dropdown-item class="text-hd-black hover:!text-hd-theme-color" @click="userStore.logout">
                         <icon-logout theme="outline" size="16" class="mr-1" />
-                        登出
+                        退出登入
                     </el-dropdown-item>
                 </el-dropdown-menu>
             </template>

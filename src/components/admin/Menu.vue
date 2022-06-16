@@ -10,7 +10,7 @@
     </div>
 
     <div class="" v-for="(menu, index) in menuStore.menus" :key="index">
-      <el-sub-menu v-if="menu.children?.length != 1" :index="menu.icon">
+      <el-sub-menu v-if="menu.children?.length != 1" :index="menu.title">
         <template #title>
           <section class="hidden md:block">
             <component :is="(icons as any)[menu.icon!]" theme="outline" size="24"></component>

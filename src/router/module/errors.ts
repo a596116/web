@@ -1,11 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router'
 export default {
-  name: 'error',
-  path: '/error',
-  component: () => import('@/layout/admin.vue'),
-  meta: {
+  page: {
     auth: true,
-    page: 'admin',
+    name: 'admin',
     menu: {
       title: '錯誤頁面',
       icon: 'Caution',
@@ -17,7 +14,7 @@ export default {
       path: '404',
       component: () => import('@/views/error/404.vue'),
       meta: {
-        menu: { title: '404頁面' }, permission: ''
+        menu: { title: '404頁面' }, number: 6
       },
     },
     {
@@ -25,7 +22,7 @@ export default {
       path: '403',
       component: () => import('@/views/error/403.vue'),
       meta: {
-        menu: { title: '403頁面' },
+        menu: { title: '403頁面' }, number: 7
       },
     },
     {
@@ -33,8 +30,8 @@ export default {
       path: '500',
       component: () => import('@/views/error/500.vue'),
       meta: {
-        menu: { title: '500頁面' },
+        menu: { title: '500頁面' }, number: 8
       },
     },
   ],
-} as RouteRecordRaw
+} as { page: any, children: RouteRecordRaw[] }

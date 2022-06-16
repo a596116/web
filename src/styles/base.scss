@@ -2,8 +2,8 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  // margin: 0;
+  // padding: 0;
   position: relative;
   font-weight: normal;
 }
@@ -13,11 +13,13 @@ html,
 #app {
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
 }
 
-$hd-bg-white: #f1f6f4;
+$hd-bg-white: #f1f6f6;
 $hd-text-black: #6b7280;
 
 $hd-bg-black: #414659;
@@ -25,7 +27,7 @@ $hd-text-white: #e0e0e0;
 
 :root {
   --hd-theme-color: #fdcb6e;
-  --hd-theme-hover-color: #f7c15d;
+  --hd-theme-hover-color: #fdcb6e80;
 
   --hd-white: #9ca3af;
   --hd-black1: #6b7280;

@@ -9,7 +9,6 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
-console.log(routes)
 
 export const setupRouter = async (app: App) => {
   await userStores().getUserInfo()

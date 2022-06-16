@@ -39,8 +39,9 @@ const themeColor = ref<string>(store.get('themeColor') || '#fdcb6e')
 const themeColorList = ref<string[]>(['#fdcb6e', '#3DCAE0'])
 const el: HTMLElement = document.documentElement
 getComputedStyle(el).getPropertyValue(`--hd-theme-color`)
-
 el.style.setProperty('--hd-theme-color', themeColor.value)
+getComputedStyle(el).getPropertyValue(`--hd-theme-hover-color`)
+el.style.setProperty('--hd-theme-hover-color', themeColor.value + '80')
 
 const changeThemeColor = (color: string): void => {
     store.set('themeColor', color)

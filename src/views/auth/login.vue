@@ -17,8 +17,8 @@
               <el-input v-model="loginForm.account" autocomplete="off" clearable placeholder="帳號：" class="mt-[20px]" />
             </el-form-item>
             <el-form-item prop="password">
-              <el-input v-model="loginForm.password" type="password" autocomplete="off" clearable placeholder="密碼："
-                class="mt-[20px]" />
+              <el-input v-model="loginForm.password" type="password" show-password autocomplete="off" clearable
+                placeholder="密碼：" class="mt-[20px]" />
             </el-form-item>
             <div class="flex gap-4 justify-center items-center mt-5">
               <span class="text-sm text-gray-600 hover:text-orange-300 hover:font-bold cursor-pointer"
@@ -40,12 +40,12 @@
               <el-input v-model="RegiserForm.name" autocomplete="off" clearable placeholder="名稱：" />
             </el-form-item>
             <el-form-item prop="account">
-              <el-input v-model="RegiserForm.account" autocomplete="off" clearable placeholder="電子郵箱："
+              <el-input v-model="RegiserForm.account" autocomplete="off" clearable placeholder="帳號："
                 class="mt-[15px]" />
             </el-form-item>
             <el-form-item prop="password">
-              <el-input v-model="RegiserForm.password" type="password" autocomplete="off" clearable placeholder="密碼："
-                class="mt-[15px]" />
+              <el-input v-model="RegiserForm.password" type="password" show-password autocomplete="off" clearable
+                placeholder="密碼：" class="mt-[15px]" />
             </el-form-item>
             <el-form-item>
               <el-input v-model="RegiserForm.token" autocomplete="off" clearable placeholder="邀請碼" class="mt-[15px]" />
@@ -112,7 +112,6 @@ const rules = reactive<FormRules>({
   ]
 })
 
-
 const userStore = userStores()
 const submitForm = async (formEl: FormInstance | undefined) => {
   await formEl?.validate((valid: boolean) => {
@@ -123,7 +122,6 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 }
 const submitRegisterForm = async (formEl: FormInstance | undefined) => {
   await formEl?.validate((valid: boolean) => {
-
     if (valid) {
       if (RegiserForm.token == "890621") {
         userStore.createUser(RegiserForm)

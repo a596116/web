@@ -51,7 +51,6 @@ const changeEchart = (index: number) => {
   store.set(CacheEnum.DASHBOARD_CARD_INDEX, index)
   echart1.setOption(echartStore.echart1)
 }
-
 </script>
 
 

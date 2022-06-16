@@ -16,7 +16,11 @@ export const firebaseStores = defineStore('firebase', {
                         "-" +
                         (new Date().getUTCMonth() + 1) +
                         "-" +
-                        new Date().getDate(),
+                        new Date().getDate() +
+                        " " +
+                        new Date().getHours() +
+                        ":" +
+                        new Date().getMinutes(),
                     ...obj
                 })
                 // await addDoc(collection(db, name), {
@@ -54,7 +58,7 @@ export const firebaseStores = defineStore('firebase', {
             }
         },
         // (動態更新資料)
-        data(name: string) {
+        async data(name: string) {
             const datalist = ref<any>([])
             onSnapshot(collection(db, name), (querySnapshot) => {
                 datalist.value = querySnapshot.docs.map((doc) => ({

@@ -1,11 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router'
 export default {
-  name: 'editor',
-  path: '/editor',
-  component: () => import('@/layout/admin.vue'),
-  meta: {
+  page: {
     auth: true,
-    page: 'admin',
+    name: 'admin',
     menu: {
       title: '編輯器',
       icon: 'Editor',
@@ -16,13 +13,13 @@ export default {
       name: 'admin/wang',
       path: 'wang',
       component: () => import('@/views/editor/wang.vue'),
-      meta: { menu: { title: '富文本' }, permission: 'admin' },
+      meta: { menu: { title: '富文本' }, permission: 'admin', number: 4 },
     },
     {
       name: 'admin/markdown',
       path: 'markdown',
       component: () => import('@/views/editor/markdown.vue'),
-      meta: { menu: { title: 'markdown' } },
+      meta: { menu: { title: 'markdown' }, number: 5 },
     },
   ],
-} as RouteRecordRaw
+} as { page: any, children: RouteRecordRaw[] }

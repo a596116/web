@@ -4,13 +4,10 @@ export default function autoloadModuleRoutes() {
   const modules = import.meta.globEager('../module/**/*.ts')
   const routes = [] as RouteRecordRaw[]
   Object.keys(modules).forEach((key) => {
-    // console.log(modules[key].default.meta)
-    // console.log(modules[key].default.children)
-
-
-    routes.push(modules[key].default)
+    modules[key].default.children.forEach((route: RouteRecordRaw) => {
+      route.meta!.page = modules[key].default.page
+      routes.push(route)
+    })
   })
-  console.log(routes)
-
   return routes
 }

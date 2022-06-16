@@ -1,11 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router'
 export default {
-    name: 'article',
-    path: '/article',
-    component: () => import('@/layout/admin.vue'),
-    meta: {
+    page: {
         auth: true,
-        page: 'admin',
+        name: 'admin',
         menu: {
             title: '文章',
             icon: 'Book',
@@ -13,16 +10,10 @@ export default {
     },
     children: [
         {
-            name: 'article/blog',
-            path: 'blog',
-            component: () => import('@/views/article/blog.vue'),
-            meta: { menu: { title: 'blog' }, permission: '浩呆' },
-        },
-        {
-            name: 'article/article',
+            name: 'admin/article',
             path: 'article',
             component: () => import('@/views/article/article.vue'),
-            meta: { menu: { title: 'article' } },
+            meta: { menu: { title: 'article' }, number: 3 },
         },
     ],
-} as RouteRecordRaw
+} as { page: any, children: RouteRecordRaw[] }
