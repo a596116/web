@@ -7,7 +7,7 @@
         class="w-full">
       </el-image>
     </div>
-    {{ userStore.info }}123
+    {{ userStore.info }}
   </div>
 </template>
 
