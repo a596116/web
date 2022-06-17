@@ -20,19 +20,17 @@ export const menuStores = defineStore({
   }),
 
   actions: {
-    init(page: string) {
+    async init(page: string) {
       this.getMenuByRoute(page)
-      this.historyMenus = store.get(CacheEnum.HISTORY_MENU) ?? []
+      this.historyMenus = this.getHistoryMenu()
     },
-    async getHistoryMenu() {
+    getHistoryMenu() {
       const routes = [] as RouteRecordRaw[]
-      await router.isReady()
-      router.getRoutes().map((r) => routes.push(...r.children))
+      router.getRoutes().map((r) => routes.push(r))
       const menus: IMenu[] = store.get(CacheEnum.HISTORY_MENU) ?? []
       return menus.filter((m) => {
-        return routes.some((r) => r.name === m.route)
+        return routes.filter((r) => r.name === m.route)
       })
-
     },
 
     addHistoryMenu(route: RouteLocationNormalized) {

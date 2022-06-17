@@ -12,4 +12,5 @@ interface IQuick {
     icon: string
     iconColor: string
     route: string
+    show: boolean
 }
