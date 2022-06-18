@@ -4,7 +4,6 @@ import type { RouteLocationNormalized, RouteLocationNormalizedLoaded, RouteRecor
 import { store } from '@/utils'
 import { CacheEnum } from '@/enum/cacheEnum'
 import { userStores } from './userStore'
-import { permissionList } from '@/router/autoload'
 
 export const menuStores = defineStore({
   id: 'menu',

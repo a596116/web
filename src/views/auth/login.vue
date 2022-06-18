@@ -46,11 +46,18 @@
                 >會員註冊</span
               >
             </div>
-            <el-form-item>
-              <el-button class="btn" type="primary" @click="submitForm(loginFormRef)"
-                >登入</el-button
-              >
-            </el-form-item>
+            <div class="flex">
+              <el-form-item>
+                <el-button type="primary" @click="submitForm(loginFormRef)">登入</el-button>
+              </el-form-item>
+              <el-form-item>
+                <el-button
+                  type="primary"
+                  @click=";(loginForm.account = 'admin'), (loginForm.password = '123456')"
+                  >測試帳號</el-button
+                >
+              </el-form-item>
+            </div>
           </el-form>
         </div>
 
@@ -114,7 +121,7 @@
               >
             </div>
             <el-form-item>
-              <el-button class="btn" type="primary" @click="submitRegisterForm(RegisterFormRef)"
+              <el-button type="primary" @click="submitRegisterForm(RegisterFormRef)"
                 >註冊</el-button
               >
             </el-form-item>

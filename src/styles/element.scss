@@ -41,3 +41,14 @@
     color: var(--hd-theme-hover-color) !important;
   }
 }
+
+// dialog
+.el-dialog__headerbtn:focus .el-dialog__close,
+.el-dialog__headerbtn:hover .el-dialog__close {
+  color: var(--hd-theme-color) !important;
+}
+
+.el-upload:focus {
+  border-color: var(--hd-theme-color);
+  color: var(--hd-theme-color);
+}

@@ -15,7 +15,7 @@ export default {
       component: () => import('@/views/admin/dashboard.vue'),
       meta: {
         menu: { title: '工作台' }
-        , number: 1
+        , number: 1,
       },
     },
   ],

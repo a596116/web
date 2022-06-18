@@ -1,12 +1,13 @@
+import { CacheEnum } from "@/enum/cacheEnum"
+import { store } from "@/utils"
+import { msg } from "@/utils/msg"
 import { collection, addDoc, setDoc, doc, getDocs, getDoc, onSnapshot, query, updateDoc, where, deleteDoc, type DocumentData, } from "firebase/firestore"
 import { db } from "../plugins/firebase"
 
-export const firebaseStores = defineStore('firebase', {
+export const firebaseStores = defineStore({
+    id: 'firebase',
     state: () => ({
     }),
-    getters: {
-
-    },
     actions: {
         async add(name: string, id: string, obj: object) {
             try {
@@ -43,10 +44,14 @@ export const firebaseStores = defineStore('firebase', {
         },
         // (更新資料)  await update_data("users","aX5Y6kvyvgK5qwIwht5I", { name: "浩呆" });
         async update(name: string, id: string, obj: object) {
-            try {
-                await updateDoc(doc(db, name, id), obj)
-            } catch (e) {
-                console.error("更新資料失敗: ", e)
+            if (store.get(CacheEnum.TOKEN_NAME) != 'Yn9ttiaJlsSMoFgd2cYv9LwfB0s2') {
+                msg('沒有權限修改資料', 'error')
+            } else {
+                try {
+                    await updateDoc(doc(db, name, id), obj)
+                } catch (e) {
+                    console.error("更新資料失敗: ", e)
+                }
             }
         },
         // (刪除資料)  await delete_data("users","aX5Y6kvyvgK5qwIwht5I");

@@ -1,9 +1,6 @@
 import { userStores } from '@/stores/userStore'
 import type { Router, RouteRecordRaw } from 'vue-router'
 import autoloadModuleRoutes from './module'
-// 不知為啥刪掉排版會錯誤
-const layout = import.meta.globEager('../../layout/*.vue')
-const views = import.meta.globEager('../../views/**/*.vue')
 
 let routes = [] as RouteRecordRaw[]
 export const permissionList = [] as RouteRecordRaw[]
