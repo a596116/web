@@ -1,8 +1,11 @@
 <template>
-  <el-menu :collapse="!menuStore.isMenuCollapse" :default-active="active_menu"
-    class="admin-menu max-w-[150px] md:max-w-[200px]" :unique-opened="true">
+  <el-menu
+    :collapse="!menuStore.isMenuCollapse"
+    :default-active="active_menu"
+    class="admin-menu max-w-[150px] md:max-w-[200px]"
+    :unique-opened="true">
     <div class="logo">
-      <img src="/img/haodai.png" alt="haodai" @click="router.push({ name: 'admin/home' })">
+      <img src="/img/haodai.png" alt="haodai" @click="router.push({ name: 'admin/home' })" />
       <div class="ml-[14px] flex flex-col md:flex-row text-2xl">
         <span class="">🅷🅰🅾</span>
         <span>🅳🅰🅸</span>
@@ -18,13 +21,19 @@
           <span class="m-2 md:m-7">{{ menu.title }}</span>
         </template>
 
-        <el-menu-item v-for="(cmenu, index) in menu.children" :key="index" :index="cmenu?.route?.split('/')[1]"
+        <el-menu-item
+          v-for="(cmenu, index) in menu.children"
+          :key="index"
+          :index="cmenu?.route?.split('/')[1]"
           @click="handle(menu, cmenu)">
           <span class="menu-title">{{ cmenu.title }}</span>
         </el-menu-item>
       </el-sub-menu>
 
-      <el-menu-item v-else :index="menu.children[0]?.route?.split('/')[1]" @click="handle(menu, menu.children![0])">
+      <el-menu-item
+        v-else
+        :index="menu.children[0]?.route?.split('/')[1]"
+        @click="handle(menu, menu.children![0])">
         <section class="hidden md:block">
           <component :is="(icons as any)[menu.icon!]" theme="outline" size="24"></component>
         </section>
@@ -32,13 +41,10 @@
       </el-menu-item>
     </div>
 
-
-
     <div class="menubottom" @click="router.push({ name: 'hd' })">
       <icon-home-two theme="outline" size="24" class="hidden md:block" />
       <div class="m-2 md:m-4 md:pr-6">首頁</div>
     </div>
-
   </el-menu>
 </template>
 
@@ -57,11 +63,13 @@ const handle = (pmenu: IMenu, cmenu?: IMenu) => {
     menuStore.toggleMenu()
   }
 }
-watch(route, () => {
-  active_menu.value = route.path.split('/')[2]
-}, { immediate: true })
-
-
+watch(
+  route,
+  () => {
+    active_menu.value = route.path.split('/')[2]
+  },
+  { immediate: true },
+)
 </script>
 
 <style scoped lang="scss">
@@ -82,7 +90,6 @@ watch(route, () => {
       background-color: transparent !important;
       filter: invert(100%) brightness(100%) drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.7));
     }
-
   }
 
   .menubottom {
@@ -96,21 +103,18 @@ watch(route, () => {
       @apply text-hd-theme-color;
     }
   }
-
 }
 </style>
 <style lang="scss">
 // Menu
 .el-sub-menu__title,
 .el-menu-item {
-
   span,
   i {
     transition: 0.3s ease-in-out !important;
   }
 
   &:hover {
-
     span,
     i {
       color: var(--hd-theme-color) !important;
@@ -119,7 +123,6 @@ watch(route, () => {
 }
 
 .el-menu-item {
-
   &:hover,
   &.is-active {
     span {

@@ -1,58 +1,60 @@
 <template>
-  <el-dialog
-    title=""
-    destroy-on-close
-    :model-value="props.modelValue"
-    custom-class="dialog"
-    @close="close">
-    <div class="flex justify-center">
-      <div v-if="imageUrl" class="w-[400px] h-[400px]">
-        <vue-cropper
-          ref="cropper"
-          :img="imageUrl"
-          :output-size="option.size"
-          :output-type="option.outputType"
-          :info="true"
-          :full="option.full"
-          :can-move="option.canMove"
-          :can-move-box="option.canMoveBox"
-          :fixed-box="option.fixedBox"
-          :original="option.original"
-          :auto-crop="option.autoCrop"
-          :auto-crop-width="option.autoCropWidth"
-          :auto-crop-height="option.autoCropHeight"
-          :center-box="option.centerBox"
-          :fixed="true"
-          :high="option.high"
-          mode="cover"
-          :max-img-size="option.max" />
-        <div class="flex justify-end">
-          <a href="javascript:;" class="text-2xl" @click="imageUrl = ''">x</a>
+  <div>
+    <el-dialog
+      title=""
+      destroy-on-close
+      :model-value="props.modelValue"
+      custom-class="dialog"
+      @close="close">
+      <div class="flex justify-center">
+        <div v-if="imageUrl" class="w-[400px] h-[400px]">
+          <vue-cropper
+            ref="cropper"
+            :img="imageUrl"
+            :output-size="option.size"
+            :output-type="option.outputType"
+            :info="true"
+            :full="option.full"
+            :can-move="option.canMove"
+            :can-move-box="option.canMoveBox"
+            :fixed-box="option.fixedBox"
+            :original="option.original"
+            :auto-crop="option.autoCrop"
+            :auto-crop-width="option.autoCropWidth"
+            :auto-crop-height="option.autoCropHeight"
+            :center-box="option.centerBox"
+            :fixed="true"
+            :high="option.high"
+            mode="cover"
+            :max-img-size="option.max" />
+          <div class="flex justify-end">
+            <a href="javascript:;" class="text-2xl" @click="imageUrl = ''">x</a>
+          </div>
         </div>
+        <el-upload
+          v-else
+          class="upload"
+          action="#"
+          :show-file-list="false"
+          :auto-upload="false"
+          :on-change="handleAvatarSuccess">
+          <icon-plus theme="outline" size="30" />
+        </el-upload>
       </div>
-      <el-upload
-        v-else
-        class="upload"
-        action="#"
-        :show-file-list="false"
-        :auto-upload="false"
-        :on-change="handleAvatarSuccess">
-        <icon-plus theme="outline" size="30" />
-      </el-upload>
-    </div>
-    <template #footer>
-      <span>
-        <el-button @click="close">取消</el-button>
-        <el-button type="primary" @click="sub">確定</el-button>
-      </span>
-    </template>
-    <Teleport to="body">
-      <div
-        class="absolute top-0 left-0 w-screen h-screen z-[9999]"
-        v-loading="loading"
-        v-show="loading"></div>
-    </Teleport>
-  </el-dialog>
+      <template #footer>
+        <span>
+          <el-button @click="close">取消</el-button>
+          <el-button type="primary" @click="sub">確定</el-button>
+        </span>
+      </template>
+      <Teleport to="body">
+        <div
+          class="absolute top-0 left-0 w-screen h-screen z-[9999]"
+          v-loading="loading"
+          v-show="loading"></div>
+      </Teleport>
+    </el-dialog>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -112,6 +114,10 @@ const option = ref({
 const firebaseStore = firebaseStores()
 const storageStore = storageStores()
 const sub = () => {
+  if (imageUrl.value == '') {
+    ElMessage.error('沒添加照片')
+    close()
+  }
   cropper.value?.getCropBlob(async (data: Blob) => {
     loading.value = true
     await storageStore.upload(data, `users/${props.userName}`).then(() => {
@@ -128,7 +134,7 @@ const sub = () => {
 
 <style scoped lang="scss">
 :deep(.dialog) {
-  @apply w-11/12 md:max-w-[500px] h-[600px] flex flex-col justify-between items-center;
+  @apply w-full md:max-w-[500px] h-[600px] flex flex-col justify-between items-center;
 }
 
 :deep(.upload .el-upload) {

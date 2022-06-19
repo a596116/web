@@ -12,7 +12,7 @@
         {{ user?.name }}
       </section>
     </div>
-    {{ user }}
+    <!-- {{ user }} -->
 
     <member-editor-avatar v-model="avatarDialog" :userName="user?.name" />
   </div>

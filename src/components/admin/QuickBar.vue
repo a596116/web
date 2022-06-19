@@ -25,14 +25,14 @@
 <script setup lang="ts">
 import { userStores } from '@/stores/userStore'
 import * as icons from '@icon-park/vue-next'
-const userStore = userStores().info
+const userStore = userStores()
 const quickList = ref<IQuick[]>([
   {
     title: '用戶管理',
     icon: 'User',
     iconColor: 'text-[#f8c291]',
     route: 'admin/users',
-    show: userStore?.permissions.includes('浩呆') as boolean,
+    show: userStore?.info?.permissions.includes('浩呆') as boolean,
   },
   {
     title: '菜單管理',

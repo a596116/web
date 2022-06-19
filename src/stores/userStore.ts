@@ -62,9 +62,12 @@ export const userStores = defineStore({
     },
     logout() {
       signOut(this.auth).then(() => {
+        permissionList.forEach((r) => {
+          if (router.hasRoute(r.name!)) router.removeRoute(r.name!)
+        })
         store.remove(CacheEnum.TOKEN_NAME, CacheEnum.HISTORY_MENU, CacheEnum.REDIRECT_ROUTE_NAME, CacheEnum.MENU_IS_CLOSE, CacheEnum.HISTORYLINK_IS_SHOW, CacheEnum.BREADCRUMB_IS_SHOW)
-        router.push('/')
         this.info = null
+        router.push('/')
         msg('退出登入')
       }).catch((error) => {
         console.error(error)
