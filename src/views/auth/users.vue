@@ -43,6 +43,7 @@
         </el-button>
       </div>
     </div>
+
     <el-table
       ref="tableRef"
       :data="usersList.slice((currentPage - 1) * pagesize, currentPage * pagesize)"
@@ -102,36 +103,34 @@
       </el-table-column>
     </el-table>
 
+    <!-- 分頁 -->
     <div class="flex justify-center mt-5">
-      <el-pagination
-        v-model:currentPage="currentPage"
-        :page-size="pagesize"
+      <Pagination
+        v-model="currentPage"
+        :pagesize="pagesize"
         layout="total, prev, pager, next"
-        :total="total"
-        @current-change="current_change">
-      </el-pagination>
+        :total="total">
+      </Pagination>
     </div>
 
-    <el-dialog
+    <!-- Dialog -->
+    <Dialog
       v-model="dialogVisible"
       title="用戶資料"
-      custom-class="dialog"
-      :before-close="handleClose">
-      <div class="flex justify-center items-center">
-        <span class="mr-5">用戶權限：</span>
-        <el-checkbox-group v-model="editPermissions">
-          <el-checkbox label="浩呆" />
-          <el-checkbox label="admin" />
-          <el-checkbox label="user" />
-        </el-checkbox-group>
-      </div>
-      <template #footer>
-        <span>
-          <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="changePermissions">儲存</el-button>
-        </span>
+      @before-close="changePermissions"
+      @change-close="dialogVisible = false"
+      @change-sub="changePermissions">
+      <template #default>
+        <div class="flex justify-center items-center">
+          <span class="mr-5">用戶權限：</span>
+          <el-checkbox-group v-model="editPermissions">
+            <el-checkbox label="浩呆" />
+            <el-checkbox label="admin" />
+            <el-checkbox label="user" />
+          </el-checkbox-group>
+        </div>
       </template>
-    </el-dialog>
+    </Dialog>
   </div>
 </template>
 
@@ -151,9 +150,6 @@ const totalpage = ref()
 const total = ref(5)
 const pagesize = 3
 const currentPage = ref(1)
-const current_change = (Page: number) => {
-  currentPage.value = Page
-}
 // 排序
 const sort = ref(true)
 // 篩選
@@ -208,16 +204,6 @@ const c = () => {
 
 // 些改資料
 const dialogVisible = ref(false)
-const handleClose = (done: () => void) => {
-  ElMessageBox.confirm('是否儲存？')
-    .then(() => {
-      changePermissions()
-      done()
-    })
-    .catch(() => {
-      dialogVisible.value = false
-    })
-}
 const editPermissions = ref<string[]>([])
 const editId = ref<string>('')
 const editUser = async (id: string) => {
@@ -229,11 +215,8 @@ const editUser = async (id: string) => {
 const changePermissions = () => {
   firebaseStore.update('users', editId.value, { permissions: editPermissions.value })
   dialogVisible.value = false
+  ElMessage.success('儲存成功')
 }
 </script>
 
-<style lang="scss" scoped>
-:deep(.dialog) {
-  @apply w-11/12 md:max-w-[500px];
-}
-</style>
+<style lang="scss" scoped></style>

@@ -30,6 +30,8 @@ export const autoImport = (plugin: Plugin[]) => {
             directoryAsNamespace: true,
             // 指定類型聲明文件，為true時在項目根目錄創建
             dts: 'types/components.d.ts',
+            // 组件的有效文件扩展名。
+            extensions: ['vue'],
         }),
 
     )
