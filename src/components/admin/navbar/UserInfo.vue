@@ -1,11 +1,11 @@
 <template>
-  <div class="rounded-full border-2 border-hd-white flex items-center">
+  <div class="flex items-center">
     <el-dropdown class="">
       <div class="flex justify-center items-center">
         <img
           :src="userStore.info?.avatar ? userStore.info?.avatar : '/public/img/haodai.png'"
           class="logo1 w-8 h-8 rounded-full object-cover" />
-        <span class="mx-2 text-hd-black w-full">
+        <span class="mx-2 text-hd-black w-full text-base">
           {{ userStore.info?.name }}
         </span>
       </div>
