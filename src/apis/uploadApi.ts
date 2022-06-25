@@ -5,7 +5,7 @@ export interface Upload {
 }
 
 class uploadApi {
-  uploadImage(data: ForeData) {
+  uploadImage(data: FormData) {
     return http.request<Upload>({
       url: 'upload/image',
       method: 'post',

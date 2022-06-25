@@ -5,12 +5,11 @@
       <el-scrollbar>
         <admin-menu />
       </el-scrollbar>
-      <div
-        class="mask md:hidden"
-        @click="closeMenu"
-        :class="{ close: !menuStore.isMenuCollapse }"></div>
-
-      <el-container class="grid min-h-screen">
+      <el-container class="grid min-h-screen relative">
+        <div
+          class="mask md:hidden"
+          @click="closeMenu"
+          :class="{ close: !menuStore.isMenuCollapse }"></div>
         <div class="content bg-hd-bg-white grid grid-rows-[auto_1fr] w-full">
           <div class="">
             <admin-nav-bar />
@@ -74,7 +73,7 @@ const closeMenu = () => {
 
 .mask {
   z-index: 99;
-  @apply absolute h-screen w-screen bg-yellow-200 top-0 opacity-20;
+  @apply absolute h-screen w-screen bg-yellow-100 top-0 opacity-20;
 
   &.close {
     @apply hidden;

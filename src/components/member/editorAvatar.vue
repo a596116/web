@@ -37,7 +37,7 @@
           action="#"
           :show-file-list="false"
           :auto-upload="false"
-          :on-change="handleAvatarSuccess">
+          @on-change="handleAvatarSuccess">
           <icon-plus theme="outline" size="30" />
         </el-upload>
       </div>

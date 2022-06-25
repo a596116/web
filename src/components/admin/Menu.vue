@@ -2,7 +2,7 @@
   <el-menu
     :collapse="!menuStore.isMenuCollapse"
     :default-active="active_menu"
-    class="admin-menu max-w-[150px] md:max-w-[200px]"
+    class="admin-menu"
     :unique-opened="true">
     <div class="logo">
       <img src="/img/haodai.png" alt="haodai" @click="router.push({ name: 'admin/home' })" />
@@ -13,7 +13,7 @@
     </div>
 
     <div class="" v-for="(menu, index) in menuStore.menus" :key="index">
-      <el-sub-menu v-if="menu.children?.length != 1" :index="menu.title">
+      <el-sub-menu v-if="menu.children?.length != 1" :index="menu.title!">
         <template #title>
           <section class="hidden md:block">
             <component :is="(icons as any)[menu.icon!]" theme="outline" size="24"></component>
@@ -75,8 +75,8 @@ watch(
 <style scoped lang="scss">
 .admin-menu {
   transition: width 0.3s ease-in-out;
-  z-index: 100;
-  @apply min-h-screen border-0 bg-hd-bg-black;
+  z-index: 200;
+  @apply max-w-[130px] md:max-w-[200px] min-h-screen border-0 bg-hd-bg-black;
 
   * {
     @apply text-hd-black1 bg-hd-bg-black;

@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center">
     <el-dropdown class="">
-      <div class="flex justify-center items-center">
+      <div class="w-full flex justify-center items-center">
         <img
           :src="userStore.info?.avatar ? userStore.info?.avatar : '/public/img/haodai.png'"
           class="logo1 w-8 h-8 rounded-full object-cover" />
@@ -38,4 +38,7 @@
 import router from '@/router'
 import { userStores } from '@/stores/userStore'
 const userStore = userStores()
+const loading = computed(() => {
+  return userStore.info ? false : true
+})
 </script>

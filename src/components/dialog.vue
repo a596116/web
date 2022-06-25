@@ -31,7 +31,7 @@ const props = withDefaults(defineProps<IProps>(), {
   width: '500',
 })
 const emit = defineEmits<{
-  (e: 'update:modelValue', modelValue: boolean): void
+  (e: 'update:modelValue', d: boolean): void
   (e: 'change-close'): void
   (e: 'change-sub'): void
   (e: 'before-close'): void

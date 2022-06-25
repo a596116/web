@@ -1,12 +1,19 @@
 <template>
   <div ref="dashboard">
     <admin-quick-bar />
+
     <div class="flex flex-col bg-hd-bg-white px-6">
       <div class="flex md:justify-start justify-between flex-wrap md:gap-8">
-        <div class="card w-auto h-auto md:w-[170px] md:h-[100px] p-2 md:px-7" v-for="item, index in echartStore.cards"
-          :key="index" @click="changeEchart(index)">
+        <div
+          class="card w-auto h-auto md:w-[170px] md:h-[100px] p-2 md:px-7"
+          v-for="(item, index) in echartStore.cards"
+          :key="index"
+          @click="changeEchart(index)">
           <div class="flex justify-between text-hd-black1">
-            <component :is="(icons as any)[item.icon!]" theme="outline" class="text-4xl"></component>
+            <component
+              :is="(icons as any)[item.icon!]"
+              theme="outline"
+              class="text-4xl"></component>
             <span class="mt-3 hidden md:block">{{ item.totaltle }}</span>
           </div>
           <div class="items-end text-hd-white hidden md:flex">
@@ -17,9 +24,6 @@
       </div>
       <div id="echart1" class="w-full h-96"></div>
     </div>
-
-
-
   </div>
 </template>
 
@@ -53,7 +57,6 @@ const changeEchart = (index: number) => {
 }
 </script>
 
-
 <style lang="scss" scoped>
 .card {
   @apply flex flex-col justify-center rounded-[30px] duration-300 my-6 cursor-pointer;
@@ -61,8 +64,7 @@ const changeEchart = (index: number) => {
   //   -10px -10px 30px #ededed;
 
   &:hover {
-    box-shadow: 10px 10px 30px #c2c2c2,
-      -10px -10px 30px #ffffff;
+    box-shadow: 10px 10px 30px #c2c2c2, -10px -10px 30px #ffffff;
 
     * {
       color: var(--hd-theme-color);

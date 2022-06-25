@@ -1,9 +1,10 @@
 import type { IMenu } from 'types/menu'
 import router from '@/router'
-import type { RouteLocationNormalized, RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
+import type { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import { store } from '@/utils'
 import { CacheEnum } from '@/enum/cacheEnum'
 import { userStores } from './userStore'
+import type { RouteMeta } from 'vue-router'
 
 export const menuStores = defineStore({
   id: 'menu',
@@ -11,7 +12,7 @@ export const menuStores = defineStore({
   state: () => ({
     menus: [] as IMenu[],
     historyMenus: [] as IMenu[],
-    route: null as RouteLocationNormalized | null,
+    route: null as RouteMeta | null,
     isMenuCollapse: <boolean>store.get(CacheEnum.MENU_IS_CLOSE) ?? false,
     isHistoryCollapse: <boolean>store.get(CacheEnum.HISTORYLINK_IS_SHOW) ?? false,
     isBreadcrumbCollapse: <boolean>store.get(CacheEnum.BREADCRUMB_IS_SHOW) ?? false,
@@ -34,7 +35,7 @@ export const menuStores = defineStore({
 
     addHistoryMenu(route: RouteLocationNormalized) {
       if (!route.meta?.menu) return
-      this.route = route
+      this.route = route.meta
       const menu: IMenu = { ...route.meta?.menu, route: route.name as string }
       const index = Object.entries(this.historyMenus).findIndex(([key, value]) => value.route === route.name)
       if (index !== -1) this.historyMenus.splice(index, 1)

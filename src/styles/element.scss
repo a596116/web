@@ -1,5 +1,4 @@
 .el-input__wrapper {
-  background: none !important;
   background-color: transparent !important;
   box-shadow: none !important;
 }
@@ -51,4 +50,8 @@
 .el-upload:focus {
   border-color: var(--hd-theme-color);
   color: var(--hd-theme-color);
+}
+
+.el-message-box {
+  width: auto !important;
 }
