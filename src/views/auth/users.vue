@@ -6,9 +6,9 @@
           <span class="flex items-center">用戶姓名：</span>
           <div class="ml-1">
             <el-input
-              v-model="firebaseStore.searchInput"
+              v-model="dataStore.searchInput"
               placeholder=""
-              @keydown.esc="firebaseStore.searchInput = ''"
+              @keydown.esc="dataStore.searchInput = ''"
               clearable
               class="border rounded-md w-[150px]">
             </el-input>
@@ -17,7 +17,7 @@
         <div class="flex mr-5">
           <span class="flex items-center">用戶狀態：</span>
           <el-select
-            v-model="firebaseStore.filterActive"
+            v-model="dataStore.filterActive"
             clearable
             class="ml-1 border rounded-md w-[100px]">
             <el-option label="true" value="1" />
@@ -26,7 +26,7 @@
         </div>
         <div class="flex mr-5">
           <span class="flex items-center">用戶權限：</span>
-          <el-radio-group v-model="firebaseStore.filterPermission">
+          <el-radio-group v-model="dataStore.filterPermission">
             <el-radio label="浩呆">浩呆</el-radio>
             <el-radio label="admin">admin</el-radio>
             <el-radio label="user">user</el-radio>
@@ -144,60 +144,60 @@
 
 <script setup lang="ts">
 import userApi from '@/apis/userApi'
-import { firebaseStores } from '@/stores/firebaseStore'
+import { dataStores } from '@/stores/dataStore'
 import { ElMessageBox } from 'element-plus'
 import { ElTable } from 'element-plus'
 
 const route = useRoute()
 const router = useRouter()
 const tableRef = ref<InstanceType<typeof ElTable>>()
-const firebaseStore = firebaseStores()
+const dataStore = dataStores()
 
-firebaseStore.init()
+dataStore.init()
 watch(
   route,
   async () => {
-    await firebaseStore.getData('user')
+    await dataStore.getData('user')
   },
   { immediate: true },
 )
 
 // 渲染數據
 const usersList = computed((): IUser[] => {
-  return firebaseStore.data
+  return dataStore.data
 })
 
 // 查詢條件
 const search = () => {
-  if (firebaseStore.searchInput) {
+  if (dataStore.searchInput) {
     router.push({
-      query: { ...route.query, s: firebaseStore.searchInput },
+      query: { ...route.query, s: dataStore.searchInput },
     })
   }
-  if (firebaseStore.filterPermission) {
+  if (dataStore.filterPermission) {
     router.push({
-      query: { ...route.query, m: firebaseStore.filterPermission },
+      query: { ...route.query, m: dataStore.filterPermission },
     })
   }
-  if (firebaseStore.filterActive) {
+  if (dataStore.filterActive) {
     router.push({
-      query: { ...route.query, a: firebaseStore.filterActive },
+      query: { ...route.query, a: dataStore.filterActive },
     })
   }
 }
 // 排序
 const sortChange = (order: any) => {
   const o = order.order.replace('ending', '')
-  firebaseStore.order = o
+  dataStore.order = o
   router.push({ query: { ...route.query, o: o } })
 }
 
 // 清除查詢條件
 const reset = () => {
-  firebaseStore.filterActive = ''
-  firebaseStore.order = ''
-  firebaseStore.searchInput = ''
-  firebaseStore.filterPermission = ''
+  dataStore.filterActive = ''
+  dataStore.order = ''
+  dataStore.searchInput = ''
+  dataStore.filterPermission = ''
   router.push({ query: {} })
 }
 
@@ -210,9 +210,9 @@ const changeActive = (user: IUser) => {
   })
     .then(() => {
       if (user.active == '1') {
-        firebaseStore.update('user', user.id, { active: '0' })
+        dataStore.update('user', user.id, { active: '0' })
       } else {
-        firebaseStore.update('user', user.id, { active: '1' })
+        dataStore.update('user', user.id, { active: '1' })
       }
     })
     .catch(() => {
@@ -235,7 +235,7 @@ const editUser = async (id: string) => {
   editPermissions.value = user.permissions.split(',')
 }
 const changePermissions = async () => {
-  firebaseStore.update('user', editId.value, { permissions: editPermissions.value.join(',') })
+  dataStore.update('user', editId.value, { permissions: editPermissions.value.join(',') })
   dialogVisible.value = false
 }
 </script>

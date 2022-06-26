@@ -60,7 +60,7 @@
 <script setup lang="ts">
 import type { UploadProps, UploadFile } from 'element-plus'
 import { VueCropper } from 'vue-cropper'
-import { firebaseStores } from '@/stores/firebaseStore'
+import { dataStores } from '@/stores/dataStore'
 import { storageStores } from '@/stores/storageStore'
 
 export interface IProps {
@@ -111,7 +111,7 @@ const option = ref({
   max: 99999,
 })
 
-const firebaseStore = firebaseStores()
+const dataStore = dataStores()
 const storageStore = storageStores()
 const sub = () => {
   if (imageUrl.value == '') {
@@ -122,7 +122,7 @@ const sub = () => {
     loading.value = true
     await storageStore.upload(data, `users/${props.userName}`).then(() => {
       storageStore.getURL(`users/${props.userName}`).then((url) => {
-        firebaseStore.update('users', props.userName, { avatar: url })
+        dataStore.update('users', props.userName, { avatar: url })
         close()
         loading.value = false
         ElMessage.success('修改成功！請重新整理頁面')

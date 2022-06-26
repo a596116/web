@@ -5,8 +5,8 @@ import { collection, addDoc, setDoc, doc, getDocs, getDoc, onSnapshot, query, up
 import { db } from "../plugins/firebase"
 
 
-export const firebaseStores = defineStore({
-    id: 'firebase',
+export const dataStores = defineStore({
+    id: 'data',
     state: () => ({
         data: [] as any[], // 顯示資料
         total: 0, // 總筆數

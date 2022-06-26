@@ -3,7 +3,7 @@ import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, updateProfile,
 import store from '@/utils/store'
 import router from '@/router'
 import { CacheEnum } from '@/enum/cacheEnum'
-import { firebaseStores } from './firebaseStore'
+import { firebaseStores } from './dataStore'
 import { msg } from '@/utils/msg'
 import { permissionList } from '@/router/autoload'
 
