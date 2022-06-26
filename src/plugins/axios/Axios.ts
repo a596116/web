@@ -32,7 +32,7 @@ export default class Axios {
       (config) => {
         config.headers = {
           // Authorization: 'Bearer ' + store.get(CacheEnum.TOKEN_NAME),
-          token: localStorage.getItem('jwt')!
+          token: store.get(CacheEnum.TOKEN_NAME)
         }
         return config
       },

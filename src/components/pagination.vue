@@ -1,36 +1,36 @@
 <template>
   <el-pagination
-    :model-value:currentPage="props.modelValue"
-    :page-size="props.pagesize"
+    :v-model:currentPage="parseInt(firebaseStore.currentPage)"
+    :page-size="firebaseStore.pagesize"
     :layout="props.layout"
-    :total="props.total"
+    :total="firebaseStore.total"
     @current-change="current_change">
   </el-pagination>
 </template>
 
 <script setup lang="ts">
+import { CacheEnum } from '@/enum/cacheEnum'
+import { firebaseStores } from '@/stores/firebaseStore'
+import { store } from '@/utils'
+
 export interface IProps {
-  modelValue: number
-  pagesize: number
   layout?: string
-  total: number
 }
+const router = useRouter()
+const route = useRoute()
+const firebaseStore = firebaseStores()
+
+// 獲取query
+// const page = store.get(CacheEnum.CURRENT_PAGE) || 1
+//更新query
+router.push({ query: { ...route.query } })
+
 const props = withDefaults(defineProps<IProps>(), {
-  modelValue: 1,
-  pagesize: 0,
   layout: 'total, prev, pager, next',
-  total: 0,
 })
-const emit = defineEmits<{
-  (e: 'update:modelValue', modelValue: number): void
-  (e: 'change-close'): void
-  (e: 'change-sub'): void
-  (e: 'before-close'): void
-}>()
 
 const current_change = (Page: number) => {
-  emit('update:modelValue', Page)
+  router.push({ query: { ...route.query, p: Page } })
+  firebaseStore.currentPage = String(Page)
 }
 </script>
-
-<style scoped></style>

@@ -4,6 +4,7 @@ export function msg(msg: string, type: "info" | "success" | "warning" | "error" 
     message: msg,
     center: true,
     type,
+    showClose: true,
   })
 }
 

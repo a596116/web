@@ -9,4 +9,6 @@ export enum CacheEnum {
   BREADCRUMB_IS_SHOW = 'breadcrumb_is_show',
 
   PERMISSIONS_MENU = 'permissions_menu',
+
+  CURRENT_PAGE = 'current_page',
 }

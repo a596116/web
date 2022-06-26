@@ -1,15 +1,7 @@
+import { CacheEnum } from '@/enum/cacheEnum'
 import { http } from '@/plugins/axios'
+import { store } from '@/utils'
 
-export interface User {
-  name: string
-  age?: number
-  avatar?: string
-  permissions?: string[]
-}
-
-export interface Login {
-  token: string
-}
 export interface IRegisterData {
   account: string
   password: string
@@ -21,24 +13,54 @@ export interface ILoginData {
   account: string
   password: string
 }
-export interface UpdataUserData {
-  displayName?: string
-  photoURL?: string
-  permissions?: string[]
-}
 class userApi {
+  // 用戶資訊
   info() {
-    return http.request<User>({
-      url: 'user/info',
+    return http.request<IUser>({
+      url: `user/info/${store.get(CacheEnum.TOKEN_NAME)}`,
     })
   }
-  login(data: ILoginData) {
+  // 用戶列表
+  userList() {
+    return http.request<IUser[]>({
+      url: `api/user`,
+    })
+  }
+  // 登入
+  login(loginForm: ILoginData) {
     return http.request<Login>({
       url: 'login',
       method: 'post',
+      data: {
+        user: loginForm,
+      },
+    })
+  }
+  // 新增用戶
+  create(userForm: IRegisterData) {
+    return http.request({
+      url: 'api/user',
+      method: 'post',
+      data: {
+        user: { ...userForm, active: '1', permissions: 'user,' },
+      },
+    })
+  }
+
+  update(id: string, data: IUser) {
+    return http.request({
+      url: `api/user/${id}`,
+      method: 'put',
       data,
     })
   }
+
+  getUser(id: string) {
+    return http.request({
+      url: `api/user/${id}`,
+    })
+  }
+
 }
 
 export default new userApi()

@@ -37,7 +37,7 @@
   }
   &:focus {
     border-color: var(--hd-theme-hover-color) !important;
-    color: var(--hd-theme-hover-color) !important;
+    color: var(--hd-white) !important;
   }
 }
 
@@ -54,4 +54,9 @@
 
 .el-message-box {
   width: auto !important;
+}
+
+.el-popover.el-popper {
+  min-width: 60px !important;
+  padding: 0 !important;
 }

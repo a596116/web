@@ -35,6 +35,7 @@ export const menuStores = defineStore({
 
     addHistoryMenu(route: RouteLocationNormalized) {
       if (!route.meta?.menu) return
+      if (!store.get(CacheEnum.HISTORYLINK_IS_SHOW)) return
       this.route = route.meta
       const menu: IMenu = { ...route.meta?.menu, route: route.name as string }
       const index = Object.entries(this.historyMenus).findIndex(([key, value]) => value.route === route.name)
