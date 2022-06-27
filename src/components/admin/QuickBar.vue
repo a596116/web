@@ -32,7 +32,7 @@ const quickList = ref<IQuick[]>([
     icon: 'User',
     iconColor: 'text-[#f8c291]',
     route: 'admin/users',
-    show: userStore?.info?.permissions.split(',').includes('浩呆') as boolean,
+    show: userStore?.info?.permissions['p'].includes('浩呆') as boolean,
   },
   {
     title: '菜單管理',

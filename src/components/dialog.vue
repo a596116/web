@@ -55,4 +55,7 @@ const dialogWidth = `${props.width}px`
 :deep(.dialog) {
   @apply w-11/12 md:max-w-[v-bind(dialogWidth)];
 }
+:deep(.el-dialog__body) {
+  @apply p-0 px-3;
+}
 </style>

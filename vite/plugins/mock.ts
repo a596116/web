@@ -4,7 +4,7 @@ export const setupMockPlugin = (plugin: Plugin[], isBuild: boolean) => {
   plugin.push(
     viteMockServe({
       mockPath: 'mock',
-      localEnabled: !isBuild,
+      localEnabled: isBuild,
     })
   )
 }

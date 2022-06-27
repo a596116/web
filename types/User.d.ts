@@ -7,7 +7,7 @@ interface IUser {
     createdAt: string
     updatedAt: string
     name: string
-    permissions: string
+    permissions: any
     avatar?: string
 }
 

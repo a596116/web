@@ -23,7 +23,7 @@ class userApi {
   // 用戶列表
   userList() {
     return http.request<IUser[]>({
-      url: `api/user`,
+      url: `user`,
     })
   }
   // 登入
@@ -39,25 +39,25 @@ class userApi {
   // 新增用戶
   create(userForm: IRegisterData) {
     return http.request({
-      url: 'api/user',
+      url: 'user',
       method: 'post',
       data: {
-        user: { ...userForm, active: '1', permissions: 'user,' },
+        user: { ...userForm, active: '1', permissions: { "p": [] } },
       },
     })
   }
 
   update(id: string, data: IUser) {
     return http.request({
-      url: `api/user/${id}`,
+      url: `user/${id}`,
       method: 'put',
       data,
     })
   }
 
   getUser(id: string) {
-    return http.request({
-      url: `api/user/${id}`,
+    return http.request<IUser>({
+      url: `user/${id}`,
     })
   }
 

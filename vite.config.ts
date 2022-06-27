@@ -36,6 +36,17 @@ export default ({ command }: ConfigEnv): any => {
         drop_console: true,
         drop_debugger: true,
       },
+    },
+    server: {
+      // base: "./ ", //生产环境路径
+      proxy: {
+        '/api': {
+          target: 'http://103.61.139.237:7001',
+          changeOrigin: true,
+          rewrite: (path: any) => path.replace(/^\/api/, ""),
+        }
+      },
+      cors: true
     }
   }
 }

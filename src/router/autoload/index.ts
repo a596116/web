@@ -13,7 +13,7 @@ export default async (router: Router) => {
     if (permission) { // 儲存需權限的路由
       permissionList.push(r)
     }
-    return permission ? user.info?.permissions?.includes(permission) : true
+    return permission ? user.info?.permissions['p'].includes(permission) : true
   })
   routes.forEach((route) => { // 添加一般的路由
     router.addRoute(route.meta?.page?.name!, route)

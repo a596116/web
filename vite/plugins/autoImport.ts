@@ -8,7 +8,7 @@ export const autoImport = (plugin: Plugin[]) => {
     plugin.push(
         AutoImport({
             resolvers: [ElementPlusResolver()],
-            imports: ['vue', 'vue-router', 'pinia',
+            imports: ['vue', 'vue-router', 'pinia', '@vueuse/core',
                 {
                     '@/utils': [
                         'env',  // import { env } from '@/utils',
@@ -19,6 +19,7 @@ export const autoImport = (plugin: Plugin[]) => {
                     //     ['default', 'axios'], // import { default as axios } from 'axios',
                     // ],
                 },
+
             ],
             // 為true時在項目根目錄自動創建
             dts: 'types/auto-imports.d.ts',
@@ -33,6 +34,5 @@ export const autoImport = (plugin: Plugin[]) => {
             // 组件的有效文件扩展名。
             extensions: ['vue'],
         }),
-
     )
 }

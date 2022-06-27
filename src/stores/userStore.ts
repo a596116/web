@@ -1,5 +1,4 @@
 import type { ILoginData, IRegisterData } from '@/apis/userApi'
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, updateProfile, createUserWithEmailAndPassword, signOut, deleteUser } from "firebase/auth"
 import store from '@/utils/store'
 import router from '@/router'
 import { CacheEnum } from '@/enum/cacheEnum'
@@ -10,8 +9,7 @@ import userApi from '@/apis/userApi'
 export const userStores = defineStore({
   id: 'user',
   state: () => ({
-    info: {} as null | IUser,
-    auth: getAuth(),
+    info: { permissions: { 'p': [] } } as null | IUser,
   }),
 
   actions: {
@@ -19,9 +17,18 @@ export const userStores = defineStore({
     async getUserInfo() {
       return new Promise(async (resolve) => {
         await userApi.info()
-          .then((user) => {
-            this.info = user as unknown as IUser
-            resolve(user)
+          .then((res) => {
+            if (res.code == 40000) {
+              // console.log('未登入')
+              resolve(res)
+            } else {
+              this.info = res as unknown as IUser
+              resolve(res)
+            }
+          })
+          .catch(() => {
+            console.log('錯誤')
+            resolve(null)
           })
       })
     },
@@ -87,20 +94,13 @@ export const userStores = defineStore({
 
     // 更新使用者資料
     updateUserInfo(obj: any) {
-      if (this.auth.currentUser) {
-        updateProfile(this.auth.currentUser, {
-        }).then(() => {
-          console.log('update success')
-        }).catch((error) => {
-        })
-      }
     },
 
     // 添加需權限的路由
     async permissionlist() {
       await this.getUserInfo()
       permissionList.forEach((r) => {
-        if (this.info?.permissions.split(',').includes(r.meta?.permission!)) {
+        if (this.info?.permissions['p'].includes(r.meta?.permission!)) {
           router.addRoute(r.meta!.page!.name, r)
         }
       })

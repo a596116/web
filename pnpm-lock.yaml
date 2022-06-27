@@ -12,6 +12,7 @@ specifiers:
   '@vitejs/plugin-vue': ^2.3.1
   '@vue/runtime-core': ^3.2.37
   '@vue/tsconfig': ^0.1.3
+  '@vueuse/core': ^8.7.5
   '@wangeditor/editor': ^5.0.1
   '@wangeditor/editor-for-vue': ^5.1.11
   animate.css: ^4.1.1
@@ -51,6 +52,7 @@ dependencies:
   '@types/firebase': 3.2.1
   '@types/lodash': 4.14.182
   '@types/tailwindcss': 3.0.10
+  '@vueuse/core': 8.7.5_vue@3.2.33
   '@wangeditor/editor': 5.0.1
   '@wangeditor/editor-for-vue': 5.1.11_salllemaetucd3rk6qfwfltuoy
   animate.css: 4.1.1
@@ -84,7 +86,7 @@ devDependencies:
   rollup-plugin-visualizer: 5.6.0_rollup@2.72.1
   tailwindcss: 3.0.24
   typescript: 4.6.4
-  unplugin-auto-import: 0.7.1_rollup@2.72.1+vite@2.9.8
+  unplugin-auto-import: 0.7.1_2h5hqrmiyzyib3tfj56lkaboe4
   unplugin-vue-components: 0.19.5_cl2x44h42klyn5cmzvrg6kdvva
   vite: 2.9.8_sass@1.51.0
   vite-plugin-babel-import: 2.0.5
@@ -927,7 +929,6 @@ packages:
 
   /@types/web-bluetooth/0.0.14:
     resolution: {integrity: sha512-5d2RhCard1nQUC3aHcq/gHzWYO6K0WJmAbjO7mQJgCQKtZpgXxv1rOM6O/dBDhDYYVutk1sciOgNSe+5YyfM8A==}
-    dev: false
 
   /@types/zrender/4.0.2:
     resolution: {integrity: sha512-Y/3hGzYeFdJUD4yWV0a+jkk3kIjtrbjzxwqkAWRjXLGm6lpL2tckg3vgopkn9KKPK1QyzwGH+JSDvzbKJO59+Q==}
@@ -1136,11 +1137,9 @@ packages:
       '@vueuse/shared': 8.7.5_vue@3.2.33
       vue: 3.2.33
       vue-demi: 0.12.5_vue@3.2.33
-    dev: false
 
   /@vueuse/metadata/8.7.5:
     resolution: {integrity: sha512-emJZKRQSaEnVqmlu39NpNp8iaW+bPC2kWykWoWOZMSlO/0QVEmO/rt8A5VhOEJTKLX3vwTevqbiRy9WJRwVOQg==}
-    dev: false
 
   /@vueuse/shared/8.7.5_vue@3.2.33:
     resolution: {integrity: sha512-THXPvMBFmg6Gf6AwRn/EdTh2mhqwjGsB2Yfp374LNQSQVKRHtnJ0I42bsZTn7nuEliBxqUrGQm/lN6qUHmhJLw==}
@@ -1155,7 +1154,6 @@ packages:
     dependencies:
       vue: 3.2.33
       vue-demi: 0.12.5_vue@3.2.33
-    dev: false
 
   /@wangeditor/basic-modules/1.0.1_5gavab2cymcnv3q7prd5ib7svq:
     resolution: {integrity: sha512-xgMh0f4BBVHyhaNc96b3rfJklRGEAC2brfeLRXoexnhSCcvyvaIsEuukvvPHYAYK72SCa0Zcdx6tD9O5WyLMDA==}
@@ -3688,7 +3686,7 @@ packages:
     engines: {node: '>= 0.8'}
     dev: false
 
-  /unplugin-auto-import/0.7.1_rollup@2.72.1+vite@2.9.8:
+  /unplugin-auto-import/0.7.1_2h5hqrmiyzyib3tfj56lkaboe4:
     resolution: {integrity: sha512-9865OV9eP99PNxHR2mtTDExeN01m4M9boT5U2BtIwsU1wDRsaFIYWLwcCBEjvXzXfTTC2NNMskhHGVAMfL2WgA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -3699,6 +3697,7 @@ packages:
     dependencies:
       '@antfu/utils': 0.5.2
       '@rollup/pluginutils': 4.2.1
+      '@vueuse/core': 8.7.5_vue@3.2.33
       local-pkg: 0.4.1
       magic-string: 0.26.1
       resolve: 1.22.0
@@ -3888,7 +3887,6 @@ packages:
         optional: true
     dependencies:
       vue: 3.2.33
-    dev: false
 
   /vue-router/4.0.15_vue@3.2.33:
     resolution: {integrity: sha512-xa+pIN9ZqORdIW1MkN2+d9Ui2pCM1b/UMgwYUCZOiFYHAvz/slKKBDha8DLrh5aCG/RibtrpyhKjKOZ85tYyWg==}

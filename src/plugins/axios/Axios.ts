@@ -37,6 +37,7 @@ export default class Axios {
         return config
       },
       (error) => {
+        console.error('請求失敗')
         return Promise.reject(error)
       },
     )

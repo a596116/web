@@ -44,7 +44,7 @@ const resize = new ResizeObserver((entries) => {
   })
 })
 
-nextTick(() => {
+onMounted(() => {
   echart1 = echarts.init(document.getElementById('echart1') as HTMLDivElement)
   echart1.setOption(echartStore.echart1)
   resize.observe(dashboard.value)

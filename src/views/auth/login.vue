@@ -137,12 +137,11 @@ import type { FormInstance, FormRules } from 'element-plus'
 import type { ILoginData, IRegisterData } from '../../apis/userApi'
 import { userStores } from '@/stores/userStore'
 import router from '@/router'
-import userApi from '../../apis/userApi'
 
 class InitData {
   loginForm: ILoginData = {
     account: 'a596116',
-    password: 'a0988640301',
+    password: '123456',
   }
   RegiserForm: IRegisterData = {
     account: '',
