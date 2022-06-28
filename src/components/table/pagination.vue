@@ -1,10 +1,11 @@
 <template>
   <el-pagination
-    :v-model:currentPage="parseInt(dataStore.currentPage)"
-    :page-size="dataStore.pagesize"
+    :currentPage="page"
+    :page-size="pageSize"
     :layout="props.layout"
-    :total="dataStore.total"
-    @current-change="current_change">
+    :total="dataStore.dataCount"
+    @current-change="current_change"
+    :hide-on-single-page="true">
   </el-pagination>
 </template>
 
@@ -17,15 +18,23 @@ export interface IProps {
 const router = useRouter()
 const route = useRoute()
 const dataStore = dataStores()
+// el-pagination
+const pageSize = 3
+const currentPage = ref((useRoute().query['p'] as string) || '1')
+const page = ref(parseInt(currentPage.value))
 
 //更新query
-router.push({ query: { ...route.query } })
+// onMounted(() => {
+//   router.push({ query: { ...route.query } })
+// })
 const props = withDefaults(defineProps<IProps>(), {
   layout: 'total, prev, pager, next',
 })
 
 const current_change = (Page: number) => {
   router.push({ query: { ...route.query, p: Page } })
-  dataStore.currentPage = String(Page)
+  currentPage.value = String(Page)
+  page.value = Page
+  dataStore.query = { ...route.query, p: Page }
 }
 </script>

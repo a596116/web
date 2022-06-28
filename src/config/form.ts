@@ -1,4 +1,4 @@
-export type formType = {
+export type formColumnsType = {
   title: string
   name: string
   error_name?: string
@@ -17,7 +17,7 @@ export const userEditForm = [
     title: '權限', name: 'permissions', type: 'checkbox',
     options: ['浩呆', 'admin', 'user'],
   },
-] as formType[]
+] as formColumnsType[]
 // 用戶表單
 export const userForm = [
   { title: '昵称', name: 'name' },
@@ -36,7 +36,7 @@ export const userForm = [
   { title: '头像', name: 'avatar', type: 'preview' },
   { title: '主页', name: 'home' },
   { title: '注册时间', name: 'created_at' },
-] as formType[]
+] as formColumnsType[]
 
 //系统配置
 export const systemForm = {
@@ -69,7 +69,7 @@ export const systemForm = {
     { title: '文件大小', name: 'size', error_name: 'config.upload.size' },
     { title: '文件类型', name: 'mimes', error_name: 'config.upload.mimes' },
   ],
-} as Record<string, formType[]>
+} as Record<string, formColumnsType[]>
 
 //站点
 // export const siteForm = [
@@ -94,7 +94,7 @@ export const siteForm = {
     { title: 'secret', name: 'access_key_secret', error_name: 'config.aliyun.access_key_secret' },
     { title: '短信签名', name: 'sms_sign_name', error_name: 'config.aliyun.sms_sign_name' },
   ],
-} as Record<string, formType[]>
+} as Record<string, formColumnsType[]>
 
 //模块
 export const moduleForm = [
@@ -102,9 +102,9 @@ export const moduleForm = [
   { title: '英文标识', name: 'name', error_name: 'name', placeholder: '模块的英文标识' },
   { title: '开发者', name: 'author', error_name: 'author', placeholder: '开发者名称' },
   { title: '版本号', name: 'version', error_name: 'version', value: '1.0.0' },
-] as formType[]
+] as formColumnsType[]
 
 export const roleForm = [
   { title: '角色名称', name: 'title', placeholder: '请输入角色描述' },
   { title: '角色标识', name: 'name', placeholder: '角色的英文标识' },
-] as formType[]
+] as formColumnsType[]

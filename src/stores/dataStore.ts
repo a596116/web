@@ -1,29 +1,22 @@
 import dataApi from "@/apis/dataApi"
-import userApi from "@/apis/userApi"
 import { msg } from "@/utils/msg"
 import { collection, addDoc, setDoc, doc, getDocs, getDoc, onSnapshot, query, updateDoc, where, deleteDoc, type DocumentData, } from "firebase/firestore"
 import { db } from "../plugins/firebase"
-
+import { userStores } from "./userStore"
 
 export const dataStores = defineStore({
     id: 'data',
     state: () => ({
+        userStore: userStores(),
         data: [] as any[], // 顯示資料
-        total: 0, // 總筆數
-        pagesize: 3,  // 每頁筆數
-        currentPage: '', // 目前頁數
+        dataCount: 0, // 總筆數
         order: '', // 排序規則
-        searchInput: '', // 搜尋條件
-        filterPermission: '', // 篩選權限
-        filterActive: '', // 篩選狀態
+        query: '' as any //router query
     }),
     actions: {
         init() {
-            this.currentPage = (useRoute().query['p'] as string || '1')// 目前頁數
             this.order = (useRoute().query['o'] as string || '') // 排序規則
-            this.searchInput = (useRoute().query['s'] as string || '') // 搜尋條件
-            this.filterPermission = (useRoute().query['m'] as string || '') // 篩選權限
-            this.filterActive = (useRoute().query['a'] as string || '') // 篩選權限
+            this.query = (useRoute().query as any || '') // 篩選權限
         },
         async add(name: string, id: string, obj: object) {
             try {
@@ -50,9 +43,8 @@ export const dataStores = defineStore({
             return getdoc.exists() ? getdoc.data() : null
         },
         // (更新資料) 
-        async update<T>(table: string, id: string, obj: T) {
-            const user = await userApi.info() as any
-            if (user.name != '浩呆') {
+        async update<T>(table: string, id: number, obj: T) {
+            if (!this.userStore.info?.permissions['p'].includes('浩呆')) {
                 msg('權限不足', 'error')
                 return
             }
@@ -61,6 +53,8 @@ export const dataStores = defineStore({
                     if (res.code == 20000) {
                         await this.getData(table)
                         msg('更新成功')
+                    } else {
+                        msg('更新失敗', 'error')
                     }
                 })
                 .catch((err) => {
@@ -77,11 +71,15 @@ export const dataStores = defineStore({
             }
         },
         // (獲取資料Data)
-        async getData(table: string) {
-            this.data = await dataApi.dataList(table, this.currentPage, this.order, this.searchInput, this.filterPermission, this.filterActive)
-                .then((res: any) => {
-                    this.total = res.count // 總筆數
-                    return res.rows // 資料
+        async getData<T>(table: string) {
+            this.data = await dataApi.dataList<T>(table, this.query)
+                .then((res) => {
+                    if (res.code != 20000) {
+                        msg('獲取資料失敗', 'error')
+                        return []
+                    }
+                    this.dataCount = res.data.count // 總筆數
+                    return res.data.rows // 資料
                 })
         },
     },

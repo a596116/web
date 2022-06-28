@@ -18,35 +18,45 @@ export const userStores = defineStore({
       return new Promise(async (resolve) => {
         await userApi.info()
           .then((res) => {
-            if (res.code == 40000) {
-              // console.log('未登入')
+            if (res.code == 20000) {
+              this.info = res.data
               resolve(res)
             } else {
-              this.info = res as unknown as IUser
+              console.log('未獲取到用戶資訊')
               resolve(res)
             }
           })
           .catch(() => {
-            console.log('錯誤')
             resolve(null)
           })
       })
     },
-
+    // 添加需權限的路由
+    async permissionlist() {
+      await this.getUserInfo()
+      permissionList.forEach((r) => {
+        if (this.info?.permissions['p'].includes(r.meta?.permission!)) {
+          router.addRoute(r.meta!.page!.name, r)
+        }
+      })
+    },
     // 登入帳號
     async login(loginForm: ILoginData) {
       await userApi.login(loginForm)
         .then(async (token) => {
-          store.set(CacheEnum.TOKEN_NAME, token)
-          const routeName = store.get(CacheEnum.REDIRECT_ROUTE_NAME) ?? 'home'
-          await this.permissionlist()
-          if (this.info?.active == '1') {
-            router.push({ name: routeName })
-            msg(`歡迎${this.info?.name}`)
+          if (token.code == 20000) {
+            store.set(CacheEnum.TOKEN_NAME, token.data)
+            const routeName = store.get(CacheEnum.REDIRECT_ROUTE_NAME) ?? 'home'
+            await this.permissionlist()
+            if (this.info?.active == '1') { //檢查用戶狀態
+              router.push({ name: routeName })
+              msg(`歡迎${this.info?.name}`)
+            } else {
+              store.remove(CacheEnum.TOKEN_NAME)
+              msg('您以被停權，請聯繫管理員', 'error')
+            }
           } else {
-            store.remove(CacheEnum.TOKEN_NAME)
-            this.info = null
-            msg('您以被停權，請聯繫管理員', 'error')
+            msg('帳號或密碼錯誤', 'error')
           }
         })
         .catch((err) => {
@@ -58,15 +68,15 @@ export const userStores = defineStore({
     // 新增用戶
     async createUser(userForm: IRegisterData) {
       await userApi.userList()
-        .then(async (res: any) => {
-          const exist = res.findIndex((item: IUser) => {
+        .then(async (res) => {
+          const exist = res.data.findIndex((item: IUser) => {
             return item.account == userForm.account
           })
           if (exist != -1) {
             msg('此帳號已被使用', 'error')
           } else {
             await userApi.create(userForm)
-              .then((res: any) => {
+              .then((res) => {
                 if (res.code == 20000) {
                   this.login({ account: userForm.account, password: userForm.password })
                 } else {
@@ -96,14 +106,6 @@ export const userStores = defineStore({
     updateUserInfo(obj: any) {
     },
 
-    // 添加需權限的路由
-    async permissionlist() {
-      await this.getUserInfo()
-      permissionList.forEach((r) => {
-        if (this.info?.permissions['p'].includes(r.meta?.permission!)) {
-          router.addRoute(r.meta!.page!.name, r)
-        }
-      })
-    },
+
   },
 })

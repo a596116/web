@@ -39,10 +39,10 @@
 </template>
 
 <script setup lang="ts">
-import type { formType } from '@/config/form'
+import type { formColumnsType } from '@/config/form'
 import _ from 'lodash'
 const { fields, model: PropsModel } = defineProps<{
-  fields: formType[]
+  fields: formColumnsType[]
   model?: any
 }>()
 const model = ref(

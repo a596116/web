@@ -14,7 +14,7 @@
     </div>
     <!-- {{ user }} -->
 
-    <member-editor-avatar v-model="avatarDialog" :userName="user?.name" />
+    <member-editor-avatar v-model="avatarDialog" :userId="((user?.id) as unknown as number)" />
   </div>
 </template>
 

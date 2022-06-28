@@ -1,5 +1,5 @@
 interface IUser {
-    id: string
+    id: number
     account: string
     password: string
     token: string

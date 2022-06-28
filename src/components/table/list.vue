@@ -40,7 +40,7 @@
             inactive-value="0"
             class="ml-2"
             active-color="#13ce66"
-            @change="changeActive(row, col.prop)" />
+            @change="changeSwitch(row, col.prop)" />
         </template>
         <template v-else>
           {{ row[col.prop] }}
@@ -55,14 +55,8 @@
         :sort-orders="['ascending', 'descending']" />
 
       <!-- 操作列 -->
-      <el-table-column
-        :width="120"
-        #default="{ row }"
-        v-if="$slots.button"
-        align="center"
-        fixed="right">
-        <slot name="button" :model="row"></slot>
-        <el-popover placement="bottom" :width="0">
+      <el-table-column :width="120" #default="{ row }" align="center" fixed="right">
+        <el-popover placement="left" :width="0">
           <template #reference>
             <el-button>操作</el-button>
           </template>
@@ -77,7 +71,7 @@
 
     <!-- 分頁 -->
     <div class="flex justify-center mt-5">
-      <Pagination layout="total, prev, pager, next"> </Pagination>
+      <table-pagination layout="total, prev, pager, next"> </table-pagination>
     </div>
 
     <!-- Dialog -->
@@ -99,7 +93,6 @@ import { dataStores } from '@/stores/dataStore'
 import { ElMessageBox } from 'element-plus'
 import { ElTable } from 'element-plus'
 import type { tableColumnsType } from '@/config/table'
-import userApi from '@/apis/userApi'
 
 const { columns, tableName, editForm } = defineProps<{
   tableName: string
@@ -120,7 +113,7 @@ watch(
   { immediate: true },
 )
 // 渲染數據
-const usersList = computed((): IUser[] => {
+const usersList = computed(() => {
   return dataStore.data
 })
 
@@ -129,10 +122,11 @@ const sortChange = (order: any) => {
   const o = order.order.replace('ending', '')
   dataStore.order = o
   router.push({ query: { ...route.query, o: o } })
+  dataStore.query = { ...route.query, o: o }
 }
 
 // 變更switch狀態
-const changeActive = (user: IUser, prop: string) => {
+const changeSwitch = (data: any, prop: string) => {
   ElMessageBox.confirm('確定嗎？', '提示', {
     confirmButtonText: '確定',
     cancelButtonText: '取消',
@@ -140,29 +134,29 @@ const changeActive = (user: IUser, prop: string) => {
   })
     .then(() => {
       let s = {} as any
-      s[prop] = user.active == '1' ? '0' : '1'
-      dataStore.update(tableName, user.id, s)
+      s[prop] = data[prop] == '1' ? '0' : '1'
+      dataStore.update(tableName, data.id, s)
     })
     .catch(() => {
-      if (user.active == '1') {
-        user.active = '0'
+      if (data[prop] == '1') {
+        data[prop] = '0'
       } else {
-        user.active = '1'
+        data[prop] = '1'
       }
     })
 }
 
-// 些改資料
+// 修改資料
 const dialogVisible = ref(false)
-const editId = ref<string>('')
-const editData = ref<IUser>()
-const edit = async (id: string) => {
-  editData.value = (await userApi.getUser(String(id))) as unknown as IUser
+const editId = ref<number>()
+const editData = ref()
+const edit = async (id: number) => {
+  editData.value = dataStore.data.filter((item) => item.id == id)[0] as any
   editId.value = id
   dialogVisible.value = true
 }
 const changePermissions = async () => {
-  dataStore.update('user', editId.value, editData.value)
+  dataStore.update(tableName, editId.value!, editData.value)
   dialogVisible.value = false
 }
 </script>

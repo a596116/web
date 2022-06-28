@@ -6,7 +6,7 @@
       :model-value="props.modelValue"
       custom-class="dialog"
       @close="close">
-      <div class="flex justify-center">
+      <!-- <div class="flex justify-center">
         <div v-if="imageUrl" class="w-[400px] h-[400px]">
           <vue-cropper
             ref="cropper"
@@ -37,98 +37,55 @@
           action="#"
           :show-file-list="false"
           :auto-upload="false"
-          @on-change="handleAvatarSuccess">
+          :on-change="handleAvatarSuccess">
           <icon-plus theme="outline" size="30" />
         </el-upload>
-      </div>
+      </div> -->
+
+      <upload-cropper
+        ref="uploadRef"
+        :column-name="columnName"
+        :file-name="user?.name!"
+        folder="user"
+        type="update"
+        :id="user?.id" />
       <template #footer>
         <span>
           <el-button @click="close">取消</el-button>
           <el-button type="primary" @click="sub">確定</el-button>
         </span>
       </template>
-      <Teleport to="body">
-        <div
-          class="absolute top-0 left-0 w-screen h-screen z-[9999]"
-          v-loading="loading"
-          v-show="loading"></div>
-      </Teleport>
     </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { UploadProps, UploadFile } from 'element-plus'
-import { VueCropper } from 'vue-cropper'
-import { dataStores } from '@/stores/dataStore'
-import { storageStores } from '@/stores/storageStore'
+import { userStores } from '@/stores/userStore'
 
 export interface IProps {
   modelValue?: boolean
-  userName?: string
+  userId?: number
 }
 const props = withDefaults(defineProps<IProps>(), {
   modelValue: false,
-  userName: '',
+  userId: 0,
 })
 const emit = defineEmits(['update:modelValue'])
 
+const uploadRef = ref(null) as any
+
+const userStore = userStores()
+
+const columnName = 'avatar'
+const user = userStore.info
+
 const close = () => {
   emit('update:modelValue', false)
-  imageUrl.value = ''
-}
-// loading
-const loading = ref(false)
-
-// 上傳照片
-const imageUrl = ref('')
-const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile: any) => {
-  if (response.raw.type !== 'image/jpeg' && response.raw.type !== 'image/png') {
-    ElMessage.error('上傳的檔案類型不符合(jpg, png)')
-    return false
-  } else if (response.raw.size / 1024 / 1024 > 2) {
-    ElMessage.error('上傳的檔案大小不能超過 2MB')
-    return false
-  }
-  imageUrl.value = URL.createObjectURL(new Blob([uploadFile.pop().raw]))
 }
 
-const cropper = ref<typeof VueCropper>()
-const option = ref({
-  size: 1,
-  full: false,
-  outputType: 'png',
-  canMove: true,
-  fixedBox: false,
-  original: false,
-  canMoveBox: true,
-  autoCrop: true,
-  // 只有自动截图开启 宽度高度才生效
-  autoCropWidth: 200,
-  autoCropHeight: 200,
-  centerBox: false,
-  high: true,
-  max: 99999,
-})
-
-const dataStore = dataStores()
-const storageStore = storageStores()
 const sub = () => {
-  if (imageUrl.value == '') {
-    ElMessage.error('沒添加照片')
-    close()
-  }
-  cropper.value?.getCropBlob(async (data: Blob) => {
-    loading.value = true
-    await storageStore.upload(data, `users/${props.userName}`).then(() => {
-      storageStore.getURL(`users/${props.userName}`).then((url) => {
-        dataStore.update('users', props.userName, { avatar: url })
-        close()
-        loading.value = false
-        ElMessage.success('修改成功！請重新整理頁面')
-      })
-    })
-  })
+  uploadRef.value!.sub()
+  close()
 }
 </script>
 

@@ -33,21 +33,29 @@ import * as icons from '@icon-park/vue-next'
 import { echartStores } from '@/stores/echartStore'
 import { store } from '@/utils'
 import { CacheEnum } from '@/enum/cacheEnum'
+import { Data } from '@icon-park/vue-next'
 
 const echartStore = echartStores()
 const dashboard = ref()
 let echart1 = {} as echarts.ECharts
 
 const resize = new ResizeObserver((entries) => {
-  entries.forEach(() => {
-    echart1.resize()
-  })
+  if (echart1) {
+    entries.forEach(() => {
+      echart1.resize()
+    })
+  }
 })
 
 onMounted(() => {
   echart1 = echarts.init(document.getElementById('echart1') as HTMLDivElement)
   echart1.setOption(echartStore.echart1)
   resize.observe(dashboard.value)
+})
+onUnmounted(() => {
+  echart1.dispose()
+  echart1.clear()
+  echart1 = null!
 })
 
 const changeEchart = (index: number) => {

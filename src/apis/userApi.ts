@@ -6,7 +6,6 @@ export interface IRegisterData {
   account: string
   password: string
   name: string
-  avatar?: string
   token?: string
 }
 export interface ILoginData {
@@ -42,7 +41,7 @@ class userApi {
       url: 'user',
       method: 'post',
       data: {
-        user: { ...userForm, active: '1', permissions: { "p": [] } },
+        user: { ...userForm, active: '1', permissions: { "p": ["user"] } },
       },
     })
   }
