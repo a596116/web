@@ -104,7 +104,6 @@ const sub = ref(async () => {
         let updateData = {} as any
         updateData[columnName] = res.data.file
         await dataStore.update(folder, id!, updateData)
-        msg('修改成功！請重新整理頁面')
       }
     } else {
       //如果是新增資料,返回地址

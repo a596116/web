@@ -53,6 +53,8 @@ declare module '@vue/runtime-core' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     FormList: typeof import('./../src/components/form/list.vue')['default']
+    'FormList copy': typeof import('../src/components/form/login.vue')['default']
+    FormLogin: typeof import('./../src/components/form/login.vue')['default']
     HdHome: typeof import('./../src/components/hd/home.vue')['default']
     MarkdownEditor: typeof import('./../src/components/markdown/editor.vue')['default']
     MemberEditorAvatar: typeof import('./../src/components/member/editorAvatar.vue')['default']

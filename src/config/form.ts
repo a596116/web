@@ -2,7 +2,7 @@ export type formColumnsType = {
   title: string
   name: string
   error_name?: string
-  type?: 'input' | 'textarea' | 'image' | 'preview' | 'radio' | 'checkbox' | 'tag'
+  type?: 'input' | 'textarea' | 'image' | 'preview' | 'radio' | 'checkbox' | 'tag' | 'password'
   options?: any
   readonly?: boolean
   disabled?: boolean
@@ -10,6 +10,18 @@ export type formColumnsType = {
   value?: any
 }
 
+// 用戶登入表單
+export const userLoginForm = [
+  { title: '帳號', name: 'account', placeholder: '帳號' },
+  { title: '密碼', name: 'password', type: 'password', placeholder: '密碼' },
+] as formColumnsType[]
+// 用戶註冊表單
+export const userRegisterForm = [
+  { title: '暱稱', name: 'name', placeholder: '暱稱' },
+  { title: '帳號', name: 'account', placeholder: '帳號' },
+  { title: '密碼', name: 'password', type: 'password', placeholder: '密碼' },
+  { title: '驗證碼', name: 'token', placeholder: '驗證碼' },
+] as formColumnsType[]
 // 用戶編輯表單
 export const userEditForm = [
   { title: '名稱', name: 'name', type: 'input', readonly: true },

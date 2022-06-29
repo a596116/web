@@ -11,12 +11,14 @@
       <div class="flex">
         <slot name="image"></slot>
         <el-form
-          :v-model:model="model"
+          ref="formRef"
+          v-model:model="model"
           label-width="100px"
+          :rules="formRules"
           :inline="false"
           size="large"
           class="flex-1">
-          <el-form-item :label="f.title" v-for="f of fields" :key="f.name">
+          <el-form-item :label="f.title" v-for="f of fields" :key="f.name" :prop="f.name">
             <template v-if="f.type == 'checkbox'">
               <el-checkbox-group v-model="model[f.name]['p']">
                 <el-checkbox :label="val" v-for="val in f.options" />
@@ -42,8 +44,8 @@
             </template>
             <template v-else>
               <el-input
-                v-model="model[f.name]"
                 v-if="!f.readonly"
+                v-model.trim="model[f.name]"
                 :placeholder="f.placeholder"
                 :readonly="f.readonly"
                 :disabled="f.disabled"
@@ -61,9 +63,14 @@
 <script setup lang="ts">
 import type { formColumnsType } from '@/config/form'
 import _ from 'lodash'
-const { fields, model: PropsModel } = defineProps<{
+const {
+  fields,
+  model: PropsModel,
+  formRules,
+} = defineProps<{
   fields: formColumnsType[]
   model?: any
+  formRules?: any
 }>()
 const model = ref(
   PropsModel ||
@@ -72,6 +79,8 @@ const model = ref(
       fields.map((f) => f.value ?? ''),
     ),
 )
+const formRef = ref()
+defineExpose({ formRef })
 </script>
 
 <style scoped></style>

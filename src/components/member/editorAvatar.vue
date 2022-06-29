@@ -42,6 +42,9 @@ const close = () => {
 const sub = () => {
   uploadRef.value!.sub()
   close()
+  setTimeout(() => {
+    window.location.reload()
+  }, 1000)
 }
 </script>
 

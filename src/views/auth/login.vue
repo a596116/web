@@ -1,8 +1,6 @@
 <template>
   <section>
-    <div class="color"></div>
-    <div class="color"></div>
-    <div class="color"></div>
+    <div class="color" v-for="i in 3"></div>
     <div class="box">
       <div class="square" style="--i: 0"></div>
       <div class="square" style="--i: 1"></div>
@@ -11,121 +9,33 @@
       <div class="square" style="--i: 4"></div>
       <div class="form-container">
         <div class="container" :class="{ sigin }">
-          <el-form ref="loginFormRef" :model="loginForm" status-icon :rules="rules" class="form">
-            <h1>登入後台系統</h1>
-            <el-form-item prop="account">
-              <el-input
-                v-model="loginForm.account"
-                autocomplete="off"
-                clearable
-                placeholder="帳號："
-                class="mt-[20px]"
-                @keyup.enter="submitForm(loginFormRef)" />
-            </el-form-item>
-            <el-form-item prop="password">
-              <el-input
-                v-model="loginForm.password"
-                type="password"
-                show-password
-                autocomplete="off"
-                clearable
-                placeholder="密碼："
-                class="mt-[20px]"
-                @keyup.enter="submitForm(loginFormRef)" />
-            </el-form-item>
-            <div class="flex gap-4 justify-center items-center mt-5">
-              <span
-                class="text-sm text-gray-600 hover:text-orange-300 hover:font-bold cursor-pointer"
-                @click="router.push({ name: 'home' })"
-                >網站首頁</span
-              >
-              <span class="text-base">|</span>
-              <span
-                class="text-sm text-gray-600 hover:text-orange-300 hover:font-bold cursor-pointer"
-                @click="sigin = !sigin"
-                >會員註冊</span
-              >
-            </div>
-            <div class="flex">
-              <el-form-item>
-                <el-button type="primary" @click="submitForm(loginFormRef)">登入</el-button>
-              </el-form-item>
-              <el-form-item>
-                <el-button
-                  type="primary"
-                  @click=";(loginForm.account = 'admin'), (loginForm.password = '123456')"
-                  >測試帳號</el-button
-                >
-              </el-form-item>
-            </div>
-          </el-form>
+          <form-login title="用戶登入" :fields="userLoginForm" :model="loginForm" type="login">
+            <template #button>
+              <div class="flex gap-4 justify-center items-center mt-5">
+                <span class="other" @click="router.push({ name: 'home' })">網站首頁</span>
+                <span class="text-base">|</span>
+                <span class="other" @click="sigin = !sigin">會員註冊</span>
+              </div>
+            </template>
+          </form-login>
         </div>
 
         <div class="container" :class="{ sigin }">
-          <el-form
-            ref="RegisterFormRef"
+          <form-login
+            title="用戶登入"
+            :fields="userRegisterForm"
             :model="RegiserForm"
-            status-icon
-            :rules="rules"
-            class="form">
-            <h1>註冊帳號</h1>
-            <el-form-item prop="name">
-              <el-input
-                v-model="RegiserForm.name"
-                autocomplete="off"
-                clearable
-                placeholder="名稱：" />
-            </el-form-item>
-            <el-form-item prop="account">
-              <el-input
-                v-model="RegiserForm.account"
-                autocomplete="off"
-                clearable
-                placeholder="帳號："
-                class="mt-[15px]" />
-            </el-form-item>
-            <el-form-item prop="password">
-              <el-input
-                v-model="RegiserForm.password"
-                type="password"
-                show-password
-                autocomplete="off"
-                clearable
-                placeholder="密碼："
-                class="mt-[15px]" />
-            </el-form-item>
-            <el-form-item>
-              <el-input
-                v-model="RegiserForm.token"
-                autocomplete="off"
-                clearable
-                placeholder="邀請碼"
-                class="mt-[15px]" />
-            </el-form-item>
-            <div class="flex gap-4 justify-center items-center mt-5">
-              <span
-                class="text-sm text-gray-600 hover:text-orange-300 hover:font-bold cursor-pointer"
-                @click="router.push({ name: 'home' })"
-                >網站首頁</span
-              >
-              <span class="text-base">|</span>
-              <span
-                class="text-sm text-gray-600 hover:text-orange-300 hover:font-bold cursor-pointer"
-                >找回密碼</span
-              >
-              <span class="text-base">|</span>
-              <span
-                class="text-sm text-gray-600 hover:text-orange-300 hover:font-bold cursor-pointer"
-                @click="sigin = !sigin"
-                >帳號登入</span
-              >
-            </div>
-            <el-form-item>
-              <el-button type="primary" @click="submitRegisterForm(RegisterFormRef)"
-                >註冊</el-button
-              >
-            </el-form-item>
-          </el-form>
+            type="register">
+            <template #button>
+              <div class="flex gap-4 justify-center items-center mt-5">
+                <span class="other" @click="router.push({ name: 'home' })">網站首頁</span>
+                <span class="text-base">|</span>
+                <span class="other">找回密碼</span>
+                <span class="text-base">|</span>
+                <span class="other" @click="sigin = !sigin">帳號登入</span>
+              </div>
+            </template>
+          </form-login>
         </div>
       </div>
     </div>
@@ -133,66 +43,23 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInstance, FormRules } from 'element-plus'
+import type { FormInstance } from 'element-plus'
 import type { ILoginData, IRegisterData } from '../../apis/userApi'
-import { userStores } from '@/stores/userStore'
 import router from '@/router'
+import { userLoginForm, userRegisterForm } from '@/config/form'
 
-class InitData {
-  loginForm: ILoginData = {
-    account: 'a596116',
-    password: '123456',
-  }
-  RegiserForm: IRegisterData = {
-    account: '',
-    password: '',
-    name: '',
-    token: '',
-  }
-  loginFormRef = ref<FormInstance>()
-  RegisterFormRef = ref<FormInstance>()
-}
+const sigin = ref(false) //false->login | true->register
 
-const sigin = ref(false)
-const loginForm = reactive(new InitData().loginForm)
-const RegiserForm = reactive(new InitData().RegiserForm)
-const loginFormRef = new InitData().loginFormRef
-const RegisterFormRef = new InitData().RegisterFormRef
-
-const rules = reactive<FormRules>({
-  account: [
-    { required: true, message: '請輸入電子信箱', trigger: 'blur' },
-    { min: 5, max: 24, message: '帳號長度在 5 到 24 之間', trigger: 'blur' },
-  ],
-  password: [
-    { required: true, message: '請輸入密碼', trigger: 'blur' },
-    { min: 5, max: 12, message: '密碼長度在 5 到 12 之間', trigger: 'blur' },
-  ],
-  name: [
-    { required: true, message: '請輸入名稱', trigger: 'blur' },
-    { min: 1, max: 10, message: '名稱在1到10個字', trigger: 'blur' },
-  ],
+const loginForm = reactive<ILoginData>({
+  account: 'a596116',
+  password: '123456',
 })
-
-const userStore = userStores()
-const submitForm = async (formEl: FormInstance | undefined) => {
-  await formEl?.validate((valid: boolean) => {
-    if (valid) {
-      userStore.login(loginForm)
-    }
-  })
-}
-const submitRegisterForm = async (formEl: FormInstance | undefined) => {
-  await formEl?.validate((valid: boolean) => {
-    if (valid) {
-      if (RegiserForm.token == '890621') {
-        userStore.createUser(RegiserForm)
-      } else {
-        ElMessage.error('認證碼錯誤')
-      }
-    }
-  })
-}
+const RegiserForm = reactive<IRegisterData>({
+  account: '',
+  password: '',
+  name: '',
+  token: '',
+})
 </script>
 
 <style scoped lang="scss">
@@ -248,7 +115,7 @@ section {
       }
 
       &:nth-child(4) {
-        @apply top-[-80px] left-[800px] w-[50px] h-[50px];
+        @apply top-[450px] left-[80px] w-[50px] h-[50px];
       }
 
       &:nth-child(5) {
@@ -273,6 +140,10 @@ section {
         transform: rotateY(0deg);
         transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
 
+        .other {
+          @apply text-sm text-gray-600 hover:text-orange-300 hover:font-bold cursor-pointer;
+        }
+
         &.sigin {
           transform: rotateY(-180deg);
         }
@@ -288,74 +159,6 @@ section {
             transform: rotateY(0deg);
           }
         }
-
-        .el-form {
-          @apply relative w-full h-full p-[40px];
-
-          h1 {
-            @apply relative text-hd-black1 text-[24px] font-semibold mb-[40px];
-            letter-spacing: 1px;
-
-            &::before {
-              @apply content-[''] absolute left-0 bottom-[-10px] w-[80px] h-[4px] bg-hd-black1;
-            }
-          }
-
-          .el-input {
-            @apply w-full border-0 outline-none px-[20px] py-[10px] rounded-[35px] text-base;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-right: 1px solid rgba(255, 255, 255, 0.2);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            letter-spacing: 1px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-
-            ::placeholder {
-              color: var(--hd-black1) !important;
-            }
-            :deep(.el-input__suffix-inner) {
-              @apply text-green-500;
-            }
-          }
-
-          .el-button {
-            @apply bg-white text-black rounded-[20px] mt-[40px] px-[50px] py-[8px] border-0 font-black cursor-pointer relative text-center overflow-hidden;
-            letter-spacing: 8px;
-
-            &::before,
-            &::after {
-              @apply absolute top-0 left-0 w-full h-full;
-            }
-
-            &::before {
-              @apply content-[''] w-[120%] h-0 pb-[120%] top-[-110%] left-[-10%] rounded-[50%];
-              background: #90d0ec86;
-              transform: translate3d(0, 68%, 0) scale3d(0, 0, 0);
-            }
-
-            &:after {
-              content: '';
-              background: #90d0ec86;
-              transform: translate3d(0, -100%, 0);
-              transition: transform 0.4s cubic-bezier(0.1, 0, 0.3, 1);
-            }
-
-            &:hover span {
-              animation: MoveScaleUpInitial 0.3s forwards, MoveScaleUpEnd 0.3s forwards 0.3s;
-            }
-
-            &:hover::before {
-              transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-              transition: transform 0.4s cubic-bezier(0.1, 0, 0.3, 1);
-            }
-
-            &:hover::after {
-              transform: translate3d(0, 0, 0);
-              transition-duration: 0.05s;
-              transition-delay: 0.4s;
-              transition-timing-function: linear;
-            }
-          }
-        }
       }
     }
   }
@@ -369,25 +172,6 @@ section {
 
   50% {
     transform: translateY(40px);
-  }
-}
-
-@keyframes MoveScaleUpInitial {
-  to {
-    transform: translate3d(0, -105%, 0) scale3d(1, 2, 1);
-    opacity: 0;
-  }
-}
-
-@keyframes MoveScaleUpEnd {
-  from {
-    transform: translate3d(0, 100%, 0) scale3d(1, 2, 1);
-    opacity: 0;
-  }
-
-  to {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
   }
 }
 </style>

@@ -1,9 +1,14 @@
 <template>
   <div>
-    <form-list :fields="userForm" :model="user" class="flex-1">
+    <form-list
+      ref="formRef"
+      :fields="userForm"
+      :model="user"
+      :form-rules="userInfoFormRules"
+      class="flex-1">
       <template #image>
-        <div class="w-[200px] flex items-center">
-          <section class="bg-hd-theme-color" @click="avatarDialog = true">
+        <div class="flex items-center">
+          <section class="w-[200px] bg-hd-theme-color" @click="avatarDialog = true">
             <el-image
               :src="userStore.info?.avatar ? userStore.info?.avatar : '/img/haodai.png'"
               fit="cover"
@@ -14,7 +19,7 @@
         <member-editor-avatar v-model="avatarDialog" :user="user!" />
       </template>
       <template #button>
-        <el-button type="primary" @click="save">儲存</el-button>
+        <el-button type="primary" @click="save()">儲存</el-button>
       </template>
     </form-list>
   </div>
@@ -24,6 +29,7 @@
 import { userForm } from '@/config/form'
 import { dataStores } from '@/stores/dataStore'
 import { userStores } from '@/stores/userStore'
+import { userInfoFormRules } from '@/config/formRules'
 import _ from 'lodash'
 const userStore = userStores()
 const dataStore = dataStores()
@@ -31,11 +37,16 @@ const user = ref(_.cloneDeep(userStore.info))
 
 const avatarDialog = ref(false)
 
-const save = () => {
-  dataStore.update('user', user.value?.id!, user.value).then(() => {
-    setTimeout(() => {
-      window.location.reload()
-    }, 1000)
+const formRef = ref()
+const save = async () => {
+  await formRef.value.formRef.validate((valid: boolean) => {
+    if (valid) {
+      dataStore.update('user', user.value?.id!, user.value).then(() => {
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
+      })
+    }
   })
 }
 </script>
