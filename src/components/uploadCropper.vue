@@ -43,7 +43,7 @@ import { dataStores } from '@/stores/dataStore'
 import dataApi from '@/apis/dataApi'
 import { msg } from '@/utils/msg'
 
-const { fileName, columnName, folder, type, id, url } = defineProps<{
+const { fileName, columnName, folder, type, id } = defineProps<{
   fileName: string
   columnName: string
   folder: string
@@ -91,7 +91,7 @@ const handleAvatarSuccess: UploadProps['onChange'] = (response, uploadFile: any)
 
 const sub = ref(async () => {
   if (imageUrl.value == '') {
-    ElMessage.error('沒添加照片')
+    msg('沒添加照片')
   }
   let formData = new FormData()
   cropper.value?.getCropBlob(async (data: Blob) => {

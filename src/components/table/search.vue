@@ -14,16 +14,18 @@
         </template>
 
         <template v-else-if="col.type == 'radio'">
-          <el-radio-group v-model="filterPermission">
-            <el-radio label="浩呆">浩呆</el-radio>
-            <el-radio label="admin">admin</el-radio>
-            <el-radio label="user">user</el-radio>
+          <el-radio-group v-model="filterRadio">
+            <el-radio v-for="(item, index) in col.options" :key="index" :label="item">{{
+              item
+            }}</el-radio>
           </el-radio-group>
         </template>
         <template v-else-if="col.type == 'select'">
-          <el-select v-model="filterActive" clearable class="ml-1 border rounded-md w-[100px]">
-            <el-option label="true" value="1" />
-            <el-option label="fales" value="0" />
+          <el-select v-model="filterSelect" clearable class="ml-1 border rounded-md w-[100px]">
+            <el-option
+              v-for="item in col.options"
+              :label="Object.keys(item)[0]"
+              :value="((Object.values(item)[0]) as string|number)" />
           </el-select>
         </template>
       </section>
@@ -59,18 +61,18 @@ const dataStore = dataStores()
 // 查詢條件
 
 const searchInput = ref((useRoute().query['s'] as string) || '')
-const filterPermission = ref((useRoute().query['m'] as string) || '') // 篩選權限
-const filterActive = ref((useRoute().query['a'] as string) || '') // 篩選權限
+const filterRadio = ref((useRoute().query['m'] as string) || '') // 篩選權限
+const filterSelect = ref((useRoute().query['a'] as string) || '') // 篩選權限
 const search = () => {
   let list = {} as any
   if (searchInput.value) {
     list.s = searchInput.value
   }
-  if (filterPermission.value) {
-    list.m = filterPermission.value
+  if (filterRadio.value) {
+    list.m = filterRadio.value
   }
-  if (filterActive.value) {
-    list.a = filterActive.value
+  if (filterSelect.value) {
+    list.a = filterSelect.value
   }
   router.push({
     query: { ...route.query, ...list },
@@ -80,9 +82,9 @@ const search = () => {
 
 // 清除查詢條件
 const reset = () => {
-  filterActive.value = ''
+  filterSelect.value = ''
   searchInput.value = ''
-  filterPermission.value = ''
+  filterRadio.value = ''
   dataStore.order = ''
   router.push({ query: {} })
   dataStore.query = {}

@@ -3,45 +3,9 @@
     <el-dialog
       title=""
       destroy-on-close
-      :model-value="props.modelValue"
+      :model-value="modelValue!"
       custom-class="dialog"
       @close="close">
-      <!-- <div class="flex justify-center">
-        <div v-if="imageUrl" class="w-[400px] h-[400px]">
-          <vue-cropper
-            ref="cropper"
-            :img="imageUrl"
-            :output-size="option.size"
-            :output-type="option.outputType"
-            :info="true"
-            :full="option.full"
-            :can-move="option.canMove"
-            :can-move-box="option.canMoveBox"
-            :fixed-box="option.fixedBox"
-            :original="option.original"
-            :auto-crop="option.autoCrop"
-            :auto-crop-width="option.autoCropWidth"
-            :auto-crop-height="option.autoCropHeight"
-            :center-box="option.centerBox"
-            :fixed="true"
-            :high="option.high"
-            mode="cover"
-            :max-img-size="option.max" />
-          <div class="flex justify-end">
-            <a href="javascript:;" class="text-2xl" @click="imageUrl = ''">x</a>
-          </div>
-        </div>
-        <el-upload
-          v-else
-          class="upload"
-          action="#"
-          :show-file-list="false"
-          :auto-upload="false"
-          :on-change="handleAvatarSuccess">
-          <icon-plus theme="outline" size="30" />
-        </el-upload>
-      </div> -->
-
       <upload-cropper
         ref="uploadRef"
         :column-name="columnName"
@@ -49,6 +13,7 @@
         folder="user"
         type="update"
         :id="user?.id" />
+
       <template #footer>
         <span>
           <el-button @click="close">取消</el-button>
@@ -60,24 +25,15 @@
 </template>
 
 <script setup lang="ts">
-import { userStores } from '@/stores/userStore'
-
-export interface IProps {
+const { modelValue, user } = defineProps<{
   modelValue?: boolean
-  userId?: number
-}
-const props = withDefaults(defineProps<IProps>(), {
-  modelValue: false,
-  userId: 0,
-})
+  user: IUser
+}>()
 const emit = defineEmits(['update:modelValue'])
 
 const uploadRef = ref(null) as any
 
-const userStore = userStores()
-
 const columnName = 'avatar'
-const user = userStore.info
 
 const close = () => {
   emit('update:modelValue', false)

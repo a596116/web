@@ -2,8 +2,8 @@ export type formColumnsType = {
   title: string
   name: string
   error_name?: string
-  type?: 'input' | 'textarea' | 'image' | 'preview' | 'radio' | 'checkbox'
-  options?: Record<keyof any, any>
+  type?: 'input' | 'textarea' | 'image' | 'preview' | 'radio' | 'checkbox' | 'tag'
+  options?: any
   readonly?: boolean
   disabled?: boolean
   placeholder?: string
@@ -12,7 +12,7 @@ export type formColumnsType = {
 
 // 用戶編輯表單
 export const userEditForm = [
-  { title: '名稱', name: 'name', type: 'input' },
+  { title: '名稱', name: 'name', type: 'input', readonly: true },
   {
     title: '權限', name: 'permissions', type: 'checkbox',
     options: ['浩呆', 'admin', 'user'],
@@ -20,22 +20,20 @@ export const userEditForm = [
 ] as formColumnsType[]
 // 用戶表單
 export const userForm = [
-  { title: '昵称', name: 'name' },
-  { title: '邮箱', name: 'email' },
+  { title: '名稱', name: 'name' },
+  { title: '帳號', name: 'account' },
+  { title: '密碼', name: 'password' },
   {
-    title: '性别',
-    name: 'sex',
-    type: 'radio',
-    options: [
-      ['男', 1],
-      ['女', 2],
-    ],
+    title: '權限',
+    name: 'permissions',
+    type: 'tag',
+    options: {
+      浩呆: '#fdcb6e',
+      admin: '#6ec7a2',
+      user: '#75cdd8',
+    }
   },
-  { title: '手机号', name: 'mobile' },
-  { title: '真实姓名', name: 'real_name' },
-  { title: '头像', name: 'avatar', type: 'preview' },
-  { title: '主页', name: 'home' },
-  { title: '注册时间', name: 'created_at' },
+  { title: '註冊時間', name: 'createdAt', readonly: true },
 ] as formColumnsType[]
 
 //系统配置

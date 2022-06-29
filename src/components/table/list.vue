@@ -13,7 +13,7 @@
         :fixed="col.fixed || false"
         :prop="col.prop"
         :key="col.prop"
-        :label="col.label"
+        :label="col.title"
         :width="col.width"
         :align="col.align"
         #default="{ row }">
@@ -78,9 +78,9 @@
     <Dialog
       v-model="dialogVisible"
       title="用戶資料"
-      @before-close="changePermissions"
+      @before-close="changeEditor"
       @change-close="dialogVisible = false"
-      @change-sub="changePermissions">
+      @change-sub="changeEditor">
       <template #default>
         <form-list :fields="editForm" :model="editData" />
       </template>
@@ -94,10 +94,11 @@ import { ElMessageBox } from 'element-plus'
 import { ElTable } from 'element-plus'
 import type { tableColumnsType } from '@/config/table'
 
-const { columns, tableName, editForm } = defineProps<{
+const { columns, tableName, editForm, permission } = defineProps<{
   tableName: string
   columns: tableColumnsType[]
   editForm: any
+  permission?: string
 }>()
 
 const dataStore = dataStores()
@@ -135,7 +136,7 @@ const changeSwitch = (data: any, prop: string) => {
     .then(() => {
       let s = {} as any
       s[prop] = data[prop] == '1' ? '0' : '1'
-      dataStore.update(tableName, data.id, s)
+      dataStore.update(tableName, data.id, s, permission)
     })
     .catch(() => {
       if (data[prop] == '1') {
@@ -155,8 +156,8 @@ const edit = async (id: number) => {
   editId.value = id
   dialogVisible.value = true
 }
-const changePermissions = async () => {
-  dataStore.update(tableName, editId.value!, editData.value)
+const changeEditor = async () => {
+  dataStore.update(tableName, editId.value!, editData.value, permission)
   dialogVisible.value = false
 }
 </script>

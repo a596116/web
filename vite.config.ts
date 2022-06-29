@@ -33,8 +33,8 @@ export default ({ command }: ConfigEnv): any => {
     },
     terserOptions: {
       compress: {
-        drop_console: true,
-        drop_debugger: true,
+        // drop_console: true,
+        // drop_debugger: true,
       },
     },
     server: {
@@ -46,7 +46,7 @@ export default ({ command }: ConfigEnv): any => {
           rewrite: (path: any) => path.replace(/^\/api/, ""),
         }
       },
-      cors: true
+      // cors: true
     }
   }
 }

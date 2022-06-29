@@ -43,10 +43,12 @@ export const dataStores = defineStore({
             return getdoc.exists() ? getdoc.data() : null
         },
         // (更新資料) 
-        async update<T>(table: string, id: number, obj: T) {
-            if (!this.userStore.info?.permissions['p'].includes('浩呆')) {
-                msg('權限不足', 'error')
-                return
+        async update<T>(table: string, id: number, obj: T, permission?: string) {
+            if (permission) {
+                if (!this.userStore.info?.permissions['p'].includes(permission)) {
+                    msg('權限不足', 'error')
+                    return
+                }
             }
             await dataApi.update(table, id, obj)
                 .then(async (res) => {

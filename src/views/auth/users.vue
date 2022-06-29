@@ -2,7 +2,11 @@
   <div>
     <table-search :columns="userSearchForm"> </table-search>
 
-    <table-list :columns="userTableColumns" table-name="user" :edit-form="userEditForm">
+    <table-list
+      :columns="userTableColumns"
+      table-name="user"
+      :edit-form="userEditForm"
+      permission="浩呆">
     </table-list>
   </div>
 </template>
