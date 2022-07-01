@@ -14,7 +14,9 @@
       </el-form-item>
       <slot name="button"></slot>
       <el-form-item>
-        <el-button type="primary" @click="submitForm(FormRef)">註冊</el-button>
+        <el-button type="primary" @click="submitForm(FormRef)">{{
+          type == 'login' ? '登入' : '註冊'
+        }}</el-button>
       </el-form-item>
     </el-form>
   </div>

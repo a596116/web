@@ -41,7 +41,7 @@
       </el-menu-item>
     </div>
 
-    <div class="menubottom" @click="router.push({ name: 'hd' })">
+    <div class="menubottom" @click="router.push({ name: 'home' })">
       <icon-home-two theme="outline" size="24" class="hidden md:block" />
       <div class="m-2 md:m-4 md:pr-6">首頁</div>
     </div>

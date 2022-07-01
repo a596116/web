@@ -1,7 +1,6 @@
 import type { App } from 'vue'
 import { setupPinia } from '../plugins/pinia'
 import setupIconPark from "../plugins/iconpark"
-import { db } from "./firebase"
 
 import './tailwindcss/tailwindcss.css'
 import 'animate.css'

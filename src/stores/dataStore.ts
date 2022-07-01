@@ -1,7 +1,5 @@
 import dataApi from "@/apis/dataApi"
 import { msg } from "@/utils/msg"
-import { collection, addDoc, setDoc, doc, getDocs, getDoc, onSnapshot, query, updateDoc, where, deleteDoc, type DocumentData, } from "firebase/firestore"
-import { db } from "../plugins/firebase"
 import { userStores } from "./userStore"
 
 export const dataStores = defineStore({
@@ -26,11 +24,6 @@ export const dataStores = defineStore({
             } else {
                 msg('失敗')
             }
-        },
-        // (獲取單筆資料) 
-        async get(name: string, id: string): Promise<DocumentData | null> {
-            const getdoc = await getDoc(doc(db, name, id))
-            return getdoc.exists() ? getdoc.data() : null
         },
         // (更新資料) 
         async update<T>(table: string, id: number, obj: T, permission?: string) {

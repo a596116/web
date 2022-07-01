@@ -10,9 +10,11 @@
         @click.middle="menuStore.removeHistoryMenu(link)">
         <router-link :to="{ name: link.route }">{{ link.title }} </router-link>
 
-        <div @click="menuStore.removeHistoryMenu(link)">
-          <i class="fas fa-times text-base ml-2 cursor-pointer hover:text-orange-800 z-20"></i>
-        </div>
+        <icon-close
+          @click="menuStore.removeHistoryMenu(link)"
+          theme="outline"
+          size="16"
+          class="ml-2 cursor-pointer hover:text-hd-black1" />
       </div>
     </div>
   </div>
