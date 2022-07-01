@@ -33,6 +33,16 @@
             </el-tag>
           </template>
         </template>
+        <template v-else-if="col.type === 'preview'">
+          <el-button type="primary" size="default" @click="showPreview(row, col.prop)"
+            >123</el-button
+          >
+        </template>
+        <template v-else-if="col.type === 'category'">
+          <el-tag class="mx-1 !border-0" :color="col.options[row[col.prop]]" effect="dark">
+            {{ row[col.prop] }}
+          </el-tag>
+        </template>
         <template v-else-if="col.type === 'switch'">
           <el-switch
             :model-value="row[col.prop]"
@@ -55,17 +65,20 @@
         :sort-orders="['ascending', 'descending']" />
 
       <!-- 操作列 -->
-      <el-table-column :width="120" #default="{ row }" align="center" fixed="right">
-        <el-popover placement="left" :width="0">
-          <template #reference>
-            <el-button>操作</el-button>
-          </template>
-          <button
-            @click="edit(row.id)"
-            class="!bg-green-200 !text-white hover:!bg-green-300 w-[60px] flex justify-center items-center rounded-sm text-base py-1">
-            編輯
-          </button>
-        </el-popover>
+      <el-table-column
+        :width="buttonColumnWidth"
+        #default="{ row }"
+        v-if="buttons"
+        align="center"
+        fixed="right">
+        <el-button-group>
+          <el-button
+            :type="item.type || 'default'"
+            v-for="(item, key) in buttons"
+            @click="emit('action', row, item.command)">
+            {{ item.title }}
+          </el-button>
+        </el-button-group>
       </el-table-column>
     </el-table>
 
@@ -74,17 +87,9 @@
       <table-pagination layout="total, prev, pager, next"> </table-pagination>
     </div>
 
-    <!-- Dialog -->
-    <Dialog
-      v-model="dialogVisible"
-      title="用戶資料"
-      @before-close="changeEditor"
-      @change-close="dialogVisible = false"
-      @change-sub="changeEditor">
-      <template #default>
-        <form-list :fields="editForm" :model="editData" />
-      </template>
-    </Dialog>
+    <el-dialog v-model="previewVisible" title="" custom-class="dialog">
+      <div class="" v-html="html"></div>
+    </el-dialog>
   </div>
 </template>
 
@@ -92,13 +97,17 @@
 import { dataStores } from '@/stores/dataStore'
 import { ElMessageBox } from 'element-plus'
 import { ElTable } from 'element-plus'
-import type { tableColumnsType } from '@/config/table'
+import type { tableButtonType, tableColumnsType } from '@/config/table'
 
-const { columns, tableName, editForm, permission } = defineProps<{
+const { columns, tableName, buttons, permission } = defineProps<{
   tableName: string
   columns: tableColumnsType[]
-  editForm: any
+  buttons?: tableButtonType[]
   permission?: string
+}>()
+
+const emit = defineEmits<{
+  (e: 'action', model: any, command: string): void
 }>()
 
 const dataStore = dataStores()
@@ -146,20 +155,30 @@ const changeSwitch = (data: any, prop: string) => {
       }
     })
 }
+const previewVisible = ref(false)
+const html = ref()
+const showPreview = (row: any, col: any) => {
+  previewVisible.value = true
+  html.value = row[col]
+}
 
-// 修改資料
-const dialogVisible = ref(false)
-const editId = ref<number>()
-const editData = ref()
-const edit = async (id: number) => {
-  editData.value = dataStore.data.filter((item) => item.id == id)[0] as any
-  editId.value = id
-  dialogVisible.value = true
-}
-const changeEditor = async () => {
-  dataStore.update(tableName, editId.value!, editData.value, permission)
-  dialogVisible.value = false
-}
+// 按鈕寬度
+let buttonColumnWidth = computed(() => {
+  if (buttons?.length) {
+    return (
+      [...buttons].reduce((width: number, btn: tableButtonType) => {
+        return (width += btn.title.length * 15 + 32)
+      }, 0) + 24
+    )
+  }
+})
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+:deep(.dialog) {
+  @apply w-11/12 md:w-[800px] h-[80%]  mt-24;
+}
+:deep(.el-dialog__body) {
+  @apply p-0 px-3;
+}
+</style>

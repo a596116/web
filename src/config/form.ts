@@ -2,7 +2,7 @@ export type formColumnsType = {
   title: string
   name: string
   error_name?: string
-  type?: 'input' | 'textarea' | 'image' | 'preview' | 'radio' | 'checkbox' | 'tag' | 'password'
+  type?: 'input' | 'textarea' | 'image' | 'preview' | 'radio' | 'checkbox' | 'tag' | 'password' | 'select'
   options?: any
   readonly?: boolean
   disabled?: boolean
@@ -15,6 +15,7 @@ export const userLoginForm = [
   { title: '帳號', name: 'account', placeholder: '帳號' },
   { title: '密碼', name: 'password', type: 'password', placeholder: '密碼' },
 ] as formColumnsType[]
+
 // 用戶註冊表單
 export const userRegisterForm = [
   { title: '暱稱', name: 'name', placeholder: '暱稱' },
@@ -22,6 +23,7 @@ export const userRegisterForm = [
   { title: '密碼', name: 'password', type: 'password', placeholder: '密碼' },
   { title: '驗證碼', name: 'token', placeholder: '驗證碼' },
 ] as formColumnsType[]
+
 // 用戶編輯表單
 export const userEditForm = [
   { title: '名稱', name: 'name', type: 'input', readonly: true },
@@ -30,6 +32,7 @@ export const userEditForm = [
     options: ['浩呆', 'admin', 'user'],
   },
 ] as formColumnsType[]
+
 // 用戶表單
 export const userForm = [
   { title: '名稱', name: 'name' },
@@ -46,6 +49,20 @@ export const userForm = [
     }
   },
   { title: '註冊時間', name: 'createdAt', readonly: true },
+] as formColumnsType[]
+
+
+
+/**
+ * 新增表單區
+ * content和image不用寫,其他需要填寫的要放
+ **/
+// Blog新增表單
+export const blogForm = [
+  { title: '標題', name: 'title', type: 'input' },
+  { title: '圖片', name: 'image' },
+  { title: '文章', name: 'content' },
+  { title: '類別', name: 'category', options: ['HTML', 'JS', 'CSS'], type: 'select' },
 ] as formColumnsType[]
 
 //系统配置

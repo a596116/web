@@ -1,6 +1,11 @@
 <template>
   <div class="animate-list">
-    <TransitionGroup :tag="props.tag" appear name="article" @before-enter="beforeEnter" @enter="enter">
+    <TransitionGroup
+      :tag="props.tag"
+      appear
+      name="article"
+      @before-enter="beforeEnter"
+      @enter="enter">
       <slot />
     </TransitionGroup>
   </div>

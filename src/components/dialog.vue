@@ -4,6 +4,7 @@
       :model-value="props.modelValue"
       :title="props.title"
       custom-class="dialog"
+      destroy-on-close
       :before-close="handleClose"
       @close="emit('update:modelValue', false)">
       <slot></slot>

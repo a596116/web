@@ -1,6 +1,6 @@
 <template>
   <div>
-    <WangEditor v-model="content" />
+    <WangEditor v-model="content" folder="user" />
   </div>
 </template>
 

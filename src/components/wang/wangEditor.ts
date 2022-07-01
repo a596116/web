@@ -9,6 +9,7 @@ export default class {
     this.editor.config.onchange = callback
     this.editor.config.uploadImgHooks = this.uploadImage()
 
+
     this.editor.create()
 
     this.editor.txt.html(config.modelValue)

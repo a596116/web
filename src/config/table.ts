@@ -3,7 +3,7 @@ export type tableColumnsType = {
   title: string
   width?: number
   align?: 'left' | 'center' | 'right'
-  type?: 'image' | 'date' | 'input' | 'tag' | 'alert' | 'switch'
+  type?: 'image' | 'date' | 'input' | 'tag' | 'alert' | 'switch' | 'preview' | 'category'
   options: any
   search?: boolean
   fixed?: boolean
@@ -17,9 +17,8 @@ export type tableButtonType = {
 
 export const userTableColumns = [
   { prop: 'id', title: 'ID', align: 'center', width: 80 },
-  { prop: 'name', title: '名稱', search: true, width: 120 },
-  { prop: 'avatar', title: '頭像', type: 'image', align: 'center', width: 120 },
-  { prop: 'active', title: '狀態', type: 'switch', align: 'center', width: 80 },
+  { prop: 'name', title: '名稱', align: 'center' },
+  { prop: 'active', title: '狀態', type: 'switch', align: 'center', width: 100 },
   {
     prop: 'permissions',
     title: '權限',
@@ -31,16 +30,22 @@ export const userTableColumns = [
       user: '#75cdd8',
     },
   },
+  { prop: 'avatar', title: '頭像', type: 'image', align: 'center', width: 140 },
 ] as tableColumnsType[]
 
-export const moduleTableColumns = [
-  { prop: 'id', title: '编号', width: 80, align: 'center' },
-  { prop: 'title', title: '模块名称', search: true },
-  { prop: 'name', title: '标识', search: true },
-  { prop: 'author', title: '作者', search: true },
-  { prop: 'version', title: '版本号' },
-  { prop: 'preview', title: '预览图', type: 'image', width: 80, align: 'center' },
-  { prop: 'created_at', title: '创建时间', type: 'date', width: 120 },
+export const blogTableColumns = [
+  { prop: 'id', title: '編號', width: 80, align: 'center' },
+  { prop: 'title', title: '標題', align: 'center' },
+  { prop: 'content', title: '文章', width: 160, align: 'center', type: 'preview' },
+  {
+    prop: 'category', title: '類別', align: 'center', type: 'category',
+    options: {
+      HTML: '#ff6b6b',
+      JS: '#feca57',
+      CSS: '#54a0ff',
+    }
+  },
+  { prop: 'image', title: '封面', width: 140, align: 'center', type: 'image' },
 ] as tableColumnsType[]
 
 export const roleTableColumns = [

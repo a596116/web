@@ -16,7 +16,13 @@
             </el-image>
           </section>
         </div>
-        <member-editor-avatar v-model="avatarDialog" :user="user!" />
+        <upload-img
+          v-model="avatarDialog"
+          :id="user!.id"
+          :file-name="user!.name"
+          column-name="avatar"
+          folder="user"
+          type="update" />
       </template>
       <template #button>
         <el-button type="primary" @click="save()">儲存</el-button>

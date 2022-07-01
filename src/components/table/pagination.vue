@@ -19,7 +19,7 @@ const router = useRouter()
 const route = useRoute()
 const dataStore = dataStores()
 // el-pagination
-const pageSize = 3
+const pageSize = 5
 const currentPage = ref((useRoute().query['p'] as string) || '1')
 const page = ref(parseInt(currentPage.value))
 

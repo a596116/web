@@ -1,38 +1,59 @@
 <template>
-  <div class="flex justify-center">
-    <div v-if="imageUrl" class="w-[400px] h-[400px]">
-      <vue-cropper
-        ref="cropper"
-        :img="imageUrl"
-        :output-size="option.size"
-        :output-type="option.outputType"
-        :info="true"
-        :full="option.full"
-        :can-move="option.canMove"
-        :can-move-box="option.canMoveBox"
-        :fixed-box="option.fixedBox"
-        :original="option.original"
-        :auto-crop="option.autoCrop"
-        :auto-crop-width="option.autoCropWidth"
-        :auto-crop-height="option.autoCropHeight"
-        :center-box="option.centerBox"
-        :fixed="true"
-        :high="option.high"
-        mode="cover"
-        :max-img-size="option.max" />
-      <div class="flex justify-end">
-        <a href="javascript:;" class="text-2xl" @click="imageUrl = ''">x</a>
+  <div>
+    <el-dialog
+      title=""
+      destroy-on-close
+      :model-value="modelValue!"
+      custom-class="dialog"
+      @close="close">
+      <div v-if="imageUrl" class="w-[400px] h-[400px]">
+        <vue-cropper
+          ref="cropper"
+          :img="imageUrl"
+          :output-size="option.size"
+          :output-type="option.outputType"
+          :info="true"
+          :full="option.full"
+          :can-move="option.canMove"
+          :can-move-box="option.canMoveBox"
+          :fixed-box="option.fixedBox"
+          :original="option.original"
+          :auto-crop="option.autoCrop"
+          :auto-crop-width="option.autoCropWidth"
+          :auto-crop-height="option.autoCropHeight"
+          :center-box="option.centerBox"
+          :fixed="true"
+          :high="option.high"
+          mode="cover"
+          :max-img-size="option.max" />
+        <div class="flex justify-end">
+          <a href="javascript:;" class="text-2xl" @click="imageUrl = ''">x</a>
+        </div>
       </div>
-    </div>
-    <el-upload
-      v-else
-      class="upload"
-      action="#"
-      :show-file-list="false"
-      :auto-upload="false"
-      :on-change="handleAvatarSuccess">
-      <icon-plus theme="outline" size="30" />
-    </el-upload>
+      <el-upload
+        v-else
+        class="upload"
+        action="#"
+        :show-file-list="false"
+        :auto-upload="false"
+        :on-change="handleAvatarSuccess">
+        <icon-plus theme="outline" size="30" />
+      </el-upload>
+      <!-- <upload-cropper
+        ref="uploadRef"
+        :column-name="columnName"
+        :file-name="user?.name!"
+        folder="user"
+        type="update"
+        :id="user?.id" /> -->
+
+      <template #footer>
+        <span>
+          <el-button @click="close">取消</el-button>
+          <el-button type="primary" @click="sub">確定</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -42,8 +63,8 @@ import { VueCropper } from 'vue-cropper'
 import { dataStores } from '@/stores/dataStore'
 import dataApi from '@/apis/dataApi'
 import { msg } from '@/utils/msg'
-
 const {
+  modelValue,
   fileName,
   columnName,
   folder,
@@ -51,6 +72,7 @@ const {
   id,
   size = '400',
 } = defineProps<{
+  modelValue?: boolean
   fileName: string
   columnName: string
   folder: string
@@ -60,15 +82,15 @@ const {
   size?: string
 }>()
 const emit = defineEmits<{
+  (e: 'update:modelValue', d: boolean): void
   (e: 'update:url', d: string): void
 }>()
 
 const dataStore = dataStores()
 
-const uploadSize = `${size}px`
-
 // 上傳照片
 const imageUrl = ref('')
+const uploadSize = `${size}px`
 
 const cropper = ref<typeof VueCropper>()
 const option = ref({
@@ -99,7 +121,11 @@ const handleAvatarSuccess: UploadProps['onChange'] = (response, uploadFile: any)
   imageUrl.value = URL.createObjectURL(uploadFile.pop().raw)
 }
 
-const sub = ref(async () => {
+const close = () => {
+  emit('update:modelValue', false)
+}
+
+const sub = async () => {
   if (imageUrl.value == '') {
     msg('沒添加照片')
   }
@@ -115,16 +141,23 @@ const sub = ref(async () => {
         updateData[columnName] = res.data.url
         await dataStore.update(folder, id!, updateData)
       }
+      close()
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000)
     } else {
       //如果是新增資料,返回地址(父要傳url)
       emit('update:url', res.data.url)
+      close()
     }
   })
-})
-defineExpose({ sub })
+}
 </script>
 
 <style scoped lang="scss">
+:deep(.dialog) {
+  @apply w-full md:max-w-[500px] h-[600px] flex flex-col justify-between items-center;
+}
 :deep(.upload .el-upload) {
   @apply flex justify-center items-center rounded-md cursor-pointer relative overflow-hidden;
   width: v-bind(uploadSize);

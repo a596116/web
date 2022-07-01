@@ -29,14 +29,13 @@
     border-color: transparent !important;
     color: #fff !important;
   }
-  &:hover,
   &.el-button--primary:not(.is-text):hover {
     background-color: var(--hd-theme-hover-color) !important;
     border-color: transparent !important;
     color: #fff !important;
   }
   &:focus {
-    border-color: var(--hd-theme-hover-color) !important;
+    border-color: transparent !important;
     color: var(--hd-white) !important;
   }
 }
