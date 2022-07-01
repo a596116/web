@@ -32,8 +32,10 @@ class userApi {
   blogList<T>(query?: any) {
     const p = query.p || 1 // 頁數
     const o = query.o ? `&o=${query.o}` : '' // 排序
+    const s = query.s ? `&s=${query.s}` : ''  // 搜索
+    const m = query.m ? `&m=${query.m}` : ''  //單選條件radio
     return http.request<Data<T>>({
-      url: `data/blog/${p}?${o}`,
+      url: `data/blog/${p}?${o}${s}${m}`,
     })
   }
 

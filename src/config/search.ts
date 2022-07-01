@@ -9,7 +9,7 @@ export type searchColumnsType = {
     value?: any
 }
 
-// 用戶編輯表單
+// 用戶
 export const userSearchForm = [
     { title: '用戶姓名', name: 'name', type: 'input' },
     {
@@ -22,5 +22,14 @@ export const userSearchForm = [
     {
         title: '用戶權限', name: 'permissions', type: 'radio',
         options: ['浩呆', 'admin', 'user'],
+    },
+] as searchColumnsType[]
+
+// blog
+export const blogSearchForm = [
+    { title: '標題', name: 'title', type: 'input' },
+    {
+        title: '類別', name: 'category', type: 'radio',
+        options: ['HTML', 'JS', 'CSS'],
     },
 ] as searchColumnsType[]

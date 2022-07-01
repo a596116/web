@@ -36,7 +36,7 @@ export const userEditForm = [
 // 用戶表單
 export const userForm = [
   { title: '名稱', name: 'name' },
-  { title: '帳號', name: 'account' },
+  { title: '帳號', name: 'account', readonly: true },
   { title: '密碼', name: 'password' },
   {
     title: '權限',

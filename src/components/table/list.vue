@@ -34,9 +34,7 @@
           </template>
         </template>
         <template v-else-if="col.type === 'preview'">
-          <el-button type="primary" size="default" @click="showPreview(row, col.prop)"
-            >123</el-button
-          >
+          <el-button type="info" @click="showPreview(row, col.prop)">預覽</el-button>
         </template>
         <template v-else-if="col.type === 'category'">
           <el-tag class="mx-1 !border-0" :color="col.options[row[col.prop]]" effect="dark">
