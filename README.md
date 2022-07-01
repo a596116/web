@@ -24,8 +24,30 @@
 ## 啓動項目
 ! 需搭配後端啟動 -> https://github.com/a596116/server
 
-1. 使用`npm install`下載依賴，然後執行`npm run dev`即可啓動項目
-2. 訪問http://127.0.0.1:3000/可以打開前端展示頁。
+安裝依賴包
+
+```
+//npm
+npm install
+
+//yarn 
+yarn 
+
+//pnpm
+pnpm install
+```
+運行項目
+
+```
+//npm
+npm run dev
+
+//yarn 
+yarn dev 
+
+//pnpm
+pnpm dev
+```
 
 ## 預覽
 
