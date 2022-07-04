@@ -12,7 +12,7 @@ export const routes = [
     {
         path: '/maplestory',
         name: 'maplestory',
-        component: () => import('../layout/maplestory.vue'),
+        component: () => import('../views/Music/music.vue'),
     },
     {
         path: '/admin',

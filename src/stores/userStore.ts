@@ -101,11 +101,5 @@ export const userStores = defineStore({
       router.push('/')
       msg('退出登入')
     },
-
-    // 更新使用者資料
-    updateUserInfo(obj: any) {
-    },
-
-
   },
 })
