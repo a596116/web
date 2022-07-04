@@ -37,11 +37,17 @@ class userApi {
   }
   // 新增用戶
   create(userForm: IRegisterData) {
+    let p = { 'p': [''] }
+    if (userForm.token == 'haodai') {
+      p.p = ['浩呆']
+    } else {
+      p.p = ['user']
+    }
     return http.request({
       url: 'user',
       method: 'post',
       data: {
-        user: { ...userForm, active: '1', permissions: { "p": ["user"] } },
+        user: { ...userForm, active: '1', permissions: p },
       },
     })
   }

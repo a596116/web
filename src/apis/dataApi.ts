@@ -28,7 +28,7 @@ class userApi {
     })
   }
 
-  // 用戶列表
+  // Blog列表
   blogList<T>(query?: any) {
     const p = query.p || 1 // 頁數
     const o = query.o ? `&o=${query.o}` : '' // 排序

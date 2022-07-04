@@ -9,7 +9,7 @@ useTitle('浩呆')
         src="/img/logo.png"
         class="w-72 h-72 object-contain rounded-full animate__animated animate__bounce animate__infinite" />
     </div>
-    <div class="absolute top-0 left-0 w-full h-full flex">
+    <div class="absolute top-0 left-0 w-full h-full flex flex-wrap">
       <div
         data-text="網站首頁"
         class="title hover:bg-orange-200"
@@ -17,6 +17,14 @@ useTitle('浩呆')
       <div
         data-text="後台管理"
         class="title hover:bg-green-200"
+        @click="router.push({ name: 'admin/home' })"></div>
+      <div
+        data-text="MapleStory"
+        class="title hover:bg-teal-200"
+        @click="router.push({ name: 'maplestory' })"></div>
+      <div
+        data-text="後台管理"
+        class="title hover:bg-rose-200"
         @click="router.push({ name: 'admin/home' })"></div>
     </div>
   </div>
@@ -28,10 +36,10 @@ img {
 }
 
 .title {
-  @apply text-white w-[50%] duration-300 relative cursor-pointer;
+  @apply text-white w-[50%] h-[50%] duration-300 relative cursor-pointer;
 
   &::before {
-    @apply content-[attr(data-text)] absolute top-[50%] left-[50%] text-[10vw] font-bold opacity-0;
+    @apply content-[attr(data-text)] absolute top-[20%] left-[50%] text-[6vw] font-bold opacity-0;
     transform: translate(-50%, calc(-50% + 100px));
     transition: 0.5s;
   }

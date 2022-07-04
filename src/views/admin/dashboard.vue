@@ -33,7 +33,6 @@ import * as icons from '@icon-park/vue-next'
 import { echartStores } from '@/stores/echartStore'
 import { store } from '@/utils'
 import { CacheEnum } from '@/enum/cacheEnum'
-import { Data } from '@icon-park/vue-next'
 
 const echartStore = echartStores()
 const dashboard = ref()

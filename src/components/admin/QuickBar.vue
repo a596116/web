@@ -35,11 +35,11 @@ const quickList = ref<IQuick[]>([
     show: userStore?.info?.permissions['p'].includes('浩呆') as boolean,
   },
   {
-    title: '菜單管理',
-    icon: 'ApplicationMenu',
+    title: 'Blog',
+    icon: 'Book',
     iconColor: 'text-[#6a89cc]',
-    route: 'error/404',
-    show: true,
+    route: 'admin/blog',
+    show: userStore?.info?.permissions['p'].includes('admin') as boolean,
   },
   {
     title: '庫存數據',

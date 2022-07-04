@@ -1,7 +1,7 @@
 import type { Plugin } from 'vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { ElementPlusResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers'
 
 // 自動導入包，模塊
 export const autoImport = (plugin: Plugin[]) => {
@@ -25,7 +25,14 @@ export const autoImport = (plugin: Plugin[]) => {
             dts: 'types/auto-imports.d.ts',
         }),
         Components({
-            resolvers: [ElementPlusResolver()],
+            resolvers: [
+                ElementPlusResolver(),
+                VueUseComponentsResolver(),
+                (componentName) => {
+                    if (componentName.startsWith('Icon')) {
+                        return { name: componentName.slice(4), from: '@icon-park/vue-next' }
+                    }
+                }],
             dirs: ['src/components'],
             // 組件名稱包含目錄， 防止同名組件衝突
             directoryAsNamespace: true,

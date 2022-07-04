@@ -13,6 +13,7 @@ export const dataStores = defineStore({
     }),
     actions: {
         init() {
+            this.data = []
             this.order = (useRoute().query['o'] as string || '') // 排序規則
             this.query = (useRoute().query as any || '') // 篩選權限
         },

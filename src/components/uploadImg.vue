@@ -123,6 +123,7 @@ const handleAvatarSuccess: UploadProps['onChange'] = (response, uploadFile: any)
 
 const close = () => {
   emit('update:modelValue', false)
+  imageUrl.value = ''
 }
 
 const sub = async () => {
@@ -150,6 +151,7 @@ const sub = async () => {
       emit('update:url', res.data.url)
       close()
     }
+    imageUrl.value = ''
   })
 }
 </script>

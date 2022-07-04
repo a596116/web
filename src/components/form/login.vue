@@ -40,7 +40,6 @@ const FormRef = ref<FormInstance>()
 
 const userStore = userStores()
 const submitForm = async (formEl: FormInstance | undefined) => {
-  console.log(formEl)
   if (type == 'login') {
     await formEl?.validate((valid: boolean) => {
       if (valid) {
@@ -50,7 +49,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   } else if (type == 'register') {
     await formEl?.validate((valid: boolean) => {
       if (valid) {
-        if (model.token == '890621') {
+        if (model.token == '890621' || model.token == 'haodai') {
           userStore.createUser(model)
         } else {
           ElMessage.error('認證碼錯誤')
