@@ -28,11 +28,9 @@ class userApi {
   // 登入
   login(loginForm: ILoginData) {
     return http.request<Login>({
-      url: 'login',
-      method: 'post',
-      data: {
-        user: loginForm,
-      },
+      url: 'auth/login',
+      method: 'POST',
+      data: loginForm,
     })
   }
   // 新增用戶

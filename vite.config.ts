@@ -38,14 +38,15 @@ export default ({ command }: ConfigEnv): any => {
       },
     },
     server: {
+      port: 8000,
       // base: "./ ", //生产环境路径
-      proxy: {
-        '/api': {
-          target: 'http://103.61.139.237:7001',
-          changeOrigin: true,
-          rewrite: (path: any) => path.replace(/^\/api/, ""),
-        }
-      },
+      // proxy: {
+      //   '/api': {
+      //     target: 'http://localhost:3000',
+      //     changeOrigin: true,
+      //     rewrite: (path: any) => path.replace(/^\/api/, ""),
+      //   }
+      // },
       // cors: true
     }
   }

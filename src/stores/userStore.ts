@@ -42,10 +42,14 @@ export const userStores = defineStore({
     },
     // 登入帳號
     async login(loginForm: ILoginData) {
-      await userApi.login(loginForm)
+      const user = {
+        account: `${loginForm.account}@gmail.com`,
+        password: loginForm.password
+      }
+      await userApi.login(user)
         .then(async (token) => {
           if (token.code == 20000) {
-            store.set(CacheEnum.TOKEN_NAME, token.data)
+            store.set(CacheEnum.TOKEN_NAME, token.data.token)
             const routeName = store.get(CacheEnum.REDIRECT_ROUTE_NAME) ?? 'home'
             await this.permissionlist()
             if (this.info?.active == '1') { //檢查用戶狀態
