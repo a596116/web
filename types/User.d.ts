@@ -13,4 +13,5 @@ interface IUser {
 
 interface Login {
     token: string
+    userAccount: string
 }

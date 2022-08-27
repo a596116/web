@@ -16,7 +16,7 @@ class userApi {
   // 用戶資訊
   info() {
     return http.request<IUser>({
-      url: `user/info/${store.get(CacheEnum.TOKEN_NAME)}`,
+      url: `user/info?account=${store.get(CacheEnum.USER_NAME)}`,
     })
   }
   // 用戶列表
@@ -43,7 +43,7 @@ class userApi {
     return http.request({
       url: 'auth/regist',
       method: 'post',
-      data: userForm
+      data: { ...userForm, active: '1' }
     })
     // let p = { 'p': [''] }
     // if (userForm.token == 'haodai') {
@@ -51,13 +51,6 @@ class userApi {
     // } else {
     //   p.p = ['user']
     // }
-    // return http.request({
-    //   url: 'user',
-    //   method: 'post',
-    //   data: {
-    //     user: { ...userForm, active: '1', permissions: p },
-    //   },
-    // })
   }
 
   update(id: string, data: IUser) {

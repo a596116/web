@@ -1,7 +1,7 @@
 export const userLoginFormRules = {
     account: [
         { required: true, message: '請輸入帳號', trigger: 'blur' },
-        { min: 5, max: 24, message: '帳號長度在 5 到 24 之間', trigger: 'blur' },
+        { min: 4, max: 24, message: '帳號長度在 5 到 24 之間', trigger: 'blur' },
     ],
     password: [
         { required: true, message: '請輸入密碼', trigger: 'blur' },
@@ -19,7 +19,7 @@ export const userInfoFormRules = {
     ],
     account: [
         { required: true, message: '請輸入帳號', trigger: 'blur' },
-        { min: 5, max: 24, message: '帳號長度在 5 到 24 之間', trigger: 'blur' },
+        { min: 4, max: 24, message: '帳號長度在 5 到 24 之間', trigger: 'blur' },
     ],
     password: [
         { required: true, message: '請輸入密碼', trigger: 'blur' },

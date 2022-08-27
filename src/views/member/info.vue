@@ -10,7 +10,7 @@
         <div class="flex items-center">
           <section class="w-[200px] bg-hd-theme-color" @click="avatarDialog = true">
             <el-image
-              :src="userStore.info?.avatar ? userStore.info?.avatar : '/img/haodai.png'"
+              :src="userStore.info?.avatar !== '0' ? userStore.info?.avatar : '/img/haodai.png'"
               fit="cover"
               class="user_avatar">
             </el-image>

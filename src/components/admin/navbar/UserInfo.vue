@@ -3,7 +3,7 @@
     <el-dropdown class="">
       <div class="w-full flex justify-center items-center">
         <img
-          :src="userStore.info?.avatar ? userStore.info?.avatar : '/img/haodai.png'"
+          :src="userStore.info?.avatar !== '0' ? userStore.info?.avatar : '/img/haodai.png'"
           class="logo1 w-8 h-8 rounded-full object-cover" />
         <span class="mx-2 text-hd-black w-full text-base">
           {{ userStore.info?.name }}

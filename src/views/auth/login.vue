@@ -43,13 +43,11 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInstance } from 'element-plus'
 import type { ILoginData, IRegisterData } from '../../apis/userApi'
 import router from '@/router'
 import { userLoginForm, userRegisterForm } from '@/config/form'
-import userApi from '../../apis/userApi'
 
-const sigin = ref(true) //false->login | true->register
+const sigin = ref(false) //false->login | true->register
 
 const loginForm = reactive<ILoginData>({
   account: 'a596116',

@@ -73,12 +73,6 @@ const submitForm = async (formEl: FormInstance | undefined) => {
             ElMessage.error('認證碼錯誤')
           }
         })
-
-        // if (model.token == '890621' || model.token == 'haodai') {
-        // userStore.registUser(model)
-        // } else {
-        // ElMessage.error('認證碼錯誤')
-        // }
       }
     })
   }

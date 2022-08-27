@@ -9,11 +9,14 @@ import userApi from '@/apis/userApi'
 export const userStores = defineStore({
   id: 'user',
   state: () => ({
-    info: { permissions: { 'p': [] } } as null | IUser,
+    info: {} as null | IUser,
   }),
 
   actions: {
-    // 獲取用戶資訊
+    /**
+     * 獲取用戶資訊
+     * @date 2022-08-27
+     */
     async getUserInfo() {
       return new Promise(async (resolve) => {
         await userApi.info()
@@ -31,77 +34,67 @@ export const userStores = defineStore({
           })
       })
     },
-    // 添加需權限的路由
+
+    /**
+     * 添加需權限的路由
+     * @date 2022-08-27
+     */
     async permissionlist() {
       await this.getUserInfo()
       permissionList.forEach((r) => {
-        if (this.info?.permissions['p'].includes(r.meta?.permission!)) {
+        if (this.info?.permissions.split(',').includes(r.meta?.permission!)) {
           router.addRoute(r.meta!.page!.name, r)
         }
       })
     },
-    // 登入帳號
+
+    /**
+     * 登入帳號
+     * @date 2022-08-27
+     */
     async login(loginForm: ILoginData) {
       const user = {
         account: `${loginForm.account}@gmail.com`,
         password: loginForm.password
       }
       await userApi.login(user)
-        .then(async (token) => {
-
-          if (token.code == 20000) {
-            store.set(CacheEnum.TOKEN_NAME, token.data.token)
+        .then(async (res) => {
+          if (res.code == 20000) {
+            store.set(CacheEnum.TOKEN_NAME, res.data.token)
+            store.set(CacheEnum.USER_NAME, res.data.userAccount)
             const routeName = store.get(CacheEnum.REDIRECT_ROUTE_NAME) ?? 'home'
-            // await this.permissionlist()
-            // if (this.info?.active == '1') { //檢查用戶狀態
-            //   router.push({ name: routeName })
-            //   msg(`歡迎${this.info?.name}`)
-            // } else {
-            //   store.remove(CacheEnum.TOKEN_NAME)
-            //   msg('您以被停權，請聯繫管理員', 'error')
-            // }
+            await this.permissionlist()
+            if (this.info?.active === '1') { //檢查用戶狀態
+              router.push({ name: routeName })
+              msg(`歡迎${this.info?.name}`)
+            } else {
+              store.remove(CacheEnum.TOKEN_NAME, CacheEnum.USER_NAME)
+              msg('您以被停權，請聯繫管理員', 'error')
+            }
           } else {
             msg('帳號或密碼錯誤', 'error')
           }
         })
         .catch((err) => {
-          msg('帳號或密碼錯誤', 'error')
-          console.error(err)
+          msg(`登入發生錯誤，詳情-${err}`, 'error')
+          // console.error(err)
         })
     },
 
-    // 新增用戶
+    /**
+     * 新用戶註冊
+     * @date 2022-08-27
+     */
     async registUser(userForm: IRegisterData) {
-      await userApi.regist(userForm)
+      const user = { ...userForm, account: `${userForm.account}@gmail.com` }
+      await userApi.regist(user)
         .then(res => {
           if (res.code == 20000) {
-            this.login({ account: userForm.account, password: userForm.password })
+            this.login(userForm)
           } else {
             msg(`${res.code}:${res.message}`, 'error')
           }
         })
-      // await userApi.userList()
-      // .then(async (res) => {
-      //   const exist = res.data.findIndex((item: IUser) => {
-      //     return item.account == userForm.account
-      //   })
-      //   if (exist != -1) {
-      //     msg('此帳號已被使用', 'error')
-      //   } else {
-      //     await userApi.regist(userForm)
-      //       .then((res) => {
-      //         if (res.code == 20000) {
-      //           this.login({ account: userForm.account, password: userForm.password })
-      //         } else {
-      //           msg(res.message, 'error')
-      //         }
-      //       })
-      //       .catch((err) => {
-      //         msg(err, 'error')
-      //         console.error(err)
-      //       })
-      //   }
-      // })
     },
 
     // 退出登入
