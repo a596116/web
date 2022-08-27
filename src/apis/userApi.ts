@@ -25,7 +25,9 @@ class userApi {
       url: `user`,
     })
   }
-  // 登入
+  /**
+   * 用戶登入
+   */
   login(loginForm: ILoginData) {
     return http.request<Login>({
       url: 'auth/login',
@@ -33,21 +35,29 @@ class userApi {
       data: loginForm,
     })
   }
-  // 新增用戶
-  create(userForm: IRegisterData) {
-    let p = { 'p': [''] }
-    if (userForm.token == 'haodai') {
-      p.p = ['浩呆']
-    } else {
-      p.p = ['user']
-    }
+
+  /**
+   * 用戶註冊
+   */
+  regist(userForm: IRegisterData) {
     return http.request({
-      url: 'user',
+      url: 'auth/regist',
       method: 'post',
-      data: {
-        user: { ...userForm, active: '1', permissions: p },
-      },
+      data: userForm
     })
+    // let p = { 'p': [''] }
+    // if (userForm.token == 'haodai') {
+    //   p.p = ['浩呆']
+    // } else {
+    //   p.p = ['user']
+    // }
+    // return http.request({
+    //   url: 'user',
+    //   method: 'post',
+    //   data: {
+    //     user: { ...userForm, active: '1', permissions: p },
+    //   },
+    // })
   }
 
   update(id: string, data: IUser) {
@@ -61,6 +71,23 @@ class userApi {
   getUser(id: string) {
     return http.request<IUser>({
       url: `user/${id}`,
+    })
+  }
+
+  /**
+   * 獲取註冊驗證碼
+   */
+  captcha(id?: string) {
+    return http.request({
+      url: `auth/captcha/${id ? id : '-1'}`,
+    })
+  }
+
+  verify(captcha: { captcha: string, id: string }) {
+    return http.request({
+      method: 'POST',
+      url: 'auth/captcha',
+      data: captcha
     })
   }
 

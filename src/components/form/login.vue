@@ -11,6 +11,7 @@
           :type="f.type"
           @keyup.enter="submitForm(FormRef)"
           class="mt-[20px]" />
+        <div v-if="f.name == 'token'" v-html="captcha.img" @click="getNewCaptcha(captcha.id)"></div>
       </el-form-item>
       <slot name="button"></slot>
       <el-form-item>
@@ -27,6 +28,7 @@ import type { FormInstance, FormRules } from 'element-plus'
 import type { formColumnsType } from '@/config/form'
 import { userLoginFormRules } from '@/config/formRules'
 import { userStores } from '@/stores/userStore'
+import userApi from '@/apis/userApi'
 
 const { fields, model, title, type } = defineProps<{
   fields: formColumnsType[]
@@ -34,6 +36,17 @@ const { fields, model, title, type } = defineProps<{
   title: string
   type: string
 }>()
+
+const captcha = ref<any>({ id: '-1', img: '' })
+onMounted(() => {
+  getNewCaptcha()
+})
+
+const getNewCaptcha = (id?: string) => {
+  userApi.captcha(id).then((res) => {
+    captcha.value = res.message
+  })
+}
 
 const rules = reactive<FormRules>(userLoginFormRules)
 const FormRef = ref<FormInstance>()
@@ -49,11 +62,23 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   } else if (type == 'register') {
     await formEl?.validate((valid: boolean) => {
       if (valid) {
-        if (model.token == '890621' || model.token == 'haodai') {
-          userStore.createUser(model)
-        } else {
-          ElMessage.error('認證碼錯誤')
+        const cap = {
+          captcha: model.token,
+          id: captcha.value.id,
         }
+        userApi.verify(cap).then((res) => {
+          if (res.code === 20000) {
+            userStore.registUser(model)
+          } else {
+            ElMessage.error('認證碼錯誤')
+          }
+        })
+
+        // if (model.token == '890621' || model.token == 'haodai') {
+        // userStore.registUser(model)
+        // } else {
+        // ElMessage.error('認證碼錯誤')
+        // }
       }
     })
   }

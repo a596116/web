@@ -48,17 +48,18 @@ export const userStores = defineStore({
       }
       await userApi.login(user)
         .then(async (token) => {
+
           if (token.code == 20000) {
             store.set(CacheEnum.TOKEN_NAME, token.data.token)
             const routeName = store.get(CacheEnum.REDIRECT_ROUTE_NAME) ?? 'home'
-            await this.permissionlist()
-            if (this.info?.active == '1') { //檢查用戶狀態
-              router.push({ name: routeName })
-              msg(`歡迎${this.info?.name}`)
-            } else {
-              store.remove(CacheEnum.TOKEN_NAME)
-              msg('您以被停權，請聯繫管理員', 'error')
-            }
+            // await this.permissionlist()
+            // if (this.info?.active == '1') { //檢查用戶狀態
+            //   router.push({ name: routeName })
+            //   msg(`歡迎${this.info?.name}`)
+            // } else {
+            //   store.remove(CacheEnum.TOKEN_NAME)
+            //   msg('您以被停權，請聯繫管理員', 'error')
+            // }
           } else {
             msg('帳號或密碼錯誤', 'error')
           }
@@ -70,29 +71,37 @@ export const userStores = defineStore({
     },
 
     // 新增用戶
-    async createUser(userForm: IRegisterData) {
-      await userApi.userList()
-        .then(async (res) => {
-          const exist = res.data.findIndex((item: IUser) => {
-            return item.account == userForm.account
-          })
-          if (exist != -1) {
-            msg('此帳號已被使用', 'error')
+    async registUser(userForm: IRegisterData) {
+      await userApi.regist(userForm)
+        .then(res => {
+          if (res.code == 20000) {
+            this.login({ account: userForm.account, password: userForm.password })
           } else {
-            await userApi.create(userForm)
-              .then((res) => {
-                if (res.code == 20000) {
-                  this.login({ account: userForm.account, password: userForm.password })
-                } else {
-                  msg(res.message, 'error')
-                }
-              })
-              .catch((err) => {
-                msg(err, 'error')
-                console.error(err)
-              })
+            msg(`${res.code}:${res.message}`, 'error')
           }
         })
+      // await userApi.userList()
+      // .then(async (res) => {
+      //   const exist = res.data.findIndex((item: IUser) => {
+      //     return item.account == userForm.account
+      //   })
+      //   if (exist != -1) {
+      //     msg('此帳號已被使用', 'error')
+      //   } else {
+      //     await userApi.regist(userForm)
+      //       .then((res) => {
+      //         if (res.code == 20000) {
+      //           this.login({ account: userForm.account, password: userForm.password })
+      //         } else {
+      //           msg(res.message, 'error')
+      //         }
+      //       })
+      //       .catch((err) => {
+      //         msg(err, 'error')
+      //         console.error(err)
+      //       })
+      //   }
+      // })
     },
 
     // 退出登入
