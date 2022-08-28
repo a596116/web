@@ -21,7 +21,7 @@ export const userRegisterForm = [
   { title: '暱稱', name: 'name', placeholder: '暱稱' },
   { title: '帳號', name: 'account', placeholder: '帳號' },
   { title: '密碼', name: 'password', type: 'password', placeholder: '密碼' },
-  { title: '驗證碼', name: 'token', placeholder: '驗證碼' },
+  { title: '驗證碼', name: 'captcha', placeholder: '驗證碼' },
 ] as formColumnsType[]
 
 // 用戶編輯表單

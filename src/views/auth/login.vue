@@ -9,7 +9,12 @@
       <div class="square" style="--i: 4"></div>
       <div class="form-container">
         <div class="container" :class="{ sigin }">
-          <form-login title="用戶登入" :fields="userLoginForm" :model="loginForm" type="login">
+          <form-login
+            title="用戶登入"
+            :fields="userLoginForm"
+            :model="loginForm"
+            :rules="loginRules"
+            type="login">
             <template #button>
               <div class="flex gap-4 justify-center items-center mt-5">
                 <span class="other" @click="router.push({ name: 'home' })">網站首頁</span>
@@ -25,6 +30,7 @@
             title="用戶登入"
             :fields="userRegisterForm"
             :model="RegiserForm"
+            :rules="registRules"
             type="register">
             <template #button>
               <div class="flex gap-4 justify-center items-center mt-5">
@@ -46,11 +52,13 @@
 import type { ILoginData, IRegisterData } from '../../apis/userApi'
 import router from '@/router'
 import { userLoginForm, userRegisterForm } from '@/config/form'
+import type { FormRules } from 'element-plus'
+import { userLoginFormRules, userRegistFormRules } from '@/config/formRules'
 
 const sigin = ref(false) //false->login | true->register
 
 const loginForm = reactive<ILoginData>({
-  account: 'a596116',
+  account: 'admin',
   password: '123456',
 })
 const RegiserForm = reactive<IRegisterData>({
@@ -59,6 +67,8 @@ const RegiserForm = reactive<IRegisterData>({
   name: '',
   token: '',
 })
+const loginRules = reactive<FormRules>(userLoginFormRules)
+const registRules = reactive<FormRules>(userRegistFormRules)
 </script>
 
 <style scoped lang="scss">
@@ -88,7 +98,6 @@ section {
 
   .box {
     position: relative;
-
     .square {
       position: absolute;
       backdrop-filter: blur(5px);
@@ -121,7 +130,6 @@ section {
         @apply top-[-80px] left-[140px] w-[60px] h-[60px];
       }
     }
-
     .form-container {
       perspective: 900px;
       position: relative;
@@ -149,7 +157,7 @@ section {
 
         &:nth-child(2) {
           position: absolute;
-          top: 0;
+          top: -100px;
           left: 0;
           width: 100%;
           transform: rotateY(180deg);

@@ -4,6 +4,7 @@
       <h1>{{ title }}</h1>
       <el-form-item v-for="f of fields" :key="f.name" :prop="f.name">
         <el-input
+          v-if="f.name !== 'captcha'"
           v-model.trim="model[f.name]"
           :placeholder="f.placeholder"
           clearable
@@ -11,7 +12,16 @@
           :type="f.type"
           @keyup.enter="submitForm(FormRef)"
           class="mt-[20px]" />
-        <div v-if="f.name == 'token'" v-html="captcha.img" @click="getNewCaptcha(captcha.id)"></div>
+        <div v-else class="flex justify-center items-center">
+          <el-input
+            v-model.trim="model[f.name]"
+            :placeholder="f.placeholder"
+            clearable
+            maxlength="4"
+            @keyup.enter="submitForm(FormRef)"
+            class="mt-[20px]" />
+          <div v-html="captcha.img" @click="getNewCaptcha(captcha.id)"></div>
+        </div>
       </el-form-item>
       <slot name="button"></slot>
       <el-form-item>
@@ -24,17 +34,17 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInstance, FormRules } from 'element-plus'
+import type { FormInstance } from 'element-plus'
 import type { formColumnsType } from '@/config/form'
-import { userLoginFormRules } from '@/config/formRules'
 import { userStores } from '@/stores/userStore'
 import userApi from '@/apis/userApi'
 
-const { fields, model, title, type } = defineProps<{
+const { fields, model, title, type, rules } = defineProps<{
   fields: formColumnsType[]
   model: any
   title: string
   type: string
+  rules: any
 }>()
 
 const captcha = ref<any>({ id: '-1', img: '' })
@@ -43,12 +53,12 @@ onMounted(() => {
 })
 
 const getNewCaptcha = (id?: string) => {
+  model.captcha = ''
   userApi.captcha(id).then((res) => {
     captcha.value = res.message
   })
 }
 
-const rules = reactive<FormRules>(userLoginFormRules)
 const FormRef = ref<FormInstance>()
 
 const userStore = userStores()
@@ -63,7 +73,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     await formEl?.validate((valid: boolean) => {
       if (valid) {
         const cap = {
-          captcha: model.token,
+          captcha: model.captcha,
           id: captcha.value.id,
         }
         userApi.verify(cap).then((res) => {
