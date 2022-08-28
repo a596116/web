@@ -12,15 +12,15 @@
           :type="f.type"
           @keyup.enter="submitForm(FormRef)"
           class="mt-[20px]" />
-        <div v-else class="flex justify-center items-center">
+        <div v-else class="flex justify-center items-center w-full">
           <el-input
             v-model.trim="model[f.name]"
             :placeholder="f.placeholder"
             clearable
             maxlength="4"
             @keyup.enter="submitForm(FormRef)"
-            class="mt-[20px]" />
-          <div v-html="captcha.img" @click="getNewCaptcha(captcha.id)"></div>
+            class="!w-1/2" />
+          <div v-html="captcha.img" @click="getNewCaptcha(captcha.id)" class="w-1/2"></div>
         </div>
       </el-form-item>
       <slot name="button"></slot>
@@ -52,6 +52,10 @@ onMounted(() => {
   getNewCaptcha()
 })
 
+/**
+ * 獲取驗證碼
+ * @date 2022-08-28
+ */
 const getNewCaptcha = (id?: string) => {
   model.captcha = ''
   userApi.captcha(id).then((res) => {
@@ -62,6 +66,10 @@ const getNewCaptcha = (id?: string) => {
 const FormRef = ref<FormInstance>()
 
 const userStore = userStores()
+/**
+ * 提交表單
+ * @date 2022-08-28
+ */
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (type == 'login') {
     await formEl?.validate((valid: boolean) => {

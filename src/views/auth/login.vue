@@ -27,7 +27,7 @@
 
         <div class="container" :class="{ sigin }">
           <form-login
-            title="用戶登入"
+            title="用戶註冊"
             :fields="userRegisterForm"
             :model="RegiserForm"
             :rules="registRules"
@@ -55,7 +55,19 @@ import { userLoginForm, userRegisterForm } from '@/config/form'
 import type { FormRules } from 'element-plus'
 import { userLoginFormRules, userRegistFormRules } from '@/config/formRules'
 
-const sigin = ref(false) //false->login | true->register
+const sigin = ref(useRoute().name == 'login' ? false : true) //false->login | true->regist
+
+watch(
+  sigin,
+  () => {
+    if (sigin.value) {
+      router.push({ name: 'regist' })
+    } else {
+      router.push({ name: 'login' })
+    }
+  },
+  { immediate: true },
+)
 
 const loginForm = reactive<ILoginData>({
   account: 'admin',

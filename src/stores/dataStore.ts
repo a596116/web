@@ -63,8 +63,6 @@ export const dataStores = defineStore({
             const tableName = `${table}List`
             this.data = await dataApi[tableName](this.query)
                 .then((res: any) => {
-                    console.log(res)
-
                     if (res.code != 20000) {
                         msg('獲取資料失敗', 'error')
                         return []

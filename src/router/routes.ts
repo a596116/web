@@ -26,6 +26,12 @@ export const routes = [
         component: () => import('../views/auth/login.vue'),
         meta: { guest: true },
     },
+    {
+        path: '/regist',
+        name: 'regist',
+        component: () => import('../views/auth/login.vue'),
+        meta: { guest: true },
+    },
     // {
     //     path: '/:any(.*)',
     //     name: 'notFound',
