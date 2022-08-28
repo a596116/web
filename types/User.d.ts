@@ -4,7 +4,6 @@ interface IUser {
     account: string
     password: string
     avatar?: string
-    token: string
     active: string
     permissions: any
     createdAt: string

@@ -7,7 +7,7 @@ export interface Upload {
   name: string
   url: string
 }
-class userApi {
+class dataApi {
   // 修改資料data(table哪張表, id哪筆資料, data要修改的資料)
   update<T>(table: string, id: number, data: T) {
     return http.request({
@@ -24,7 +24,7 @@ class userApi {
     const m = query.m ? `&m=${query.m}` : ''  //單選條件radio
     const a = query.a ? `&a=${query.a}` : '' //select條件
     return http.request<Data<IUser>>({
-      url: `data/user/${p}?${o}${s}${m}${a}`,
+      url: `user`,
     })
   }
 
@@ -68,4 +68,4 @@ class userApi {
 
 }
 
-export default new userApi()
+export default new dataApi()

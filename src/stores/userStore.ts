@@ -42,7 +42,7 @@ export const userStores = defineStore({
     async permissionlist() {
       await this.getUserInfo()
       permissionList.forEach((r) => {
-        if (this.info?.permissions.split(',').includes(r.meta?.permission!)) {
+        if (this.info?.permissions.includes(r.meta?.permission!)) {
           router.addRoute(r.meta!.page!.name, r)
         }
       })
@@ -77,7 +77,7 @@ export const userStores = defineStore({
         })
         .catch((err) => {
           msg(`登入發生錯誤，詳情-${err}`, 'error')
-          // console.error(err)
+          console.error(err)
         })
     },
 

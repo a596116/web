@@ -27,7 +27,7 @@
             class="rounded-md" />
         </template>
         <template v-else-if="col.type === 'tag'">
-          <template v-for="(item, index) in row[col.prop]['p']!" :key="index">
+          <template v-for="(item, index) in row[col.prop]!" :key="index">
             <el-tag v-if="item" :color="col.options[item]" class="mx-1 !border-0" effect="dark">
               {{ item }}
             </el-tag>

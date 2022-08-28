@@ -3,9 +3,9 @@ import { http } from '@/plugins/axios'
 import { store } from '@/utils'
 
 export interface IRegisterData {
+  name: string
   account: string
   password: string
-  name: string
   token?: string
 }
 export interface ILoginData {
@@ -17,12 +17,6 @@ class userApi {
   info() {
     return http.request<IUser>({
       url: `user/info?account=${store.get(CacheEnum.USER_NAME)}`,
-    })
-  }
-  // 用戶列表
-  userList() {
-    return http.request<IUser[]>({
-      url: `user`,
     })
   }
   /**
@@ -43,14 +37,8 @@ class userApi {
     return http.request({
       url: 'auth/regist',
       method: 'post',
-      data: { ...userForm, active: '1' }
+      data: { ...userForm, active: '1', permissions: userForm.name === 'admin' ? 'admin,user' : 'user' }
     })
-    // let p = { 'p': [''] }
-    // if (userForm.token == 'haodai') {
-    //   p.p = ['浩呆']
-    // } else {
-    //   p.p = ['user']
-    // }
   }
 
   update(id: string, data: IUser) {

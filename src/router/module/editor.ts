@@ -13,7 +13,7 @@ export default {
       name: 'admin/wang',
       path: 'wang',
       component: () => import('@/views/editor/wang.vue'),
-      meta: { menu: { title: '富文本' }, permission: 'admin', number: 4 },
+      meta: { menu: { title: '富文本' }, permission: 'user', number: 4 },
     },
     {
       name: 'admin/markdown',

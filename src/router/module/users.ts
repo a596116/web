@@ -14,7 +14,7 @@ export default {
       path: 'users',
       component: () => import('@/views/auth/users.vue'),
       meta: {
-        menu: { title: '用戶', }, permission: '浩呆', number: 2
+        menu: { title: '用戶', }, permission: 'admin', number: 2
       },
     },
   ],

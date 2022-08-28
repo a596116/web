@@ -20,12 +20,12 @@
           class="flex-1">
           <el-form-item :label="f.title" v-for="f of fields" :key="f.name" :prop="f.name">
             <template v-if="f.type == 'checkbox'">
-              <el-checkbox-group v-model="model[f.name]['p']">
+              <el-checkbox-group v-model="model[f.name]">
                 <el-checkbox :label="val" v-for="val in f.options" />
               </el-checkbox-group>
             </template>
             <template v-else-if="f.type === 'tag'">
-              <template v-for="(item, index) in model[f.name]['p']" :key="index">
+              <template v-for="(item, index) in model[f.name]" :key="index">
                 <el-tag :color="f.options[item]" class="mx-1 !border-0" effect="dark">
                   {{ item }}
                 </el-tag>

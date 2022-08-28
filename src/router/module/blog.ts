@@ -13,7 +13,7 @@ export default {
             name: 'admin/blog',
             path: 'blog',
             component: () => import('@/views/article/blog.vue'),
-            meta: { menu: { title: 'Blog' }, number: 3, permission: 'admin' },
+            meta: { menu: { title: 'Blog' }, number: 3, permission: 'user' },
         },
         {
             name: 'admin/article',

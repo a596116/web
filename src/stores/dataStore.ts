@@ -29,7 +29,7 @@ export const dataStores = defineStore({
         // (更新資料) 
         async update<T>(table: string, id: number, obj: T, permission?: string) {
             if (permission) {
-                if (!this.userStore.info?.permissions['p'].includes(permission)) {
+                if (!this.userStore.info?.permissions.includes(permission)) {
                     msg('權限不足', 'error')
                     return
                 }
@@ -62,7 +62,9 @@ export const dataStores = defineStore({
         async getData(table: string) {
             const tableName = `${table}List`
             this.data = await dataApi[tableName](this.query)
-                .then((res) => {
+                .then((res: any) => {
+                    console.log(res)
+
                     if (res.code != 20000) {
                         msg('獲取資料失敗', 'error')
                         return []
