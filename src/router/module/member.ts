@@ -15,5 +15,11 @@ export default {
       component: () => import('@/views/member/info.vue'),
       meta: {},
     },
+    {
+      name: 'admin/member/password',
+      path: 'member/password',
+      component: () => import('@/views/member/password.vue'),
+      meta: {},
+    },
   ],
 } as { page: any, children: RouteRecordRaw[] }

@@ -1,13 +1,13 @@
 interface IUser {
-    id: number
+    id?: number
     name: string
     account: string
     password: string
     avatar?: string
     active: string
     permissions: any
-    createdAt: string
-    updatedAt: string
+    createdAt?: string
+    updatedAt?: string
 }
 
 interface Login {

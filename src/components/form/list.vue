@@ -42,14 +42,19 @@
                   class="w-[200px] rounded-sm" />
               </div>
             </template>
+            <template v-else-if="f.name === 'password'">
+              <el-button type="info" @click="router.push('password')">修改</el-button>
+            </template>
+
             <template v-else>
               <el-input
-                v-if="!f.readonly"
+                v-if="!f.readonly && f.name !== 'password'"
                 v-model.trim="model[f.name]"
                 :placeholder="f.placeholder"
                 :readonly="f.readonly"
                 :disabled="f.disabled"
                 class="border rounded-md" />
+
               <span v-else>{{ model[f.name] }}</span>
             </template>
           </el-form-item>
@@ -62,6 +67,7 @@
 
 <script setup lang="ts">
 import type { formColumnsType } from '@/config/form'
+import router from '@/router'
 import _ from 'lodash'
 const {
   fields,

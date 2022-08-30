@@ -6,7 +6,7 @@
       :columns="userTableColumns"
       table-name="user"
       :edit-form="userEditForm"
-      permission="浩呆"
+      permission="admin"
       @action="tableButtonAction"
       :buttons="[{ title: '編輯', command: 'edit', type: 'primary' }]">
     </table-list>
@@ -44,7 +44,7 @@ const tableButtonAction = async (model: IUser, command: string) => {
   }
 }
 const changeEditor = async () => {
-  dataStore.update('user', editData.value?.id!, editData.value, '浩呆')
+  dataStore.update('user', editData.value?.id!, editData.value, 'admin')
   dialogVisible.value = false
 }
 </script>

@@ -25,29 +25,32 @@
           type="update" />
       </template>
       <template #button>
-        <el-button type="primary" @click="save()">儲存</el-button>
+        <el-button type="primary" @click="alter()">儲存</el-button>
       </template>
     </form-list>
   </div>
 </template>
 
 <script setup lang="ts">
+import type { IAlterUser } from '@/apis/userApi'
 import { userForm } from '@/config/form'
-import { dataStores } from '@/stores/dataStore'
 import { userStores } from '@/stores/userStore'
 import { userInfoFormRules } from '@/config/formRules'
 import _ from 'lodash'
 const userStore = userStores()
-const dataStore = dataStores()
 const user = ref(_.cloneDeep(userStore.info))
 
 const avatarDialog = ref(false)
 
 const formRef = ref()
-const save = async () => {
+const alter = async () => {
   await formRef.value.formRef.validate((valid: boolean) => {
     if (valid) {
-      dataStore.update('user', user.value?.id!, user.value).then(() => {
+      const alterUser: IAlterUser = {
+        name: user.value?.name!,
+        account: user.value?.account!,
+      }
+      userStore.alterUser(alterUser).then(() => {
         setTimeout(() => {
           window.location.reload()
         }, 1000)

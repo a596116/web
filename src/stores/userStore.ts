@@ -1,4 +1,4 @@
-import type { ILoginData, IRegisterData } from '@/apis/userApi'
+import type { IAlterUser, ILoginUser, IRegisterUser } from '@/apis/userApi'
 import store from '@/utils/store'
 import router from '@/router'
 import { CacheEnum } from '@/enum/cacheEnum'
@@ -52,7 +52,7 @@ export const userStores = defineStore({
      * 登入帳號
      * @date 2022-08-27
      */
-    async login(loginForm: ILoginData) {
+    async login(loginForm: ILoginUser) {
       const user = {
         account: `${loginForm.account}@gmail.com`,
         password: loginForm.password
@@ -85,7 +85,7 @@ export const userStores = defineStore({
      * 新用戶註冊
      * @date 2022-08-27
      */
-    async registUser(userForm: IRegisterData) {
+    async registUser(userForm: IRegisterUser) {
       const user = { ...userForm, account: `${userForm.account}@gmail.com` }
       await userApi.regist(user)
         .then(res => {
@@ -97,7 +97,10 @@ export const userStores = defineStore({
         })
     },
 
-    // 退出登入
+    /**
+     * 用戶退出登入
+     * @date 2022-08-30
+     */
     logout() {
       permissionList.forEach((r) => {
         if (router.hasRoute(r.name!)) router.removeRoute(r.name!)
@@ -106,6 +109,21 @@ export const userStores = defineStore({
       this.info = null
       router.push('/')
       msg('退出登入')
+    },
+
+    async alterUser<T>(user: IAlterUser) {
+      await userApi.alterUserInfo(user)
+        .then(async (res) => {
+          if (res.code == 20000) {
+            msg('更新成功')
+          } else {
+            msg('更新失敗', 'error')
+          }
+        })
+        .catch((err) => {
+          msg('更新失敗', 'error')
+          console.error(err)
+        })
     },
   },
 })

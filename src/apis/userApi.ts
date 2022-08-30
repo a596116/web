@@ -2,16 +2,28 @@ import { CacheEnum } from '@/enum/cacheEnum'
 import { http } from '@/plugins/axios'
 import { store } from '@/utils'
 
-export interface IRegisterData {
+export interface IRegisterUser {
   name: string
   account: string
   password: string
   token?: string
 }
-export interface ILoginData {
+export interface ILoginUser {
   account: string
   password: string
 }
+
+export interface IAlterUser {
+  name: string
+  account: string
+}
+
+export interface IAlterUserPassword {
+  account: string
+  password: string
+  newPassword: string
+}
+
 class userApi {
   // 用戶資訊
   info() {
@@ -22,7 +34,7 @@ class userApi {
   /**
    * 用戶登入
    */
-  login(loginForm: ILoginData) {
+  login(loginForm: ILoginUser) {
     return http.request<Login>({
       url: 'auth/login',
       method: 'POST',
@@ -33,7 +45,7 @@ class userApi {
   /**
    * 用戶註冊
    */
-  regist(userForm: IRegisterData) {
+  regist(userForm: IRegisterUser) {
     return http.request({
       url: 'auth/regist',
       method: 'post',
@@ -41,11 +53,27 @@ class userApi {
     })
   }
 
-  update(id: string, data: IUser) {
+  /**
+   * 修改用戶資訊
+   * @date 2022-08-30
+   */
+  alterUserInfo(user: IAlterUser) {
     return http.request({
-      url: `user/${id}`,
-      method: 'put',
-      data,
+      url: `auth/alter`,
+      method: 'POST',
+      data: user,
+    })
+  }
+
+  /**
+   * 修改用戶密碼
+   * @date 2022-08-30
+   */
+  alterUserPassword(user: IAlterUserPassword) {
+    return http.request({
+      url: `auth/alterPassword`,
+      method: 'POST',
+      data: user,
     })
   }
 

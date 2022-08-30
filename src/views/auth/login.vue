@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ILoginData, IRegisterData } from '../../apis/userApi'
+import type { ILoginUser, IRegisterUser } from '../../apis/userApi'
 import router from '@/router'
 import { userLoginForm, userRegisterForm } from '@/config/form'
 import type { FormRules } from 'element-plus'
@@ -69,11 +69,11 @@ watch(
   { immediate: true },
 )
 
-const loginForm = reactive<ILoginData>({
+const loginForm = reactive<ILoginUser>({
   account: 'admin',
   password: '123456',
 })
-const RegiserForm = reactive<IRegisterData>({
+const RegiserForm = reactive<IRegisterUser>({
   account: '',
   password: '',
   name: '',

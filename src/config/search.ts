@@ -21,7 +21,7 @@ export const userSearchForm = [
     },
     {
         title: '用戶權限', name: 'permissions', type: 'radio',
-        options: ['浩呆', 'admin', 'user'],
+        options: ['admin', 'user'],
     },
 ] as searchColumnsType[]
 

@@ -29,23 +29,28 @@ export const userEditForm = [
   { title: '名稱', name: 'name', type: 'input', readonly: true },
   {
     title: '權限', name: 'permissions', type: 'checkbox',
-    options: ['浩呆', 'admin', 'user'],
+    options: ['admin', 'user'],
   },
+] as formColumnsType[]
+
+export const userPasswordAlterForm = [
+  { title: '舊密碼', name: 'password' },
+  { title: '新密碼', name: 'newPassword' },
 ] as formColumnsType[]
 
 // 用戶表單
 export const userForm = [
   { title: '名稱', name: 'name' },
-  { title: '帳號', name: 'account', readonly: true },
+  { title: '帳號', name: 'account' },
   { title: '密碼', name: 'password' },
   {
     title: '權限',
     name: 'permissions',
     type: 'tag',
     options: {
-      浩呆: '#fdcb6e',
-      admin: '#6ec7a2',
-      user: '#75cdd8',
+      admin: '#fdcb6e',
+      user: '#6ec7a2',
+      other: '#75cdd8',
     }
   },
   { title: '註冊時間', name: 'createdAt', readonly: true },
