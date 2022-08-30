@@ -12,13 +12,13 @@ export default {
     {
       name: 'admin/member/info',
       path: 'member/info',
-      component: () => import('@/views/member/info.vue'),
+      component: () => import('@/views/member/layout.vue'),
       meta: {},
     },
     {
       name: 'admin/member/password',
       path: 'member/password',
-      component: () => import('@/views/member/password.vue'),
+      component: () => import('@/views/member/layout.vue'),
       meta: {},
     },
   ],

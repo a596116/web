@@ -28,7 +28,7 @@
             class="border rounded-md" />
         </el-form-item>
       </el-form>
-      <el-button type="primary" @click="alterPassword">修改</el-button>
+      <el-button type="primary" @click="alterPassword">確認</el-button>
     </el-card>
   </div>
 </template>
@@ -38,7 +38,6 @@ import { userPasswordAlterForm } from '@/config/form'
 import { userStores } from '@/stores/userStore'
 import { userPasswordAlterFormRules } from '@/config/formRules'
 import userApi from '@/apis/userApi'
-import router from '@/router'
 const userStore = userStores()
 const userPassword = ref<any>({})
 

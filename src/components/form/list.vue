@@ -43,7 +43,7 @@
               </div>
             </template>
             <template v-else-if="f.name === 'password'">
-              <el-button type="info" @click="router.push('password')">修改</el-button>
+              <el-button type="info" @click="router.push('password')">修改密碼</el-button>
             </template>
 
             <template v-else>
