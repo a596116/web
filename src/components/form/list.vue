@@ -8,7 +8,7 @@
         flexDirection: 'column',
         justifyContent: 'center',
       }">
-      <div class="flex">
+      <div class="flex flex-wrap">
         <slot name="image"></slot>
         <el-form
           ref="formRef"

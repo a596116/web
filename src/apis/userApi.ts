@@ -100,6 +100,17 @@ class userApi {
     })
   }
 
+  uploadAvatar(data: FormData, folder: string, id: number) {
+    return http.request({
+      url: `data/upload/${folder}/${id}`,
+      method: 'post',
+      data,
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    })
+  }
+
 }
 
 export default new userApi()

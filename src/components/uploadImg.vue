@@ -63,6 +63,7 @@ import { VueCropper } from 'vue-cropper'
 import { dataStores } from '@/stores/dataStore'
 import dataApi from '@/apis/dataApi'
 import { msg } from '@/utils/msg'
+import userApi from '@/apis/userApi'
 const {
   modelValue,
   fileName,
@@ -76,7 +77,7 @@ const {
   fileName: string
   columnName: string
   folder: string
-  type: 'update' | 'create'
+  type: 'update' | 'create' | 'avatar'
   id?: number
   url?: string
   size?: string
@@ -133,24 +134,37 @@ const sub = async () => {
   let formData = new FormData()
   cropper.value?.getCropBlob(async (data: Blob) => {
     const file = new File([data], `${fileName}.jpg`, { type: 'image/jpg' })
-    formData.append('file', file)
-    const res = await dataApi.upload(formData, folder)
-    if (type == 'update') {
-      //如果是更新資料,直接update
-      if (res.code == 20000) {
-        let updateData = {} as any
-        updateData[columnName] = res.data.url
-        await dataStore.update(folder, id!, updateData)
-      }
-      close()
-      setTimeout(() => {
-        window.location.reload()
-      }, 1000)
-    } else {
-      //如果是新增資料,返回地址(父要傳url)
-      emit('update:url', res.data.url)
-      close()
+    formData.append(folder, file)
+    const res = await dataApi.upload(formData, folder, id!)
+    if (type === 'avatar') {
+      await userApi.uploadAvatar(formData, folder, id!).then((res) => {
+        if (res.code === 20000) {
+          ElMessage.success(res.message)
+          setTimeout(() => {
+            window.location.reload()
+          }, 1000)
+        } else {
+          ElMessage.warning('上傳失敗')
+        }
+        close()
+      })
     }
+    // if (type == 'update') {
+    //   //如果是更新資料,直接update
+    //   if (res.code == 20000) {
+    //     let updateData = {} as any
+    //     updateData[columnName] = res.data.url
+    //     await dataStore.update(folder, id!, updateData)
+    //   }
+    //   close()
+    //   setTimeout(() => {
+    //     window.location.reload()
+    //   }, 1000)
+    // } else {
+    //   //如果是新增資料,返回地址(父要傳url)
+    //   emit('update:url', res.data.url)
+    //   close()
+    // }
     imageUrl.value = ''
   })
 }

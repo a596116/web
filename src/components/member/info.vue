@@ -21,8 +21,8 @@
           :id="user!.id"
           :file-name="user!.name"
           column-name="avatar"
-          folder="user"
-          type="update" />
+          folder="avatar"
+          type="avatar" />
       </template>
       <template #button>
         <el-button type="primary" @click="alter()">儲存</el-button>

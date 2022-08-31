@@ -42,7 +42,7 @@ export const userStores = defineStore({
     async permissionlist() {
       await this.getUserInfo()
       permissionList.forEach((r) => {
-        if (this.info?.permissions.includes(r.meta?.permission!)) {
+        if (this.info?.permissions?.includes(r.meta?.permission!)) {
           router.addRoute(r.meta!.page!.name, r)
         }
       })
