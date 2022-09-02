@@ -47,6 +47,7 @@ const alter = async () => {
   await formRef.value.formRef.validate((valid: boolean) => {
     if (valid) {
       const alterUser: IAlterUser = {
+        id: userStore.info?.id!,
         name: user.value?.name!,
         account: user.value?.account!,
       }

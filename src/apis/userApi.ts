@@ -14,6 +14,7 @@ export interface ILoginUser {
 }
 
 export interface IAlterUser {
+  id: number
   name: string
   account: string
 }

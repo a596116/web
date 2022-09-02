@@ -112,18 +112,20 @@ export const userStores = defineStore({
     },
 
     async alterUser<T>(user: IAlterUser) {
-      await userApi.alterUserInfo(user)
-        .then(async (res) => {
-          if (res.code == 20000) {
-            msg('更新成功')
-          } else {
-            msg('更新失敗', 'error')
-          }
-        })
-        .catch((err) => {
-          msg('更新失敗', 'error')
-          console.error(err)
-        })
+      console.log(user)
+
+      // await userApi.alterUserInfo(user)
+      //   .then(async (res) => {
+      //     if (res.code == 20000) {
+      //       msg('更新成功')
+      //     } else {
+      //       msg('更新失敗', 'error')
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     msg('更新失敗', 'error')
+      //     console.error(err)
+      //   })
     },
   },
 })
