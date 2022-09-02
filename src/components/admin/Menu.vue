@@ -6,7 +6,7 @@
     :unique-opened="true">
     <div class="logo">
       <img src="/img/haodai.png" alt="haodai" @click="router.push({ name: 'admin/home' })" />
-      <div class="ml-[14px] flex flex-col md:flex-row text-2xl">
+      <div class="ml-[14px] hidden md:flex flex-row text-2xl">
         <span class="">🅷🅰🅾</span>
         <span>🅳🅰🅸</span>
       </div>

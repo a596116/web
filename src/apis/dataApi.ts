@@ -40,9 +40,9 @@ class dataApi {
   }
 
   // 上傳檔案（圖片）
-  upload(data: FormData, folder: string) {
+  upload(data: FormData, folder: string, id: number) {
     return http.request<Upload>({
-      url: `upload/${folder}`,
+      url: `data/upload/${folder}/${id}`,
       method: 'post',
       data,
       headers: {
