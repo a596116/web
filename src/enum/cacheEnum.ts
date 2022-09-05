@@ -9,7 +9,4 @@ export enum CacheEnum {
   HISTORYLINK_IS_SHOW = 'historylink_is_show',
   BREADCRUMB_IS_SHOW = 'breadcrumb_is_show',
 
-  PERMISSIONS_MENU = 'permissions_menu',
-
-  CURRENT_PAGE = 'current_page',
 }

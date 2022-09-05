@@ -25,4 +25,14 @@ export default {
       localStorage.removeItem(v)
     })
   },
+  removeAll() {
+    localStorage.removeItem('user_name')
+    localStorage.removeItem('login_token')
+    localStorage.removeItem('redirect_router_name')
+    localStorage.removeItem('history_menu')
+    localStorage.removeItem('dashboard_card_index')
+    localStorage.removeItem('menu_is_close')
+    localStorage.removeItem('historylink_is_show')
+    localStorage.removeItem('breadcrumb_is_show')
+  }
 }

@@ -37,6 +37,11 @@ import { userForm } from '@/config/form'
 import { userStores } from '@/stores/userStore'
 import { userInfoFormRules } from '@/config/formRules'
 import _ from 'lodash'
+import userApi from '@/apis/userApi'
+import { store } from '@/utils'
+import { CacheEnum } from '@/enum/cacheEnum'
+import { ElMessage, ElMessageBox } from 'element-plus'
+
 const userStore = userStores()
 const user = ref(_.cloneDeep(userStore.info))
 
@@ -46,23 +51,52 @@ const formRef = ref()
 const alter = async () => {
   await formRef.value.formRef.validate((valid: boolean) => {
     if (valid) {
-      const alterUser: IAlterUser = {
-        id: userStore.info?.id!,
-        name: user.value?.name!,
-        account: user.value?.account!,
-      }
-      userStore.alterUser(alterUser).then(() => {
-        setTimeout(() => {
-          window.location.reload()
-        }, 1000)
+      ElMessageBox.prompt('請輸入密碼', '', {
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
       })
+        .then(async ({ value }) => {
+          if (!value) {
+            ElMessage.warning('請輸入密碼')
+            return
+          }
+          const alterUser: IAlterUser = {
+            id: userStore.info?.id!,
+            name: user.value?.name!,
+            account: user.value?.account!,
+            password: value,
+          }
+          await userApi
+            .alterUserInfo(alterUser)
+            .then(async (res) => {
+              if (res.code == 20000) {
+                ElMessage.success(res.message)
+                store.set(CacheEnum.USER_NAME, alterUser.account)
+                setTimeout(() => {
+                  window.location.reload()
+                }, 1000)
+              } else {
+                throw res
+              }
+            })
+            .catch((err) => {
+              ElMessage.warning(err)
+              console.error(err)
+            })
+        })
+        .catch(() => {
+          ElMessage({
+            type: 'info',
+            message: '取消修改',
+          })
+        })
     }
   })
 }
 </script>
 
 <style scoped lang="scss">
-.user_avatar {
+:deep(.user_avatar) {
   @apply w-full cursor-pointer relative flex justify-center items-center;
   &::after {
     content: '修改';

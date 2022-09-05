@@ -26,10 +26,12 @@ export const userStores = defineStore({
               resolve(res)
             } else {
               console.log('未獲取到用戶資訊')
+              store.removeAll()
               resolve(res)
             }
           })
           .catch(() => {
+            store.removeAll()
             resolve(null)
           })
       })
@@ -105,27 +107,10 @@ export const userStores = defineStore({
       permissionList.forEach((r) => {
         if (router.hasRoute(r.name!)) router.removeRoute(r.name!)
       })
-      store.remove(CacheEnum.TOKEN_NAME, CacheEnum.HISTORY_MENU, CacheEnum.REDIRECT_ROUTE_NAME, CacheEnum.MENU_IS_CLOSE, CacheEnum.HISTORYLINK_IS_SHOW, CacheEnum.BREADCRUMB_IS_SHOW)
+      store.removeAll()
       this.info = null
       router.push('/')
       msg('退出登入')
-    },
-
-    async alterUser<T>(user: IAlterUser) {
-      console.log(user)
-
-      // await userApi.alterUserInfo(user)
-      //   .then(async (res) => {
-      //     if (res.code == 20000) {
-      //       msg('更新成功')
-      //     } else {
-      //       msg('更新失敗', 'error')
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     msg('更新失敗', 'error')
-      //     console.error(err)
-      //   })
     },
   },
 })
