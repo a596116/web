@@ -46,7 +46,7 @@ const alterPassword = async () => {
   await formRef.value.validate((valid: boolean) => {
     if (valid) {
       userApi
-        .alterUserPassword({ ...userPassword.value, account: userStore.info?.account })
+        .alterUserPassword({ ...userPassword.value, phone: userStore.info?.phone })
         .then((res) => {
           if (res.code !== 20000) {
             throw res

@@ -70,14 +70,13 @@ watch(
 )
 
 const loginForm = reactive<ILoginUser>({
-  account: 'admin',
+  phone: '0912345678',
   password: '123456',
 })
 const RegiserForm = reactive<IRegisterUser>({
-  account: '',
+  phone: '',
   password: '',
   name: '',
-  token: '',
 })
 const loginRules = reactive<FormRules>(userLoginFormRules)
 const registRules = reactive<FormRules>(userRegistFormRules)

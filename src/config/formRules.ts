@@ -1,7 +1,7 @@
 export const userLoginFormRules = {
-    account: [
-        { required: true, message: '請輸入帳號', trigger: 'blur' },
-        { min: 4, max: 24, message: '帳號長度在 5 到 24 之間', trigger: 'blur' },
+    phone: [
+        { required: true, message: '請輸入手機', trigger: 'blur' },
+        { length: 10, message: '手機長度10碼', trigger: 'blur' },
     ],
     password: [
         { required: true, message: '請輸入密碼', trigger: 'blur' },
@@ -13,9 +13,9 @@ export const userLoginFormRules = {
     ],
 }
 export const userRegistFormRules = {
-    account: [
-        { required: true, message: '請輸入帳號', trigger: 'blur' },
-        { min: 4, max: 24, message: '帳號長度在 5 到 24 之間', trigger: 'blur' },
+    phone: [
+        { required: true, message: '請輸入手機', trigger: 'blur' },
+        { length: 10, message: '手機長度10碼', trigger: 'blur' },
     ],
     password: [
         { required: true, message: '請輸入密碼', trigger: 'blur' },
@@ -36,9 +36,9 @@ export const userInfoFormRules = {
         { required: true, message: '請輸入名稱', trigger: 'blur' },
         { min: 2, max: 12, message: '名稱在2到12個字', trigger: 'blur' },
     ],
-    account: [
-        { required: true, message: '請輸入帳號', trigger: 'blur' },
-        { min: 4, max: 24, message: '帳號長度在 5 到 24 之間', trigger: 'blur' },
+    phone: [
+        { required: true, message: '請輸入手機', trigger: 'blur' },
+        { length: 10, message: '手機長度10碼', trigger: 'blur' },
     ],
     // password: [
     //     { required: true, message: '請輸入密碼', trigger: 'blur' },

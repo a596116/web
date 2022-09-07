@@ -16,8 +16,9 @@ export type tableButtonType = {
 }
 
 export const userTableColumns = [
-  { prop: 'id', title: 'ID', align: 'center', width: 80 },
-  { prop: 'name', title: '名稱', align: 'center' },
+  // { prop: 'id', title: 'ID', align: 'center', width: 80 },
+  { prop: 'name', title: '名稱', align: 'center', width: 200 },
+  { prop: 'phone', title: '手機', align: 'center', width: 150 },
   { prop: 'active', title: '狀態', type: 'switch', align: 'center', width: 100 },
   {
     prop: 'permissions',

@@ -63,7 +63,7 @@ const alter = async () => {
           const alterUser: IAlterUser = {
             id: userStore.info?.id!,
             name: user.value?.name!,
-            account: user.value?.account!,
+            phone: user.value?.phone!,
             password: value,
           }
           await userApi
@@ -71,7 +71,7 @@ const alter = async () => {
             .then(async (res) => {
               if (res.code == 20000) {
                 ElMessage.success(res.message)
-                store.set(CacheEnum.USER_NAME, alterUser.account)
+                store.set(CacheEnum.USER_NAME, alterUser.phone)
                 setTimeout(() => {
                   window.location.reload()
                 }, 1000)

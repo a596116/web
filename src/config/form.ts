@@ -12,14 +12,14 @@ export type formColumnsType = {
 
 // 用戶登入表單
 export const userLoginForm = [
-  { title: '帳號', name: 'account', placeholder: '帳號' },
+  { title: '手機', name: 'phone', placeholder: '手機' },
   { title: '密碼', name: 'password', type: 'password', placeholder: '密碼' },
 ] as formColumnsType[]
 
 // 用戶註冊表單
 export const userRegisterForm = [
   { title: '暱稱', name: 'name', placeholder: '暱稱' },
-  { title: '帳號', name: 'account', placeholder: '帳號' },
+  { title: '手機', name: 'phone', placeholder: '手機' },
   { title: '密碼', name: 'password', type: 'password', placeholder: '密碼' },
   { title: '驗證碼', name: 'captcha', placeholder: '驗證碼' },
 ] as formColumnsType[]
@@ -41,7 +41,7 @@ export const userPasswordAlterForm = [
 // 用戶表單
 export const userForm = [
   { title: '名稱', name: 'name' },
-  { title: '帳號', name: 'account' },
+  { title: '手機', name: 'phone' },
   { title: '密碼', name: 'password' },
   {
     title: '權限',

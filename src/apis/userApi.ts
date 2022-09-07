@@ -4,24 +4,24 @@ import { store } from '@/utils'
 
 export interface IRegisterUser {
   name: string
-  account: string
+  phone: string
   password: string
   token?: string
 }
 export interface ILoginUser {
-  account: string
+  phone: string
   password: string
 }
 
 export interface IAlterUser {
   id: number
   name: string
-  account: string
+  phone: string
   password: string
 }
 
 export interface IAlterUserPassword {
-  account: string
+  phone: string
   password: string
   newPassword: string
 }
@@ -30,7 +30,7 @@ class userApi {
   // 用戶資訊
   info() {
     return http.request<IUser>({
-      url: `user/info?account=${store.get(CacheEnum.USER_NAME)}`,
+      url: `user/info?phone=${store.get(CacheEnum.USER_NAME)}`,
     })
   }
   /**
@@ -51,7 +51,7 @@ class userApi {
     return http.request({
       url: 'auth/regist',
       method: 'post',
-      data: { ...userForm, active: '1', permissions: userForm.name === 'admin' ? 'admin,user' : 'user' }
+      data: { ...userForm, active: '1', avatar: '0', permissions: userForm.name === 'admin' ? ['admin', 'user'] : ['user'] }
     })
   }
 

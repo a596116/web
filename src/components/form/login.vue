@@ -38,6 +38,7 @@ import type { FormInstance } from 'element-plus'
 import type { formColumnsType } from '@/config/form'
 import { userStores } from '@/stores/userStore'
 import userApi from '@/apis/userApi'
+import { ElLoading } from 'element-plus'
 
 const { fields, model, title, type, rules } = defineProps<{
   fields: formColumnsType[]
@@ -71,10 +72,17 @@ const userStore = userStores()
  * @date 2022-08-28
  */
 const submitForm = async (formEl: FormInstance | undefined) => {
+  const loading = ElLoading.service({
+    lock: true,
+    text: type === 'login' ? '登入中...' : '註冊中...',
+    background: 'rgba(0, 0, 0, 0.5)',
+  })
   if (type == 'login') {
     await formEl?.validate((valid: boolean) => {
       if (valid) {
-        userStore.login(model)
+        userStore.login(model).then(() => {
+          loading.close()
+        })
       }
     })
   } else if (type == 'register') {
@@ -86,8 +94,11 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         }
         userApi.verify(cap).then((res) => {
           if (res.code === 20000) {
-            userStore.registUser(model)
+            userStore.registUser(model).then(() => {
+              loading.close()
+            })
           } else {
+            loading.close()
             ElMessage.error('認證碼錯誤')
           }
         })

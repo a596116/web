@@ -1,7 +1,7 @@
 interface IUser {
     id?: number
     name: string
-    account: string
+    phone: string
     password: string
     avatar?: string
     active: string
@@ -12,5 +12,5 @@ interface IUser {
 
 interface Login {
     token: string
-    userAccount: string
+    userPhone: string
 }

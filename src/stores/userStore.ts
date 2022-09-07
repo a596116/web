@@ -56,14 +56,14 @@ export const userStores = defineStore({
      */
     async login(loginForm: ILoginUser) {
       const user = {
-        account: `${loginForm.account}@gmail.com`,
+        phone: loginForm.phone,
         password: loginForm.password
       }
       await userApi.login(user)
         .then(async (res) => {
           if (res.code == 20000) {
             store.set(CacheEnum.TOKEN_NAME, res.data.token)
-            store.set(CacheEnum.USER_NAME, res.data.userAccount)
+            store.set(CacheEnum.USER_NAME, res.data.userPhone)
             const routeName = store.get(CacheEnum.REDIRECT_ROUTE_NAME) ?? 'home'
             await this.permissionlist()
             if (this.info?.active === '1') { //檢查用戶狀態
@@ -74,7 +74,7 @@ export const userStores = defineStore({
               msg('您以被停權，請聯繫管理員', 'error')
             }
           } else {
-            msg('帳號或密碼錯誤', 'error')
+            msg('手機或密碼錯誤', 'error')
           }
         })
         .catch((err) => {
@@ -88,8 +88,10 @@ export const userStores = defineStore({
      * @date 2022-08-27
      */
     async registUser(userForm: IRegisterUser) {
-      const user = { ...userForm, account: `${userForm.account}@gmail.com` }
-      await userApi.regist(user)
+      // const user = { ...userForm, phone: `${userForm.phone}@gmail.com` }
+      console.log(userForm)
+
+      await userApi.regist(userForm)
         .then(res => {
           if (res.code == 20000) {
             this.login(userForm)
