@@ -16,7 +16,7 @@ export type tableButtonType = {
 }
 
 export const userTableColumns = [
-  // { prop: 'id', title: 'ID', align: 'center', width: 80 },
+  // { prop: '_id', title: 'ID', align: 'center', width: 80 },
   { prop: 'name', title: '名稱', align: 'center', width: 200 },
   { prop: 'phone', title: '手機', align: 'center', width: 150 },
   { prop: 'active', title: '狀態', type: 'switch', align: 'center', width: 100 },
@@ -35,7 +35,7 @@ export const userTableColumns = [
 ] as tableColumnsType[]
 
 export const blogTableColumns = [
-  { prop: 'id', title: '編號', width: 80, align: 'center' },
+  { prop: '_id', title: '編號', width: 80, align: 'center' },
   { prop: 'title', title: '標題', align: 'center' },
   { prop: 'content', title: '文章', width: 160, align: 'center', type: 'preview' },
   {

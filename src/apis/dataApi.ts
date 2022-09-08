@@ -7,6 +7,7 @@ export interface Upload {
   name: string
   url: string
 }
+
 class dataApi {
   // 修改資料data(table哪張表, id哪筆資料, data要修改的資料)
   update<T>(table: string, id: number, data: T) {

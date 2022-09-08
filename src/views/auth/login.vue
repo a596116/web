@@ -70,7 +70,7 @@ watch(
 )
 
 const loginForm = reactive<ILoginUser>({
-  phone: '0912345678',
+  phone: '0911111111',
   password: '123456',
 })
 const RegiserForm = reactive<IRegisterUser>({

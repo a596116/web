@@ -10,7 +10,7 @@ export const dataStores = defineStore({
         data: [] as any[], // 顯示資料
         dataCount: 0, // 總筆數
         order: '', // 排序規則
-        query: '' as any //router query
+        query: '' as any, //router query
     }),
     actions: {
         init() {
@@ -77,6 +77,10 @@ export const dataStores = defineStore({
                     loading.close()
                     return res.data.rows // 資料
                 })
+                .catch(() => {
+                    loading.close()
+                })
+
         },
     },
 

@@ -48,6 +48,7 @@
             inactive-value="0"
             class="ml-2"
             active-color="#13ce66"
+            :disabled="row.name === 'admin'"
             @change="changeSwitch(row, col.prop)" />
         </template>
         <template v-else>
@@ -55,7 +56,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="createdAt"
+        prop="created_At"
         label="日期"
         width="120"
         sortable="custom"
@@ -71,6 +72,7 @@
         fixed="right">
         <el-button-group>
           <el-button
+            :disabled="row.name === 'admin'"
             :type="item.type || 'default'"
             v-for="(item, key) in buttons"
             @click="emit('action', row, item.command)">
@@ -93,7 +95,7 @@
 
 <script setup lang="ts">
 import { dataStores } from '@/stores/dataStore'
-import { ElLoading, ElMessageBox } from 'element-plus'
+import { ElMessageBox } from 'element-plus'
 import { ElTable } from 'element-plus'
 import type { tableButtonType, tableColumnsType } from '@/config/table'
 
@@ -113,7 +115,6 @@ const route = useRoute()
 const router = useRouter()
 
 dataStore.init()
-
 await dataStore.getData(tableName)
 watch(
   route,
@@ -145,7 +146,7 @@ const changeSwitch = (data: any, prop: string) => {
     .then(() => {
       let s = {} as any
       s[prop] = data[prop] == '1' ? '0' : '1'
-      dataStore.update(tableName, data.id, s, permission)
+      dataStore.update(tableName, data._id, s, permission)
     })
     .catch(() => {
       if (data[prop] == '1') {
