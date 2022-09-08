@@ -93,7 +93,7 @@
 
 <script setup lang="ts">
 import { dataStores } from '@/stores/dataStore'
-import { ElMessageBox } from 'element-plus'
+import { ElLoading, ElMessageBox } from 'element-plus'
 import { ElTable } from 'element-plus'
 import type { tableButtonType, tableColumnsType } from '@/config/table'
 
@@ -113,13 +113,14 @@ const route = useRoute()
 const router = useRouter()
 
 dataStore.init()
+
 await dataStore.getData(tableName)
 watch(
   route,
   async () => {
     await dataStore.getData(tableName)
   },
-  { immediate: true },
+  // { immediate: true },
 )
 // 渲染數據
 const usersList = computed(() => {

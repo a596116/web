@@ -24,7 +24,7 @@ class dataApi {
     const m = query.m ? `&m=${query.m}` : ''  //單選條件radio
     const a = query.a ? `&a=${query.a}` : '' //select條件
     return http.request<Data<IUser>>({
-      url: `user`,
+      url: `data/user/${p}`,
     })
   }
 

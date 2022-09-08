@@ -1,5 +1,6 @@
 import dataApi from "@/apis/dataApi"
 import { msg } from "@/utils/msg"
+import { ElLoading } from "element-plus"
 import { userStores } from "./userStore"
 
 export const dataStores = defineStore({
@@ -60,6 +61,11 @@ export const dataStores = defineStore({
         },
         // (獲取資料Data)
         async getData(table: string) {
+            const loading = ElLoading.service({
+                lock: true,
+                text: '加載中...',
+                background: 'rgba(0, 0, 0, 0.5)',
+            })
             const tableName = `${table}List`
             this.data = await dataApi[tableName](this.query)
                 .then((res: any) => {
@@ -68,6 +74,7 @@ export const dataStores = defineStore({
                         return []
                     }
                     this.dataCount = res.data.count // 總筆數
+                    loading.close()
                     return res.data.rows // 資料
                 })
         },
