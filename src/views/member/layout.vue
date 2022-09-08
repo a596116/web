@@ -1,6 +1,10 @@
 <template>
   <div class="member">
-    <el-tabs v-model="page" tab-position="left" class="h-full" @tab-click="tabClick">
+    <el-tabs
+      v-model="page"
+      :tab-position="detectmob ? 'top' : 'left'"
+      class="h-full"
+      @tab-click="tabClick">
       <el-tab-pane label="用戶資訊" name="info">
         <member-info />
       </el-tab-pane>
@@ -28,6 +32,12 @@ watch(
 const tabClick = (tab: TabsPaneContext) => {
   router.push(tab.paneName as string)
 }
+
+const detectmob = computed(() => {
+  const mobileDevice = ['Android', 'webOS', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'Windows Phone']
+  let isMobileDevice = mobileDevice.some((e) => navigator.userAgent.match(e))
+  return isMobileDevice
+})
 </script>
 
 <style scoped lang="scss">

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="info">
     <form-list
       ref="formRef"
       :fields="userForm"
@@ -7,7 +7,7 @@
       :form-rules="userInfoFormRules"
       class="flex-1">
       <template #image>
-        <div class="flex items-center">
+        <div class="flex items-center mb-4">
           <section class="w-[200px] bg-hd-theme-color" @click="avatarDialog = true">
             <el-image
               :src="userStore.info?.avatar !== '0' ? userStore.info?.avatar : '/img/haodai.png'"
@@ -106,5 +106,7 @@ const alter = async () => {
   &:hover::after {
     @apply visible;
   }
+}
+:deep(.info) {
 }
 </style>

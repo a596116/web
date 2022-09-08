@@ -2,7 +2,7 @@
   <div>
     <el-container class="relative">
       <!-- Menu -->
-      <el-scrollbar>
+      <el-scrollbar class="!absolute md:!relative">
         <admin-menu />
       </el-scrollbar>
       <el-container class="grid min-h-screen relative">

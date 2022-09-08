@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white flex justify-between py-5 px-8">
+  <div class="bg-white flex justify-between flex-wrap py-5 px-8">
     <div class="flex flex-wrap text-hd-black1">
       <section class="flex mr-5" v-for="col in columns">
         <span class="flex items-center">{{ col.title }}：</span>

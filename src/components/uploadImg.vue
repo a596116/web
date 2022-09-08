@@ -172,11 +172,13 @@ const sub = async () => {
 
 <style scoped lang="scss">
 :deep(.dialog) {
-  @apply w-full md:max-w-[500px] h-[600px] flex flex-col justify-between items-center;
+  @apply w-11/12 md:max-w-[500px] h-[80%] flex flex-col justify-between items-center;
+  .el-dialog__body {
+    @apply w-full;
+  }
 }
 :deep(.upload .el-upload) {
-  @apply flex justify-center items-center rounded-md cursor-pointer relative overflow-hidden;
-  width: v-bind(uploadSize);
+  @apply w-full flex justify-center items-center rounded-md cursor-pointer relative overflow-hidden;
   height: v-bind(uploadSize);
   border: 1px dashed var(--hd-black1);
   transition: var(--el-transition-duration-fast);

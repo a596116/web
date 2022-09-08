@@ -8,12 +8,12 @@
         flexDirection: 'column',
         justifyContent: 'center',
       }">
-      <div class="flex flex-wrap">
+      <div class="flex flex-wrap justify-center">
         <slot name="image"></slot>
         <el-form
           ref="formRef"
           v-model:model="model"
-          label-width="100px"
+          label-width="70px"
           :rules="formRules"
           :inline="false"
           size="large"
