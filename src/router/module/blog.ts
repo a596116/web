@@ -9,17 +9,17 @@ export default {
         },
     },
     children: [
-        {
-            name: 'admin/blog',
-            path: 'blog',
-            component: () => import('@/views/article/blog.vue'),
-            meta: { menu: { title: 'Blog' }, number: 3, permission: 'user' },
-        },
-        {
-            name: 'admin/article',
-            path: 'article',
-            component: () => import('@/views/article/article.vue'),
-            meta: { menu: { title: 'article' }, number: 3 },
-        },
+        // {
+        //     name: 'admin/blog',
+        //     path: 'blog',
+        //     component: () => import('@/views/article/blog.vue'),
+        //     meta: { menu: { title: 'Blog' }, number: 3, permission: 'user' },
+        // },
+        // {
+        //     name: 'admin/article',
+        //     path: 'article',
+        //     component: () => import('@/views/article/article.vue'),
+        //     meta: { menu: { title: 'article' }, number: 3 },
+        // },
     ],
 } as { page: any, children: RouteRecordRaw[] }

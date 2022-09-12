@@ -34,13 +34,13 @@ const quickList = ref<IQuick[]>([
     route: 'admin/users',
     show: userStore?.info?.permissions?.includes('admin') as boolean,
   },
-  {
-    title: 'Blog',
-    icon: 'Book',
-    iconColor: 'text-[#6a89cc]',
-    route: 'admin/blog',
-    show: userStore?.info?.permissions?.includes('user') as boolean,
-  },
+  // {
+  //   title: 'Blog',
+  //   icon: 'Book',
+  //   iconColor: 'text-[#6a89cc]',
+  //   route: 'admin/blog',
+  //   show: userStore?.info?.permissions?.includes('user') as boolean,
+  // },
   {
     title: '庫存數據',
     icon: 'DataSheet',
