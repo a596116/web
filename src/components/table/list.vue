@@ -146,7 +146,7 @@ const changeSwitch = (data: any, prop: string) => {
     .then(() => {
       let s = {} as any
       s[prop] = data[prop] == '1' ? '0' : '1'
-      dataStore.update(tableName, data._id, s, permission)
+      dataStore.update(tableName, data.id, s, permission)
     })
     .catch(() => {
       if (data[prop] == '1') {

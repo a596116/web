@@ -78,7 +78,7 @@ const {
   columnName: string
   folder: string
   type: 'update' | 'create' | 'avatar'
-  id?: number
+  id?: string
   url?: string
   size?: string
 }>()

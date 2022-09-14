@@ -1,5 +1,5 @@
 interface IUser {
-    _id?: number
+    id: string
     name: string
     phone: string
     password: string

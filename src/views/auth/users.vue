@@ -44,7 +44,7 @@ const tableButtonAction = async (model: IUser, command: string) => {
   }
 }
 const changeEditor = async () => {
-  dataStore.update('user', editData.value?._id!, editData.value, 'admin')
+  dataStore.update('user', editData.value?.id!, editData.value, 'admin')
   dialogVisible.value = false
 }
 </script>

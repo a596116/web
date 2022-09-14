@@ -28,7 +28,7 @@ export const dataStores = defineStore({
             }
         },
         // (更新資料) 
-        async update<T>(table: string, id: number, obj: T, permission?: string) {
+        async update<T>(table: string, id: string, obj: T, permission?: string) {
             if (permission) {
                 if (!this.userStore.info?.permissions?.includes(permission)) {
                     msg('權限不足', 'error')

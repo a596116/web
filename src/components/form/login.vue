@@ -60,7 +60,7 @@ onMounted(() => {
 const getNewCaptcha = (id?: string) => {
   model.captcha = ''
   userApi.captcha(id).then((res) => {
-    captcha.value = res.message
+    captcha.value = res.data
   })
 }
 

@@ -14,7 +14,7 @@ export interface ILoginUser {
 }
 
 export interface IAlterUser {
-  _id: number
+  id: string
   name: string
   phone: string
   password: string

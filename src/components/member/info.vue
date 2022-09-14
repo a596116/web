@@ -18,7 +18,7 @@
         </div>
         <upload-img
           v-model="avatarDialog"
-          :id="user!._id"
+          :id="user!.id"
           :file-name="user!.name"
           column-name="avatar"
           folder="avatar"
@@ -61,7 +61,7 @@ const alter = async () => {
             return
           }
           const alterUser: IAlterUser = {
-            _id: userStore.info?._id!,
+            id: userStore.info?.id!,
             name: user.value?.name!,
             phone: user.value?.phone!,
             password: value,
