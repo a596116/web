@@ -27,7 +27,11 @@ export const dataStores = defineStore({
                 msg('失敗')
             }
         },
-        // (更新資料) 
+
+        /**
+         * 更新資料
+         * @date 2022-09-14
+         */
         async update<T>(table: string, id: string, obj: T, permission?: string) {
             if (permission) {
                 if (!this.userStore.info?.permissions?.includes(permission)) {
@@ -39,9 +43,9 @@ export const dataStores = defineStore({
                 .then(async (res) => {
                     if (res.code == 20000) {
                         await this.getData(table)
-                        msg('更新成功')
+                        msg(res.message)
                     } else {
-                        msg('更新失敗', 'error')
+                        msg(res.message, 'error')
                     }
                 })
                 .catch((err) => {
@@ -59,7 +63,11 @@ export const dataStores = defineStore({
                 msg('刪除失敗', 'error')
             }
         },
-        // (獲取資料Data)
+
+        /**
+         * 獲取資料Data
+         * @date 2022-09-14
+         */
         async getData(table: string) {
             const loading = ElLoading.service({
                 lock: true,

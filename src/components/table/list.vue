@@ -56,9 +56,9 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="created_At"
+        prop="createdAt"
         label="日期"
-        width="120"
+        width="200"
         sortable="custom"
         :default-sort="{ prop: 'date', order: 'ascending' }"
         :sort-orders="['ascending', 'descending']" />

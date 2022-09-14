@@ -34,17 +34,21 @@ import _ from 'lodash'
 
 const dataStore = dataStores()
 const dialogVisible = ref(false)
-const editData = ref<IUser>()
+const editData = ref<any>()
 const tableButtonAction = async (model: IUser, command: string) => {
   switch (command) {
     case 'edit':
-      editData.value = _.cloneDeep(model)
+      editData.value = {
+        name: _.cloneDeep(model).name,
+        id: _.cloneDeep(model).id,
+        permissions: _.cloneDeep(model).permissions,
+      }
       dialogVisible.value = true
       break
   }
 }
 const changeEditor = async () => {
-  dataStore.update('user', editData.value?.id!, editData.value, 'admin')
+  dataStore.update('user', editData.value?.id!, _.omit(editData.value, 'id'), 'admin')
   dialogVisible.value = false
 }
 </script>

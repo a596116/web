@@ -88,9 +88,6 @@ export const userStores = defineStore({
      * @date 2022-08-27
      */
     async registUser(userForm: IRegisterUser) {
-      // const user = { ...userForm, phone: `${userForm.phone}@gmail.com` }
-      console.log(userForm)
-
       await userApi.regist(userForm)
         .then(res => {
           if (res.code == 20000) {
