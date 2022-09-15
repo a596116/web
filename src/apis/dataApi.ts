@@ -1,4 +1,5 @@
 import { http } from '@/plugins/axios'
+import { dataStores } from '@/stores/dataStore'
 export interface Data<T> {
   count: number
   rows: T[]
@@ -19,13 +20,11 @@ class dataApi {
   }
   // 用戶列表
   userList<IUser>(query?: any) {
-    const p = query.p || 1 // 頁數
-    const o = query.o ? `&o=${query.o}` : '' // 排序
-    const s = query.s ? `&s=${query.s}` : ''  // 搜索
-    const m = query.m ? `&m=${query.m}` : ''  //單選條件radio
-    const a = query.a ? `&a=${query.a}` : '' //select條件
+    const page = dataStores().page // 頁數
     return http.request<Data<IUser>>({
-      url: `data/user/${p}`,
+      method: 'post',
+      url: `data/user/${page}`,
+      data: { ...query }
     })
   }
 

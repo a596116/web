@@ -8,5 +8,7 @@ export enum CacheEnum {
   MENU_IS_CLOSE = 'menu_is_close',
   HISTORYLINK_IS_SHOW = 'historylink_is_show',
   BREADCRUMB_IS_SHOW = 'breadcrumb_is_show',
+  //查詢條件
+  SEARCH_RULE = 'search_rule'
 
 }

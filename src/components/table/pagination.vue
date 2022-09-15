@@ -4,8 +4,7 @@
     :page-size="pageSize"
     :layout="props.layout"
     :total="dataStore.dataCount"
-    @current-change="current_change"
-    :hide-on-single-page="true">
+    @current-change="current_change">
   </el-pagination>
 </template>
 
@@ -20,7 +19,7 @@ const route = useRoute()
 const dataStore = dataStores()
 // el-pagination
 const pageSize = 5
-const currentPage = ref((useRoute().query['p'] as string) || '1')
+const currentPage = ref(dataStore.page)
 const page = ref(parseInt(currentPage.value))
 
 //更新query
@@ -32,9 +31,8 @@ const props = withDefaults(defineProps<IProps>(), {
 })
 
 const current_change = (Page: number) => {
-  router.push({ query: { ...route.query, p: Page } })
+  dataStore.page = String(Page)
   currentPage.value = String(Page)
   page.value = Page
-  dataStore.query = { ...route.query, p: Page }
 }
 </script>

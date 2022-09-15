@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table-search :columns="userSearchForm"> </table-search>
+    <table-search :columns="userSearchForm" table-name="user"> </table-search>
 
     <table-list
       :columns="userTableColumns"

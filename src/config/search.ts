@@ -13,7 +13,7 @@ export type searchColumnsType = {
 export const userSearchForm = [
     { title: '用戶姓名', name: 'name', type: 'input' },
     {
-        title: '用戶狀態', name: 'permissions', type: 'select',
+        title: '用戶狀態', name: 'active', type: 'select',
         options: [
             { 'true': '1' },
             { 'false': '0' }

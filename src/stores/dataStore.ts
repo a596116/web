@@ -1,4 +1,6 @@
 import dataApi from "@/apis/dataApi"
+import { CacheEnum } from "@/enum/cacheEnum"
+import { store } from "@/utils"
 import { msg } from "@/utils/msg"
 import { ElLoading } from "element-plus"
 import { userStores } from "./userStore"
@@ -9,15 +11,41 @@ export const dataStores = defineStore({
         userStore: userStores(),
         data: [] as any[], // 顯示資料
         dataCount: 0, // 總筆數
-        order: '', // 排序規則
-        query: '' as any, //router query
+        page: '1'
+
     }),
     actions: {
         init() {
             this.data = []
-            this.order = (useRoute().query['o'] as string || '') // 排序規則
-            this.query = (useRoute().query as any || '') // 篩選權限
         },
+
+        /**
+         * 獲取資料Data
+         * @date 2022-09-15
+         */
+        async getData(table: string) {
+            const loading = ElLoading.service({
+                lock: true,
+                text: '加載中...',
+                background: 'rgba(0, 0, 0, 0.5)',
+            })
+            const tableName = `${table}List`
+            this.data = await dataApi[tableName](store.get(CacheEnum.SEARCH_RULE))
+                .then((res: any) => {
+                    if (res.code != 20000) {
+                        msg('獲取資料失敗', 'error')
+                        return []
+                    }
+                    this.dataCount = res.data.count // 總筆數
+                    loading.close()
+                    return res.data.rows // 資料
+                })
+                .catch(() => {
+                    loading.close()
+                })
+
+        },
+
         async create(table: string, obj: object) {
             const res = await dataApi.create(table, obj)
             if (res.code == 20000) {
@@ -64,32 +92,7 @@ export const dataStores = defineStore({
             }
         },
 
-        /**
-         * 獲取資料Data
-         * @date 2022-09-14
-         */
-        async getData(table: string) {
-            const loading = ElLoading.service({
-                lock: true,
-                text: '加載中...',
-                background: 'rgba(0, 0, 0, 0.5)',
-            })
-            const tableName = `${table}List`
-            this.data = await dataApi[tableName](this.query)
-                .then((res: any) => {
-                    if (res.code != 20000) {
-                        msg('獲取資料失敗', 'error')
-                        return []
-                    }
-                    this.dataCount = res.data.count // 總筆數
-                    loading.close()
-                    return res.data.rows // 資料
-                })
-                .catch(() => {
-                    loading.close()
-                })
 
-        },
     },
 
 })

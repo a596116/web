@@ -60,7 +60,10 @@
         label="日期"
         width="200"
         sortable="custom"
-        :default-sort="{ prop: 'date', order: 'ascending' }"
+        :default-sort="{
+          prop: 'date',
+          order: store.get(CacheEnum.SEARCH_RULE)?.order || 'descending',
+        }"
         :sort-orders="['ascending', 'descending']" />
 
       <!-- 操作列 -->
@@ -98,6 +101,8 @@ import { dataStores } from '@/stores/dataStore'
 import { ElMessageBox } from 'element-plus'
 import { ElTable } from 'element-plus'
 import type { tableButtonType, tableColumnsType } from '@/config/table'
+import { store } from '@/utils'
+import { CacheEnum } from '@/enum/cacheEnum'
 
 const { columns, tableName, buttons, permission } = defineProps<{
   tableName: string
@@ -119,6 +124,7 @@ await dataStore.getData(tableName)
 watch(
   route,
   async () => {
+    store.remove(CacheEnum.SEARCH_RULE)
     await dataStore.getData(tableName)
   },
   // { immediate: true },
@@ -129,11 +135,9 @@ const usersList = computed(() => {
 })
 
 // 排序
-const sortChange = (order: any) => {
-  const o = order.order.replace('ending', '')
-  dataStore.order = o
-  router.push({ query: { ...route.query, o: o } })
-  dataStore.query = { ...route.query, o: o }
+const sortChange = async (order: any) => {
+  store.set(CacheEnum.SEARCH_RULE, { ...store.get(CacheEnum.SEARCH_RULE), order: order?.order })
+  await dataStore.getData(tableName)
 }
 
 // 變更switch狀態
