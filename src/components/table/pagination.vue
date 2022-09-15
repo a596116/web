@@ -14,8 +14,6 @@ import { dataStores } from '@/stores/dataStore'
 export interface IProps {
   layout?: string
 }
-const router = useRouter()
-const route = useRoute()
 const dataStore = dataStores()
 // el-pagination
 const pageSize = 5

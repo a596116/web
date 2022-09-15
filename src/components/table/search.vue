@@ -77,6 +77,8 @@ const searchModel = ref<any>(store.get(CacheEnum.SEARCH_RULE) || {})
 // 查詢條件
 
 const search = async () => {
+  console.log(searchModel.value)
+
   Object.keys(searchModel.value).forEach((item) => {
     if (
       typeof searchModel.value[item] === 'undefined' ||
@@ -102,7 +104,6 @@ const reset = async () => {
   }
   searchModel.value = {}
   store.remove(CacheEnum.SEARCH_RULE)
-  dataStore.order = ''
   await dataStore.getData(tableName)
 }
 </script>
