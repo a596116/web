@@ -102,7 +102,7 @@ class userApi {
     })
   }
 
-  uploadAvatar(data: FormData, folder: string, id: number) {
+  uploadAvatar(data: FormData, folder: string, id: string) {
     return http.request({
       url: `data/upload/${folder}/${id}`,
       method: 'post',

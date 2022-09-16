@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-button type="primary" @click="newBtn" class="m-3">新增文章</el-button>
-    <table-search :columns="blogSearchForm"> </table-search>
+    <table-search :columns="blogSearchForm" table-name="blog"> </table-search>
     <table-list
       :columns="blogTableColumns"
       table-name="blog"

@@ -30,17 +30,16 @@ class dataApi {
 
   // Blog列表
   blogList<T>(query?: any) {
-    const p = query.p || 1 // 頁數
-    const o = query.o ? `&o=${query.o}` : '' // 排序
-    const s = query.s ? `&s=${query.s}` : ''  // 搜索
-    const m = query.m ? `&m=${query.m}` : ''  //單選條件radio
-    return http.request<Data<T>>({
-      url: `data/blog/${p}?${o}${s}${m}`,
+    const page = dataStores().page // 頁數
+    return http.request<Data<IUser>>({
+      method: 'post',
+      url: `data/blog/${page}`,
+      data: { ...query }
     })
   }
 
   // 上傳檔案（圖片）
-  upload(data: FormData, folder: string, id: number) {
+  upload(data: FormData, folder: string, id: string) {
     return http.request<Upload>({
       url: `data/upload/${folder}/${id}`,
       method: 'post',

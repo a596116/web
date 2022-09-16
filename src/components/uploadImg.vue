@@ -135,7 +135,7 @@ const sub = async () => {
   cropper.value?.getCropBlob(async (data: Blob) => {
     const file = new File([data], `${fileName}.jpg`, { type: 'image/jpg' })
     formData.append(folder, file)
-    const res = await dataApi.upload(formData, folder, id!)
+    // const res = await dataApi.upload(formData, folder, id!)
     if (type === 'avatar') {
       await userApi.uploadAvatar(formData, folder, id!).then((res) => {
         if (res.code === 20000) {

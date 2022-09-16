@@ -16,7 +16,7 @@
         <template v-if="col.type == 'input'">
           <el-input
             v-model="searchModel[col.name]"
-            placeholder=""
+            placeholder="查尋"
             @keydown.esc="searchModel[col.name] = ''"
             clearable
             class="border rounded-md !w-[150px]">
@@ -77,8 +77,6 @@ const searchModel = ref<any>(store.get(CacheEnum.SEARCH_RULE) || {})
 // 查詢條件
 
 const search = async () => {
-  console.log(searchModel.value)
-
   Object.keys(searchModel.value).forEach((item) => {
     if (
       typeof searchModel.value[item] === 'undefined' ||
