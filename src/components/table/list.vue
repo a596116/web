@@ -117,22 +117,12 @@ const emit = defineEmits<{
 }>()
 
 const dataStore = dataStores()
-const route = useRoute()
-const router = useRouter()
 
 await dataStore.init(tableName)
 onUnmounted(() => {
   store.remove(CacheEnum.SEARCH_RULE)
 })
 
-// watch(
-//   route,
-//   async () => {
-//     store.remove(CacheEnum.SEARCH_RULE)
-//     await dataStore.getData(tableName)
-//   },
-//   { immediate: true },
-// )
 // 渲染數據
 const usersList = computed(() => {
   return dataStore.data

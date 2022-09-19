@@ -27,7 +27,7 @@ export const dataStores = defineStore({
         async getData(table: string) {
             const loading = ElLoading.service({
                 lock: true,
-                text: '加載中...',
+                text: '',
                 background: 'rgba(0, 0, 0, 0.5)',
             })
             const tableName = `${table}List`
