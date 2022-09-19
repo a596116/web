@@ -4,6 +4,7 @@ useTitle('浩呆')
 </script>
 <template>
   <div class="h-screen w-screen bg-gray-600 flex justify-center items-center relative">
+    <div class="description">請點選四周</div>
     <div class="w-80 h-80 rounded-full border-8 border-white z-10 flex justify-center items-center">
       <img
         src="/img/logo.png"
@@ -31,6 +32,12 @@ useTitle('浩呆')
 </template>
 
 <style lang="scss" scoped>
+.description {
+  @apply absolute top-[100px] left-1/2 z-[11] flex text-xl text-white rounded-lg p-4;
+  background: rgba(0, 0, 0, 0.5);
+  letter-spacing: 10px;
+  transform: translateX(-50%);
+}
 img {
   animation-duration: 2s;
 }
