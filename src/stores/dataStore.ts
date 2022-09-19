@@ -65,15 +65,17 @@ export const dataStores = defineStore({
                     console.error(err)
                 })
         },
-        // (刪除資料) 
+
+        /**
+         * 刪除資料
+         * @date 2022-09-19
+         */
         async delete(table: string, id: number) {
             const res = await dataApi.delete(table, id)
             if (res.code == 20000) {
                 await this.getData(table)
             }
         },
-
-
     },
 
 })

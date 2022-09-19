@@ -34,7 +34,6 @@ const formRef = ref(null) as any
 const tableButtonAction = async (model: any, command: string) => {
   switch (command) {
     case 'edit':
-      router.push({ query: { ...route.query, id: model.id } })
       formRef.value.modelData = {
         id: model.id,
         title: model.title,

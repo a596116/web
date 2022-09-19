@@ -20,7 +20,6 @@ class dataApi {
   }
   // 用戶列表
   userList<IUser>(page = 1, query?: any) {
-    // const page = dataStores().page // 頁數
     const p = page || 1
     return http.request<Data<IUser>>({
       method: 'post',
@@ -31,9 +30,10 @@ class dataApi {
 
   // Blog列表
   blogList<T>(page = 1, query?: any) {
+    const p = page || 1
     return http.request<Data<IUser>>({
       method: 'post',
-      url: `data/blog/${page}`,
+      url: `data/blog/${p}`,
       data: { ...query }
     })
   }
@@ -52,7 +52,7 @@ class dataApi {
 
   create<T>(table: string, data: T) {
     return http.request({
-      url: `data?id=${table}`,
+      url: `data/create/${table}`,
       method: 'post',
       data
     })

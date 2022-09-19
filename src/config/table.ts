@@ -39,7 +39,7 @@ export const blogTableColumns = [
   { prop: 'title', title: '標題', align: 'center' },
   { prop: 'content', title: '文章', width: 160, align: 'center', type: 'preview' },
   {
-    prop: 'category', title: '類別', align: 'center', type: 'category',
+    prop: 'category', title: '類別', align: 'center', type: 'tag',
     options: {
       HTML: '#ff6b6b',
       JS: '#feca57',
