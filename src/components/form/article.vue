@@ -71,7 +71,6 @@ import { ElDrawer, ElMessageBox } from 'element-plus'
 import { dataStores } from '@/stores/dataStore'
 import type { formColumnsType } from '@/config/form'
 import _ from 'lodash'
-import { msg } from '@/utils/msg'
 
 const { modelValue, fields, table } = defineProps<{
   modelValue: boolean
@@ -112,7 +111,7 @@ const submit = async () => {
   const id = modelData.value.id
   delete modelData.value.id
   if (modelData.value.title == '' || modelData.value.content == '') {
-    msg('標題和內容需填寫！', 'error')
+    ElMessage.warning('標題和內容需填寫！')
     return
   }
   if (type.value == 'new') {

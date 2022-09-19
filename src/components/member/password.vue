@@ -51,11 +51,9 @@ const alterPassword = async () => {
           if (res.code !== 20000) {
             throw res
           }
-          ElMessage.success(res.message)
           userPassword.value = {}
         })
         .catch((res) => {
-          ElMessage.warning(res.message)
           console.log(res.message)
         })
     }

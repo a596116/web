@@ -41,7 +41,6 @@ import { type UploadProps, type UploadFile, ElMessage } from 'element-plus'
 import { VueCropper } from 'vue-cropper'
 import { dataStores } from '@/stores/dataStore'
 import dataApi from '@/apis/dataApi'
-import { msg } from '@/utils/msg'
 
 const {
   fileName,
@@ -101,7 +100,6 @@ const handleAvatarSuccess: UploadProps['onChange'] = (response, uploadFile: any)
 
 const sub = ref(async () => {
   if (imageUrl.value == '') {
-    msg('沒添加照片')
   }
   let formData = new FormData()
   cropper.value?.getCropBlob(async (data: Blob) => {

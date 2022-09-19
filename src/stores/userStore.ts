@@ -2,7 +2,6 @@ import type { IAlterUser, ILoginUser, IRegisterUser } from '@/apis/userApi'
 import store from '@/utils/store'
 import router from '@/router'
 import { CacheEnum } from '@/enum/cacheEnum'
-import { msg } from '@/utils/msg'
 import { permissionList } from '@/router/autoload'
 import userApi from '@/apis/userApi'
 
@@ -68,17 +67,17 @@ export const userStores = defineStore({
             await this.permissionlist()
             if (this.info?.active === '1') { //檢查用戶狀態
               router.push({ name: routeName })
-              msg(`歡迎${this.info?.name}`)
+              ElMessage.success(`歡迎${this.info?.name}`)
             } else {
               store.remove(CacheEnum.TOKEN_NAME, CacheEnum.USER_NAME)
-              msg('您以被停權，請聯繫管理員', 'error')
+              ElMessage.error('您以被停權，請聯繫管理員')
             }
           } else {
-            msg('手機或密碼錯誤', 'error')
+            ElMessage.error('手機或密碼錯誤')
           }
         })
         .catch((err) => {
-          msg(`登入發生錯誤，詳情-${err}`, 'error')
+          ElMessage.error(`登入發生錯誤，詳情-${err}`)
           console.error(err)
         })
     },
@@ -92,8 +91,6 @@ export const userStores = defineStore({
         .then(res => {
           if (res.code == 20000) {
             this.login(userForm)
-          } else {
-            msg(`${res.code}:${res.message}`, 'error')
           }
         })
     },
@@ -109,7 +106,7 @@ export const userStores = defineStore({
       store.removeAll()
       this.info = null
       router.push('/')
-      msg('退出登入')
+      ElMessage.success('退出登入')
     },
   },
 })

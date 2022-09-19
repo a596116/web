@@ -1,7 +1,6 @@
 import dataApi from "@/apis/dataApi"
 import { CacheEnum } from "@/enum/cacheEnum"
 import { store } from "@/utils"
-import { msg } from "@/utils/msg"
 import { ElLoading } from "element-plus"
 import { userStores } from "./userStore"
 
@@ -25,24 +24,14 @@ export const dataStores = defineStore({
          * @date 2022-09-15
          */
         async getData(table: string) {
-            const loading = ElLoading.service({
-                lock: true,
-                text: '',
-                background: 'rgba(0, 0, 0, 0.5)',
-            })
             const tableName = `${table}List`
             this.data = await dataApi[tableName](this.route.params.id, store.get(CacheEnum.SEARCH_RULE))
                 .then((res: any) => {
                     if (res.code != 20000) {
-                        msg('獲取資料失敗', 'error')
                         return []
                     }
                     this.dataCount = res.data.count // 總筆數
-                    loading.close()
                     return res.data.rows // 資料
-                })
-                .catch(() => {
-                    loading.close()
                 })
 
         },
@@ -51,9 +40,6 @@ export const dataStores = defineStore({
             const res = await dataApi.create(table, obj)
             if (res.code == 20000) {
                 await this.getData(table)
-                msg('新增成功')
-            } else {
-                msg('失敗')
             }
         },
 
@@ -64,7 +50,7 @@ export const dataStores = defineStore({
         async update<T>(table: string, id: string, obj: T, permission?: string) {
             if (permission) {
                 if (!this.userStore.info?.permissions?.includes(permission)) {
-                    msg('權限不足', 'error')
+                    ElMessage.error('權限不足')
                     return
                 }
             }
@@ -72,13 +58,10 @@ export const dataStores = defineStore({
                 .then(async (res) => {
                     if (res.code == 20000) {
                         await this.getData(table)
-                        msg(res.message)
-                    } else {
-                        msg(res.message, 'error')
                     }
                 })
                 .catch((err) => {
-                    msg('更新失敗', 'error')
+                    ElMessage.error('更新失敗')
                     console.error(err)
                 })
         },
@@ -87,9 +70,6 @@ export const dataStores = defineStore({
             const res = await dataApi.delete(table, id)
             if (res.code == 20000) {
                 await this.getData(table)
-                msg("刪除成功")
-            } else {
-                msg('刪除失敗', 'error')
             }
         },
 

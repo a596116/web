@@ -70,7 +70,6 @@ const alter = async () => {
             .alterUserInfo(alterUser)
             .then(async (res) => {
               if (res.code == 20000) {
-                ElMessage.success(res.message)
                 store.set(CacheEnum.USER_NAME, alterUser.phone)
                 setTimeout(() => {
                   window.location.reload()
@@ -80,7 +79,6 @@ const alter = async () => {
               }
             })
             .catch((err) => {
-              ElMessage.warning(err)
               console.error(err)
             })
         })

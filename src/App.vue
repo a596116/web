@@ -1,8 +1,8 @@
 <template>
   <suspense>
-    <template #default>
-      <router-view></router-view>
-    </template>
+    <!-- <template #default> -->
+    <router-view></router-view>
+    <!-- </template> -->
     <!-- <template #fallback>
       <div class="w-screen h-screen bg-slate-400 flex justify-center items-center">
         <div class="w-80 h-80 rounded-full border-8 border-white z-10 flex justify-center items-center">

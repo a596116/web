@@ -2,9 +2,13 @@ import axios, { type AxiosRequestConfig } from 'axios'
 import { CacheEnum } from '@/enum/cacheEnum'
 import { store } from '@/utils'
 import router from '@/router'
+import { ElLoading } from 'element-plus'
+import errorStore from '@/stores/errorStore'
+import { HttpStatus } from '@/enum/HttpStatus'
 
 export default class Axios {
   private instance
+  private loading: any
   constructor(config: AxiosRequestConfig) {
     this.instance = axios.create(config)
     this.interceptors()
@@ -29,7 +33,15 @@ export default class Axios {
   // 請求攔截
   private interceptorsRequest() {
     this.instance.interceptors.request.use(
-      (config) => {
+      (config: AxiosRequestConfig) => {
+        this.loading =
+          this.loading ??
+          ElLoading.service({
+            lock: true,
+            text: '',
+            background: 'rgba(0,0,0,0.5)',
+          })
+        errorStore().resetError()
         config.headers = {
           Authorization: 'Bearer ' + store.get(CacheEnum.TOKEN_NAME),
         }
@@ -46,21 +58,48 @@ export default class Axios {
   private interceptorsResponse() {
     this.instance.interceptors.response.use(
       (response) => {
+        if (response.data?.message) {
+          ElMessage({
+            type: response.data.code === 20000 ? 'success' : 'error',
+            message: response.data.message,
+            grouping: true,
+            duration: 2000,
+          })
+        }
+        this.loading.close()
         return response
       },
       (error) => {
-        switch (error.response.status) {
-          case 401:
+        this.loading.close()
+        const {
+          response: { status, data },
+        } = error
+        const { message } = data
+
+        switch (status) {
+          case HttpStatus.UNAUTHORIZED:
             store.remove(CacheEnum.TOKEN_NAME)
             router.push({ name: 'login' })
             break
-          case 400:
-            store.remove(CacheEnum.TOKEN_NAME)
-            router.push({ name: 'login' })
+          case HttpStatus.UNPROCESSABLE_ENTITY:
+            errorStore().setErrors(error.response.data.errors)
             break
+          case HttpStatus.FORBIDDEN:
+            ElMessage.error({ message: message ?? '沒有操作權限' })
+            break
+          case HttpStatus.NOT_FOUND:
+            router.push({ name: 'error/404' })
+            break
+          case HttpStatus.TOO_MANY_REQUESTS:
+            ElMessage.error({ message: message ?? '操作過於頻繁，請稍候在嘗試' })
+            break
+          default:
+            if (message) {
+              ElMessage.error({ message: message ?? '服務器錯誤' })
+            }
+            return Promise.reject(error)
         }
-        return Promise.reject(error)
-      },
+      }
     )
   }
 }

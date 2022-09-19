@@ -62,7 +62,6 @@ import { type UploadProps, type UploadFile, ElMessage } from 'element-plus'
 import { VueCropper } from 'vue-cropper'
 import { dataStores } from '@/stores/dataStore'
 import dataApi from '@/apis/dataApi'
-import { msg } from '@/utils/msg'
 import userApi from '@/apis/userApi'
 const {
   modelValue,
@@ -86,8 +85,6 @@ const emit = defineEmits<{
   (e: 'update:modelValue', d: boolean): void
   (e: 'update:url', d: string): void
 }>()
-
-const dataStore = dataStores()
 
 // 上傳照片
 const imageUrl = ref('')
@@ -129,7 +126,7 @@ const close = () => {
 
 const sub = async () => {
   if (imageUrl.value == '') {
-    msg('沒添加照片')
+    ElMessage.warning('沒添加照片')
   }
   let formData = new FormData()
   cropper.value?.getCropBlob(async (data: Blob) => {
@@ -139,12 +136,9 @@ const sub = async () => {
     if (type === 'avatar') {
       await userApi.uploadAvatar(formData, folder, id!).then((res) => {
         if (res.code === 20000) {
-          ElMessage.success(res.message)
           setTimeout(() => {
             window.location.reload()
           }, 1000)
-        } else {
-          ElMessage.warning('上傳失敗')
         }
         close()
       })
