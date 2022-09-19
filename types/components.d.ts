@@ -54,7 +54,6 @@ declare module '@vue/runtime-core' {
     FormList: typeof import('./../src/components/form/list.vue')['default']
     FormLogin: typeof import('./../src/components/form/login.vue')['default']
     HdHome: typeof import('./../src/components/hd/home.vue')['default']
-    IconArrowUp: typeof import('@icon-park/vue-next')['ArrowUp']
     IconClear: typeof import('@icon-park/vue-next')['Clear']
     IconClose: typeof import('@icon-park/vue-next')['Close']
     IconFullScreen: typeof import('@icon-park/vue-next')['FullScreen']

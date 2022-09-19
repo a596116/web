@@ -27,13 +27,13 @@ import { userStores } from '@/stores/userStore'
 import * as icons from '@icon-park/vue-next'
 const userStore = userStores()
 const quickList = ref<IQuick[]>([
-  {
-    title: '用戶管理',
-    icon: 'User',
-    iconColor: 'text-[#f8c291]',
-    route: 'admin/users',
-    show: userStore?.info?.permissions?.includes('admin') as boolean,
-  },
+  // {
+  //   title: '用戶管理',
+  //   icon: 'User',
+  //   iconColor: 'text-[#f8c291]',
+  //   route: 'admin/user/1',
+  //   show: userStore?.info?.permissions?.includes('admin') as boolean,
+  // },
   // {
   //   title: 'Blog',
   //   icon: 'Book',

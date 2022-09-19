@@ -19,18 +19,18 @@ class dataApi {
     })
   }
   // 用戶列表
-  userList<IUser>(query?: any) {
-    const page = dataStores().page // 頁數
+  userList<IUser>(page = 1, query?: any) {
+    // const page = dataStores().page // 頁數
+    const p = page || 1
     return http.request<Data<IUser>>({
       method: 'post',
-      url: `data/user/${page}`,
+      url: `data/user/${p}`,
       data: { ...query }
     })
   }
 
   // Blog列表
-  blogList<T>(query?: any) {
-    const page = dataStores().page // 頁數
+  blogList<T>(page = 1, query?: any) {
     return http.request<Data<IUser>>({
       method: 'post',
       url: `data/blog/${page}`,

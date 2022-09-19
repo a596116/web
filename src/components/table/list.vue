@@ -87,7 +87,8 @@
 
     <!-- 分頁 -->
     <div class="flex justify-center mt-5">
-      <table-pagination layout="total, prev, pager, next"> </table-pagination>
+      <table-pagination layout="total, prev, pager, next" :table-name="tableName">
+      </table-pagination>
     </div>
 
     <el-dialog v-model="previewVisible" title="" custom-class="dialog">
@@ -119,16 +120,19 @@ const dataStore = dataStores()
 const route = useRoute()
 const router = useRouter()
 
-dataStore.init()
-await dataStore.getData(tableName)
-watch(
-  route,
-  async () => {
-    store.remove(CacheEnum.SEARCH_RULE)
-    await dataStore.getData(tableName)
-  },
-  // { immediate: true },
-)
+await dataStore.init(tableName)
+onUnmounted(() => {
+  store.remove(CacheEnum.SEARCH_RULE)
+})
+
+// watch(
+//   route,
+//   async () => {
+//     store.remove(CacheEnum.SEARCH_RULE)
+//     await dataStore.getData(tableName)
+//   },
+//   { immediate: true },
+// )
 // 渲染數據
 const usersList = computed(() => {
   return dataStore.data

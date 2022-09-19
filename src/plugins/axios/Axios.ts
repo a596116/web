@@ -54,6 +54,10 @@ export default class Axios {
             store.remove(CacheEnum.TOKEN_NAME)
             router.push({ name: 'login' })
             break
+          case 400:
+            store.remove(CacheEnum.TOKEN_NAME)
+            router.push({ name: 'login' })
+            break
         }
         return Promise.reject(error)
       },

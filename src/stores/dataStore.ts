@@ -8,15 +8,16 @@ import { userStores } from "./userStore"
 export const dataStores = defineStore({
     id: 'data',
     state: () => ({
+        route: useRoute(),
         userStore: userStores(),
         data: [] as any[], // 顯示資料
         dataCount: 0, // 總筆數
-        page: '1'
 
     }),
     actions: {
-        init() {
+        async init(tableName: string) {
             this.data = []
+            await this.getData(tableName)
         },
 
         /**
@@ -30,7 +31,7 @@ export const dataStores = defineStore({
                 background: 'rgba(0, 0, 0, 0.5)',
             })
             const tableName = `${table}List`
-            this.data = await dataApi[tableName](store.get(CacheEnum.SEARCH_RULE))
+            this.data = await dataApi[tableName](this.route.params.id, store.get(CacheEnum.SEARCH_RULE))
                 .then((res: any) => {
                     if (res.code != 20000) {
                         msg('獲取資料失敗', 'error')
