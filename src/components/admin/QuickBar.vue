@@ -9,7 +9,7 @@
         v-for="(quick, index) in quickList"
         :key="index"
         v-show="quick.show"
-        :to="{ name: quick.show ? quick.route : 'home' }">
+        :to="{ name: quick.show ? quick.route : 'home', params: { id: 1 } }">
         <component
           :is="(icons as any)[quick.icon!]"
           theme="outline"
@@ -27,20 +27,20 @@ import { userStores } from '@/stores/userStore'
 import * as icons from '@icon-park/vue-next'
 const userStore = userStores()
 const quickList = ref<IQuick[]>([
-  // {
-  //   title: '用戶管理',
-  //   icon: 'User',
-  //   iconColor: 'text-[#f8c291]',
-  //   route: 'admin/user/1',
-  //   show: userStore?.info?.permissions?.includes('admin') as boolean,
-  // },
-  // {
-  //   title: 'Blog',
-  //   icon: 'Book',
-  //   iconColor: 'text-[#6a89cc]',
-  //   route: 'admin/blog',
-  //   show: userStore?.info?.permissions?.includes('user') as boolean,
-  // },
+  {
+    title: '用戶管理',
+    icon: 'User',
+    iconColor: 'text-[#f8c291]',
+    route: 'admin/user',
+    show: userStore?.info?.permissions?.includes('admin') as boolean,
+  },
+  {
+    title: 'Blog',
+    icon: 'Book',
+    iconColor: 'text-[#6a89cc]',
+    route: 'admin/blog',
+    show: userStore?.info?.permissions?.includes('user') as boolean,
+  },
   {
     title: '庫存數據',
     icon: 'DataSheet',
