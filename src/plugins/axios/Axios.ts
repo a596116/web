@@ -35,9 +35,7 @@ export default class Axios {
     this.instance.interceptors.request.use(
       (config: AxiosRequestConfig) => {
         this.loading =
-          this.loading ??
           ElLoading.service({
-            lock: true,
             text: '',
             background: 'rgba(0,0,0,0.5)',
           })
@@ -48,6 +46,7 @@ export default class Axios {
         return config
       },
       (error) => {
+        this.loading.close()
         console.error('請求失敗')
         return Promise.reject(error)
       },
@@ -57,7 +56,7 @@ export default class Axios {
   // 響應攔截
   private interceptorsResponse() {
     this.instance.interceptors.response.use(
-      (response) => {
+      async (response) => {
         if (response.data?.message) {
           ElMessage({
             type: response.data.code === 20000 ? 'success' : 'error',
@@ -66,7 +65,7 @@ export default class Axios {
             duration: 2000,
           })
         }
-        this.loading.close()
+        await this.loading.close()
         return response
       },
       (error) => {

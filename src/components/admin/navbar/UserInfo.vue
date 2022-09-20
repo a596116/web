@@ -38,7 +38,4 @@
 import router from '@/router'
 import { userStores } from '@/stores/userStore'
 const userStore = userStores()
-const loading = computed(() => {
-  return userStore.info ? false : true
-})
 </script>

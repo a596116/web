@@ -25,8 +25,6 @@ import { blogSearchForm } from '@/config/search'
 import { dataStores } from '@/stores/dataStore'
 import { ElMessageBox } from 'element-plus'
 
-const router = useRouter()
-const route = useRoute()
 const dataStore = dataStores()
 const visible = ref(false)
 const formRef = ref(null) as any

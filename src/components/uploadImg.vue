@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog
-      title=""
+      title="上傳圖片或圖片網址"
       destroy-on-close
       :model-value="modelValue!"
       custom-class="dialog"
@@ -30,22 +30,21 @@
           <a href="javascript:;" class="text-2xl" @click="imageUrl = ''">x</a>
         </div>
       </div>
-      <el-upload
-        v-else
-        class="upload"
-        action="#"
-        :show-file-list="false"
-        :auto-upload="false"
-        :on-change="handleAvatarSuccess">
-        <icon-plus theme="outline" size="30" />
-      </el-upload>
-      <!-- <upload-cropper
-        ref="uploadRef"
-        :column-name="columnName"
-        :file-name="user?.name!"
-        folder="user"
-        type="update"
-        :id="user?.id" /> -->
+      <div class="" v-else>
+        <el-upload
+          class="upload"
+          action="#"
+          :disabled="true"
+          :show-file-list="false"
+          :auto-upload="false"
+          :on-change="handleAvatarSuccess">
+          <icon-plus theme="outline" size="30" />
+        </el-upload>
+        <div class="flex flex-row justify-center items-center mt-5">
+          <span>圖片網址：</span>
+          <el-input v-model.trim="inputUrl" class="flex-1 border rounded-md" />
+        </div>
+      </div>
 
       <template #footer>
         <span>
@@ -60,8 +59,6 @@
 <script setup lang="ts">
 import { type UploadProps, type UploadFile, ElMessage } from 'element-plus'
 import { VueCropper } from 'vue-cropper'
-import { dataStores } from '@/stores/dataStore'
-import dataApi from '@/apis/dataApi'
 import userApi from '@/apis/userApi'
 const {
   modelValue,
@@ -88,6 +85,7 @@ const emit = defineEmits<{
 
 // 上傳照片
 const imageUrl = ref('')
+const inputUrl = ref('')
 const uploadSize = `${size}px`
 
 const cropper = ref<typeof VueCropper>()
@@ -122,45 +120,38 @@ const handleAvatarSuccess: UploadProps['onChange'] = (response, uploadFile: any)
 const close = () => {
   emit('update:modelValue', false)
   imageUrl.value = ''
+  inputUrl.value = ''
 }
 
 const sub = async () => {
-  if (imageUrl.value == '') {
+  if (!imageUrl.value && !inputUrl.value) {
     ElMessage.warning('沒添加照片')
   }
+
   let formData = new FormData()
-  cropper.value?.getCropBlob(async (data: Blob) => {
-    const file = new File([data], `${fileName}.jpg`, { type: 'image/jpg' })
-    formData.append(folder, file)
-    // const res = await dataApi.upload(formData, folder, id!)
-    if (type === 'avatar') {
-      await userApi.uploadAvatar(formData, folder, id!).then((res) => {
-        if (res.code === 20000) {
-          setTimeout(() => {
-            window.location.reload()
-          }, 1000)
-        }
-        close()
-      })
-    }
-    // if (type == 'update') {
-    //   //如果是更新資料,直接update
-    //   if (res.code == 20000) {
-    //     let updateData = {} as any
-    //     updateData[columnName] = res.data.url
-    //     await dataStore.update(folder, id!, updateData)
-    //   }
-    //   close()
-    //   setTimeout(() => {
-    //     window.location.reload()
-    //   }, 1000)
-    // } else {
-    //   //如果是新增資料,返回地址(父要傳url)
-    //   emit('update:url', res.data.url)
-    //   close()
-    // }
-    imageUrl.value = ''
-  })
+
+  if (inputUrl.value) {
+    emit('update:url', inputUrl.value)
+    close()
+  } else if (imageUrl.value) {
+    cropper.value?.getCropBlob(async (data: Blob) => {
+      const file = new File([data], `${fileName}.jpg`, { type: 'image/jpg' })
+      formData.append(folder, file)
+      emit('update:url', imageUrl.value)
+    })
+  }
+
+  if (type === 'avatar') {
+    //用戶頭像
+    await userApi.uploadAvatar(formData, folder, id!).then((res) => {
+      if (res.code === 20000) {
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
+      }
+      close()
+    })
+  }
 }
 </script>
 

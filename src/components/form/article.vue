@@ -19,9 +19,7 @@
         </section>
         <div class="flex justify-end mt-3">
           <el-button @click="cancelForm">取消</el-button>
-          <el-button type="primary" :loading="loading" @click="submit">{{
-            loading ? 'Submitting ...' : '保存'
-          }}</el-button>
+          <el-button type="primary" @click="submit">保存</el-button>
         </div>
       </template>
 
@@ -38,8 +36,10 @@
                 <span class="w-[100px] flex justify-end items-center mr-3">{{ f.title }} :</span>
                 <el-select
                   v-model="modelData[f.name]"
+                  multiple
                   placeholder="請選擇類別"
-                  class="border rounded-md">
+                  :collapse-tags="true"
+                  class="border rounded-md w-auto!">
                   <el-option v-for="o in f.options" :label="o" :value="o" />
                 </el-select>
               </section>
@@ -52,7 +52,7 @@
           </div>
         </div>
 
-        <WangEditor v-model="modelData.content" folder="blog" class="mt-5" />
+        <WangEditor :model-value="modelData.content" folder="blog" class="mt-5" />
       </section>
 
       <upload-img
@@ -61,6 +61,7 @@
         column-name="image"
         :folder="table"
         type="create"
+        :id="modelData.id"
         v-model:url="modelData.image" />
     </el-drawer>
   </div>
@@ -85,26 +86,22 @@ const type = ref('new')
 const modelData = ref(
   _.zipObject(
     fields.map((f) => f.name),
-    fields.map((f) => f.value ?? ''),
+    fields.map((f) => (f.name === 'category' ? [] : f.value)),
   ),
 )
 defineExpose({ modelData, type })
 
-let timer: NodeJS.Timeout
-
 const dataStore = dataStores()
 const uploadDialog = ref(false)
-
-const loading = ref(false)
-
 const drawerRef = ref<InstanceType<typeof ElDrawer>>()
 
 // 版面關閉時清空表單
 const clear = () => {
   modelData.value = _.zipObject(
     fields.map((f) => f.name),
-    fields.map((f) => f.value ?? ''),
+    fields.map((f) => (f.name === 'category' ? [] : f.value)),
   )
+  modelData.value.content = ''
   emit('update:modelValue', false)
 }
 const submit = async () => {
@@ -123,18 +120,12 @@ const submit = async () => {
   drawerRef.value!.close()
 }
 
+let timer: NodeJS.Timeout
 const handleClose = (done: Function) => {
-  if (loading.value) {
-    return
-  }
   ElMessageBox.confirm(`是否要${type.value == 'new' ? '新增' : '更改'}資料?`)
     .then(() => {
-      loading.value = true
       timer = setTimeout(() => {
         submit()
-        setTimeout(() => {
-          loading.value = false
-        }, 400)
       }, 2000)
     })
     .catch(() => {
@@ -144,7 +135,6 @@ const handleClose = (done: Function) => {
 }
 
 const cancelForm = () => {
-  loading.value = false
   emit('update:modelValue', false)
   clear()
   clearTimeout(timer)

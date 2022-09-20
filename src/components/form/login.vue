@@ -38,7 +38,6 @@ import type { FormInstance } from 'element-plus'
 import type { formColumnsType } from '@/config/form'
 import { userStores } from '@/stores/userStore'
 import userApi from '@/apis/userApi'
-import { ElLoading } from 'element-plus'
 
 const { fields, model, title, type, rules } = defineProps<{
   fields: formColumnsType[]

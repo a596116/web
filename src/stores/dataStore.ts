@@ -1,7 +1,6 @@
 import dataApi from "@/apis/dataApi"
 import { CacheEnum } from "@/enum/cacheEnum"
 import { store } from "@/utils"
-import { ElLoading } from "element-plus"
 import { userStores } from "./userStore"
 
 export const dataStores = defineStore({
