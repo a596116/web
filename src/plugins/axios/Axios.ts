@@ -8,7 +8,7 @@ import { HttpStatus } from '@/enum/HttpStatus'
 
 export default class Axios {
   private instance
-  private loading: any
+  private loading: Array<any> = []
   constructor(config: AxiosRequestConfig) {
     this.instance = axios.create(config)
     this.interceptors()
@@ -16,6 +16,11 @@ export default class Axios {
 
   public async request<T, D = responseResult<T>>(config: AxiosRequestConfig): Promise<D> {
     return new Promise(async (resolve, reject) => {
+      this.loading.push(ElLoading.service({
+        text: '加載中...',
+        background: 'rgba(0,0,0,0.5)',
+      }))
+
       try {
         const res = await this.instance.request<D>(config)
         resolve(res.data)
@@ -34,11 +39,6 @@ export default class Axios {
   private interceptorsRequest() {
     this.instance.interceptors.request.use(
       (config: AxiosRequestConfig) => {
-        this.loading =
-          ElLoading.service({
-            text: '',
-            background: 'rgba(0,0,0,0.5)',
-          })
         errorStore().resetError()
         config.headers = {
           Authorization: 'Bearer ' + store.get(CacheEnum.TOKEN_NAME),
@@ -46,7 +46,6 @@ export default class Axios {
         return config
       },
       (error) => {
-        this.loading.close()
         console.error('請求失敗')
         return Promise.reject(error)
       },
@@ -65,11 +64,11 @@ export default class Axios {
             duration: 2000,
           })
         }
-        await this.loading.close()
+        this.loading.forEach(l => l.close())
         return response
       },
       (error) => {
-        this.loading.close()
+        this.loading.forEach(l => l.close())
         const {
           response: { status, data },
         } = error

@@ -52,7 +52,7 @@
           </div>
         </div>
 
-        <WangEditor :model-value="modelData.content" folder="blog" class="mt-5" />
+        <WangEditor v-model="modelData.content" folder="blog" class="mt-5" />
       </section>
 
       <upload-img

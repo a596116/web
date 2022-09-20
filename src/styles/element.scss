@@ -76,21 +76,13 @@
   animation: bounce 2s infinite;
 }
 
-.el-loading-spinner .path {
-  -webkit-animation: loading-dash 1.5s ease-in-out infinite;
-  animation: loading-dash 1.5s ease-in-out infinite;
-  stroke-dasharray: 90, 150;
-  stroke-dashoffset: 0;
-  stroke-width: 2;
-  /* stroke: var(--el-color-primary); */
-  stroke-linecap: round;
-  stroke: rgb(240, 228, 188) !important;
-}
-
 .el-loading-spinner .el-loading-text {
-  color: rgb(240, 228, 188) !important;
+  color: #fdcb6e !important;
   margin: 3px 0;
-  font-size: 14px;
+  font-size: 1.5rem;
+  top: 8rem;
+  left: 30px;
+  position: absolute;
 }
 .el-loading-spinner .circular{
   display: none !important;
