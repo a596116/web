@@ -8,10 +8,7 @@
         :class="{ active: bgactive === n - 1 || bgpreactive === n - 1 }"></li>
     </ul>
     <div class="homeTitle">
-      <h2>
-        Welcome <br />
-        <span class="typed"></span>
-      </h2>
+      <span class="typed"></span>
     </div>
   </div>
 </template>
@@ -98,18 +95,14 @@ onUnmounted(() => {
   }
 }
 
-.homeTitle {
-  @apply absolute bottom-5 flex justify-center flex-col;
-
-  h2 {
-    @apply text-7xl font-bold text-center text-gray-500 mb-3 duration-500;
-    line-height: 1.4em;
-    letter-spacing: 10px;
-
-    span {
-      @apply text-6xl text-gray-400 duration-500;
-      letter-spacing: 5px;
-    }
+:deep(.homeTitle) {
+  @apply absolute bottom-40 flex justify-center flex-row;
+  span {
+    @apply text-6xl text-gray-400 duration-500;
+    letter-spacing: 5px;
+  }
+  .typed-cursor {
+    font-size: 3.75rem !important;
   }
 }
 </style>
