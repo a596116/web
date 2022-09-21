@@ -9,11 +9,7 @@
       <template #image>
         <div class="flex items-center mb-4">
           <section class="w-[200px] bg-hd-theme-color" @click="avatarDialog = true">
-            <el-image
-              :src="userStore.info?.avatar !== '0' ? userStore.info?.avatar : '/img/haodai.png'"
-              fit="cover"
-              class="user_avatar">
-            </el-image>
+            <el-image :src="userAvatar" fit="cover" class="user_avatar"> </el-image>
           </section>
         </div>
         <upload-img
@@ -22,7 +18,8 @@
           :file-name="user!.name"
           column-name="avatar"
           folder="avatar"
-          type="avatar" />
+          type="avatar"
+          v-model:url="userAvatar" />
       </template>
       <template #button>
         <el-button type="primary" @click="alter()">儲存</el-button>
@@ -47,6 +44,8 @@ const user = ref(_.cloneDeep(userStore.info))
 
 const avatarDialog = ref(false)
 
+const userAvatar = ref(user.value?.avatar!)
+
 const formRef = ref()
 const alter = async () => {
   await formRef.value.formRef.validate((valid: boolean) => {
@@ -65,6 +64,7 @@ const alter = async () => {
             name: user.value?.name!,
             phone: user.value?.phone!,
             password: value,
+            avatar: userAvatar.value,
           }
           await userApi
             .alterUserInfo(alterUser)

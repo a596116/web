@@ -59,7 +59,6 @@
 <script setup lang="ts">
 import { type UploadProps, type UploadFile, ElMessage } from 'element-plus'
 import { VueCropper } from 'vue-cropper'
-import userApi from '@/apis/userApi'
 const {
   modelValue,
   fileName,
@@ -142,15 +141,18 @@ const sub = async () => {
   }
 
   if (type === 'avatar') {
+    // if (inputUrl.value) {
+    //   await dataStore.update(table, id, { ...modelData.value }, 'admin')
+    // }
     //用戶頭像
-    await userApi.uploadAvatar(formData, folder, id!).then((res) => {
-      if (res.code === 20000) {
-        setTimeout(() => {
-          window.location.reload()
-        }, 1000)
-      }
-      close()
-    })
+    // await userApi.uploadAvatar(formData, folder, id!).then((res) => {
+    //   if (res.code === 20000) {
+    //     setTimeout(() => {
+    //       window.location.reload()
+    //     }, 1000)
+    //   }
+    //   close()
+    // })
   }
 }
 </script>

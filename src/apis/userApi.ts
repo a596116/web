@@ -18,6 +18,7 @@ export interface IAlterUser {
   name: string
   phone: string
   password: string
+  avatar: string
 }
 
 export interface IAlterUserPassword {
