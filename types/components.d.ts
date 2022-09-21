@@ -54,6 +54,7 @@ declare module '@vue/runtime-core' {
     FormList: typeof import('./../src/components/form/list.vue')['default']
     FormLogin: typeof import('./../src/components/form/login.vue')['default']
     HdHome: typeof import('./../src/components/hd/home.vue')['default']
+    IconArrowUp: typeof import('@icon-park/vue-next')['ArrowUp']
     IconClear: typeof import('@icon-park/vue-next')['Clear']
     IconClose: typeof import('@icon-park/vue-next')['Close']
     IconFullScreen: typeof import('@icon-park/vue-next')['FullScreen']
@@ -76,7 +77,6 @@ declare module '@vue/runtime-core' {
     TableList: typeof import('./../src/components/table/list.vue')['default']
     TablePagination: typeof import('./../src/components/table/pagination.vue')['default']
     TableSearch: typeof import('./../src/components/table/search.vue')['default']
-    UploadCropper: typeof import('./../src/components/uploadCropper.vue')['default']
     UploadImg: typeof import('./../src/components/uploadImg.vue')['default']
     WangEditor: typeof import('./../src/components/wang/editor.vue')['default']
   }

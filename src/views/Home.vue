@@ -15,10 +15,11 @@ useTitle('浩呆')
         data-text="網站首頁"
         class="title hover:bg-orange-200"
         @click="router.push({ name: 'hd' })"></div>
-      <div
-        data-text="後台管理"
+      <a
+        data-text="浩呆博客"
         class="title hover:bg-green-200"
-        @click="router.push({ name: 'admin/home' })"></div>
+        href="https://wanghaodai.com/"
+        target="_blank"></a>
       <div
         data-text="MapleStory"
         class="title hover:bg-teal-200"

@@ -45,14 +45,14 @@ const quickList = ref<IQuick[]>([
     title: '庫存數據',
     icon: 'DataSheet',
     iconColor: 'text-[#82ccdd]',
-    route: 'error/404',
+    route: 'admin/home',
     show: true,
   },
   {
     title: '評論',
     icon: 'Communication',
     iconColor: 'text-[#b8e994]',
-    route: 'error/404',
+    route: 'admin/home',
     show: true,
   },
 ])

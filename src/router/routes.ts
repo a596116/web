@@ -35,6 +35,6 @@ export const routes = [
     {
         path: '/:any(.*)',
         name: 'notFound',
-        component: () => import('../views/Home.vue'),
+        component: () => import('../views/error/404.vue'),
     },
 ]
