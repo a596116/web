@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const active = ref<number>(0)
 const menutoggle = ref<boolean>(false)
-const menulist: string[] = ['首頁', '介紹', '創作', '照片']
+const menulist: string[] = ['介紹', '作品', '資料', '照片']
 nextTick(() => {
   window.addEventListener('scroll', onScroll, false)
 })
@@ -68,8 +68,13 @@ const scrollTo = (index: number): void => {
 
 <template>
   <div class="w-full min-h-screen">
+    <!-- top btn -->
+    <el-affix position="top" :offset="15">
+      <a class="home_button" href="/"> 主 頁 </a>
+    </el-affix>
+    <!-- nav -->
     <section class="et-hero-tabs">
-      <hd-home />
+      <hd-home class="cursor-default" />
       <el-affix :offset="0" class="affix">
         <div class="et-hero-tabs-container">
           <span
@@ -86,21 +91,17 @@ const scrollTo = (index: number): void => {
 
     <!-- Main -->
     <main class="et-main">
-      <section class="et-slide" id="tab-es6">
-        <h1>ES6</h1>
-        <h3>something about es6</h3>
+      <section class="et-slide">
+        <hd-card />
       </section>
-      <section class="et-slide" id="tab-flexbox">
-        <h1>Flexbox</h1>
-        <h3>something about flexbox</h3>
+      <section class="et-slide">
+        <h1>作品</h1>
       </section>
-      <section class="et-slide" id="tab-react">
-        <h1>React</h1>
-        <h3>something about react</h3>
+      <section class="et-slide">
+        <h1>資料</h1>
       </section>
-      <section class="et-slide" id="tab-angular">
-        <h1>Angular</h1>
-        <h3>something about angular</h3>
+      <section class="et-slide">
+        <hd-photo />
       </section>
     </main>
 
@@ -120,11 +121,10 @@ const scrollTo = (index: number): void => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
-  background: #eee;
+  background: var(--hd-bg-white);
   text-align: center;
-  // padding: 0 2em;
   h1 {
     font-size: 2rem;
     margin: 0;
@@ -187,14 +187,24 @@ const scrollTo = (index: number): void => {
 }
 
 .top_button {
-  @apply w-10 h-10 fixed flex justify-center items-center right-16 text-lg bg-gray-500 text-white p-1 rounded-md duration-300;
+  @apply w-10 h-10 fixed flex justify-center items-center right-12 text-lg bg-gray-500 text-white p-1 rounded-md duration-300;
   opacity: 0;
   &:hover span {
     animation: vertical 1.5s ease-in-out infinite;
   }
 }
+.home_button {
+  @apply fixed px-2 py-1 flex justify-center items-center right-10 text-base text-white rounded-md duration-300;
+  background-color: rgba(0, 0, 0, 0.5);
+  &:hover {
+    background-color: var(--hd-theme-color);
+  }
+}
 
-@media (min-width: 800px) {
+@media (max-width: 768px) {
+  .et-slide:nth-child(1) {
+    height: 140vh;
+  }
   .et-hero-tabs,
   .et-slide {
     h1 {

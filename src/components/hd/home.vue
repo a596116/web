@@ -4,7 +4,7 @@
       <li
         v-for="n in total"
         :key="n"
-        :style="img(n)"
+        :style="img(n - 1)"
         :class="{ active: bgactive === n - 1 || bgpreactive === n - 1 }"></li>
     </ul>
     <div class="homeTitle">
@@ -21,11 +21,11 @@ const animationDuration = 10
 const bgactive = ref(0)
 const bgpreactive = ref(0)
 const bgimg = [
-  'https://upload.cc/i1/2022/02/22/GCRmz3.jpg',
-  'https://upload.cc/i1/2022/02/22/NMaxRC.jpg',
-  'https://upload.cc/i1/2022/02/22/Zr15aJ.jpg',
-  'https://upload.cc/i1/2022/02/22/JBuPLx.jpg',
-  'https://upload.cc/i1/2022/02/22/31hoZM.jpg',
+  'https://media.altphotos.com/cache/images/2018/01/11/09/1504/sunset-cliff.jpg',
+  'https://media.altphotos.com/cache/images/2020/12/09/15/1504/landscape-mountain.jpg',
+  'https://media.altphotos.com/cache/images/2020/10/13/08/1504/sky-pylons-lines.jpg',
+  'https://media.altphotos.com/cache/images/2020/11/10/09/1504/church-moon.jpg',
+  'https://media.altphotos.com/cache/images/2018/01/12/04/1504/manhattan-seagull-skyline.jpg',
 ]
 
 const img = (n: number) => {
@@ -42,7 +42,7 @@ window.addEventListener('scroll', function () {
 setInterval(() => {
   bgpreactive.value = bgactive.value
   bgactive.value = (bgactive.value + 1 + total.value) % total.value
-}, (animationDuration / 2) * 1000)
+}, (animationDuration / 2) * 1500)
 
 let typed = {} as Typed
 onMounted(() => {

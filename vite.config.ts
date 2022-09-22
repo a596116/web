@@ -8,6 +8,7 @@ export default ({ command }: ConfigEnv): any => {
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
+        '#': fileURLToPath(new URL('./public/img', import.meta.url)),
       }
     },
     build: {
