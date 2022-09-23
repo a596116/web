@@ -97,7 +97,7 @@ const handleButtonClick = (e: any) => {
 
 <style scoped lang="scss">
 .introduce {
-  width: 360px;
+  // width: 360px;
   height: 500px !important;
   margin: auto;
   overflow-y: hidden;

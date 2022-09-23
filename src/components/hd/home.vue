@@ -7,14 +7,14 @@
         :style="img(n - 1)"
         :class="{ active: bgactive === n - 1 || bgpreactive === n - 1 }"></li>
     </ul>
-    <div class="homeTitle">
+    <!-- <div class="homeTitle">
       <span class="typed"></span>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script setup lang="ts">
-import Typed from 'typed.js'
+// import Typed from 'typed.js'
 const scroll = ref(false)
 const total = ref(5)
 const animationDuration = 10
@@ -44,23 +44,23 @@ setInterval(() => {
   bgactive.value = (bgactive.value + 1 + total.value) % total.value
 }, (animationDuration / 2) * 1500)
 
-let typed = {} as Typed
-onMounted(() => {
-  typed = new Typed('.typed', {
-    strings: ['Hao Dai', 'So Cute'],
-    typeSpeed: 200,
-    backSpeed: 100,
-    loop: true,
-  })
-})
-onUnmounted(() => {
-  typed.destroy()
-})
+// let typed = {} as Typed
+// onMounted(() => {
+//   typed = new Typed('.typed', {
+//     strings: ['Hao Dai', 'So Cute'],
+//     typeSpeed: 200,
+//     backSpeed: 100,
+//     loop: true,
+//   })
+// })
+// onUnmounted(() => {
+//   typed.destroy()
+// })
 </script>
 
 <style scoped lang="scss">
 .bgList {
-  @apply absolute w-full h-full top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] duration-500 z-10 bg-white;
+  @apply absolute w-full h-full top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] duration-500 z-10 bg-transparent;
   list-style: none;
 
   li {

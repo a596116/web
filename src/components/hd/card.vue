@@ -52,7 +52,14 @@
         <div class="title">技能</div>
         <div class="text">
           <div class="skill">
-            <img v-for="item in skills" :key="item.name" :src="item.img" alt="haodai" />
+            <el-tooltip
+              effect="dark"
+              :content="item.info"
+              placement="bottom"
+              v-for="item in skills"
+              :key="item.name">
+              <img :src="item.img" alt="haodai" />
+            </el-tooltip>
           </div>
         </div>
       </div>
@@ -158,6 +165,7 @@ const skills = [
 
 .about {
   position: absolute;
+  width: 360px;
   top: -100px;
   left: -100px;
   z-index: 99;
@@ -215,14 +223,17 @@ const skills = [
 .content .text .skill {
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-auto-flow: row;
-  gap: 10px;
-  grid-template-columns: repeat(4, 25%);
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
 
   img {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
   }
 }
 .slider {
@@ -239,7 +250,7 @@ const skills = [
 
 .slider .slide {
   position: relative;
-  height: 10px;
+  height: 12px;
   width: 50px;
   background: #d9d9d9;
   border-radius: 5px;
@@ -362,18 +373,19 @@ input {
 @media (max-width: 768px) {
   .card {
     width: 95%;
-    height: 650px;
+    height: 500px;
     top: 200px;
 
     .about {
       position: relative;
-      top: -600px;
+      width: 90%;
+      top: -500px;
       left: 0px;
     }
 
     .inner_part {
       padding: 0;
-      height: 650px;
+      height: 500px;
       width: 100%;
       left: 0;
     }

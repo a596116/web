@@ -74,7 +74,7 @@ const scrollTo = (index: number): void => {
     </el-affix>
     <!-- nav -->
     <section class="et-hero-tabs">
-      <hd-home class="cursor-default" />
+      <hd-home class="cursor-default hidden md:block" />
       <el-affix :offset="0" class="affix">
         <div class="et-hero-tabs-container">
           <span
@@ -233,6 +233,12 @@ const scrollTo = (index: number): void => {
 
   40% {
     transform: translateY(-20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .et-hero-tabs {
+    min-height: 0;
   }
 }
 </style>
