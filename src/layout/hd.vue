@@ -67,7 +67,7 @@ const scrollTo = (index: number): void => {
 </script>
 
 <template>
-  <div class="w-full min-h-screen">
+  <div class="w-full min-h-screen relative pt-[55px] md:pt-0">
     <!-- top btn -->
     <el-affix position="top" :offset="15">
       <a class="home_button" href="/"> 主 頁 </a>
@@ -228,6 +228,10 @@ const scrollTo = (index: number): void => {
   }
   .home_button {
     display: none;
+  }
+  .top_button {
+    bottom: 20px;
+    right: 20px;
   }
 }
 
