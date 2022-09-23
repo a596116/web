@@ -97,7 +97,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
 <style scoped lang="scss">
 :deep(.el-form) {
-  @apply relative w-[340px] h-full py-[40px] px-[30px];
+  @apply relative w-[100%] md:w-[340px] h-full py-[40px] px-[30px];
 
   h1 {
     @apply relative text-hd-black1 text-[24px] font-semibold mb-[40px];

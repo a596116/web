@@ -146,7 +146,7 @@ section {
       position: relative;
 
       .container {
-        @apply relative w-[400px] min-h-[400px] rounded-[10px] flex justify-center items-center;
+        @apply relative w-[100%] md:w-[400px] min-h-[400px] rounded-[10px] flex justify-center items-center;
         background: rgba(255, 255, 255, 0.1);
         box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.5);
