@@ -217,6 +217,18 @@ const scrollTo = (index: number): void => {
   .et-hero-tab {
     font-size: 1rem;
   }
+
+  .et-hero-tabs {
+    min-height: 0;
+  }
+
+  .et-hero-tabs-container,
+  .affix {
+    height: 45px;
+  }
+  .home_button {
+    display: none;
+  }
 }
 
 @keyframes vertical {
@@ -233,12 +245,6 @@ const scrollTo = (index: number): void => {
 
   40% {
     transform: translateY(-20px);
-  }
-}
-
-@media (max-width: 768px) {
-  .et-hero-tabs {
-    min-height: 0;
   }
 }
 </style>
