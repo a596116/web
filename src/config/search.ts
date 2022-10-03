@@ -25,8 +25,8 @@ export const userSearchForm = [
     },
 ] as searchColumnsType[]
 
-// blog
-export const blogSearchForm = [
+// topic
+export const topicSearchForm = [
     { title: '標題', name: 'title', type: 'input' },
     {
         title: '類別', name: 'category', type: 'radio',

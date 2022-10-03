@@ -1,10 +1,10 @@
 <template>
   <div>
     <el-button type="primary" @click="newBtn" class="m-3">新增文章</el-button>
-    <table-search :columns="blogSearchForm" table-name="blog"> </table-search>
+    <table-search :columns="topicSearchForm" table-name="topic"> </table-search>
     <table-list
-      :columns="blogTableColumns"
-      table-name="blog"
+      :columns="topicTableColumns"
+      table-name="topic"
       :edit-form="userEditForm"
       permission="admin"
       @action="tableButtonAction"
@@ -14,14 +14,14 @@
       ]">
     </table-list>
 
-    <form-article ref="formRef" v-model="visible" :fields="blogForm" table="blog" />
+    <form-article ref="formRef" v-model="visible" :fields="topicForm" table="topic" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { userEditForm, blogForm } from '@/config/form'
-import { blogTableColumns } from '@/config/table'
-import { blogSearchForm } from '@/config/search'
+import { userEditForm, topicForm } from '@/config/form'
+import { topicTableColumns } from '@/config/table'
+import { topicSearchForm } from '@/config/search'
 import { dataStores } from '@/stores/dataStore'
 import { ElMessageBox } from 'element-plus'
 
@@ -49,7 +49,7 @@ const tableButtonAction = async (model: any, command: string) => {
         type: 'warning',
       })
         .then(async () => {
-          await dataStore.delete('blog', model.id)
+          await dataStore.delete('topic', model.id)
         })
         .catch(() => {
           return

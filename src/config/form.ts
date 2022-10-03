@@ -62,8 +62,8 @@ export const userForm = [
  * 新增表單區
  * content和image不用寫,其他需要填寫的要放
  **/
-// Blog新增表單
-export const blogForm = [
+// Topic新增表單
+export const topicForm = [
   { title: '標題', name: 'title', type: 'input' },
   { title: '圖片', name: 'image' },
   { title: '文章', name: 'content' },

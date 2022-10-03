@@ -35,10 +35,10 @@ const quickList = ref<IQuick[]>([
     show: userStore?.info?.permissions?.includes('admin') as boolean,
   },
   {
-    title: 'Blog',
+    title: 'Topic',
     icon: 'Book',
     iconColor: 'text-[#6a89cc]',
-    route: 'admin/blog',
+    route: 'admin/topic',
     show: userStore?.info?.permissions?.includes('user') as boolean,
   },
   {

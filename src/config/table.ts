@@ -34,7 +34,7 @@ export const userTableColumns = [
   { prop: 'avatar', title: '頭像', type: 'image', align: 'center', width: 140 },
 ] as tableColumnsType[]
 
-export const blogTableColumns = [
+export const topicTableColumns = [
   // { prop: 'id', title: '編號', width: 80, align: 'center' },
   { prop: 'title', title: '標題', align: 'center' },
   { prop: 'content', title: '文章', width: 160, align: 'center', type: 'preview' },

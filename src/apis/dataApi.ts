@@ -28,12 +28,12 @@ class dataApi {
     })
   }
 
-  // Blog列表
-  blogList<T>(page = 1, query?: any) {
+  // Topic列表
+  topicList<T>(page = 1, query?: any) {
     const p = page || 1
     return http.request<Data<IUser>>({
       method: 'post',
-      url: `data/blog/${p}`,
+      url: `data/topic/${p}`,
       data: { ...query }
     })
   }

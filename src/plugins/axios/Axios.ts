@@ -85,7 +85,7 @@ export default class Axios {
             ElMessage.error({ message: message ?? '沒有操作權限' })
             break
           case HttpStatus.NOT_FOUND:
-            router.push({ name: 'error/404' })
+            router.push({ name: 'notFound' })
             break
           case HttpStatus.TOO_MANY_REQUESTS:
             ElMessage.error({ message: message ?? '操作過於頻繁，請稍候在嘗試' })

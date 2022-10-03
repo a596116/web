@@ -32,7 +32,6 @@ export const dataStores = defineStore({
                     this.dataCount = res.data.count // 總筆數
                     return res.data.rows // 資料
                 })
-
         },
 
         async create(table: string, obj: object) {

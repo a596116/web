@@ -33,6 +33,11 @@ export const routes = [
         meta: { guest: true },
     },
     {
+        path: '/love',
+        name: 'love',
+        component: () => import('@/layout/love.vue'),
+    },
+    {
         path: '/:any(.*)',
         name: 'notFound',
         component: () => import('../views/error/404.vue'),

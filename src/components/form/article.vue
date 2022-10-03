@@ -52,7 +52,7 @@
           </div>
         </div>
 
-        <WangEditor v-model="modelData.content" folder="blog" class="mt-5" />
+        <WangEditor v-model="modelData.content" folder="topic" class="mt-5" />
       </section>
 
       <upload-img
@@ -72,6 +72,7 @@ import { ElDrawer, ElMessageBox } from 'element-plus'
 import { dataStores } from '@/stores/dataStore'
 import type { formColumnsType } from '@/config/form'
 import _ from 'lodash'
+import { userStores } from '@/stores/userStore'
 
 const { modelValue, fields, table } = defineProps<{
   modelValue: boolean
@@ -92,6 +93,7 @@ const modelData = ref(
 defineExpose({ modelData, type })
 
 const dataStore = dataStores()
+const userStore = userStores()
 const uploadDialog = ref(false)
 const drawerRef = ref<InstanceType<typeof ElDrawer>>()
 
@@ -101,7 +103,7 @@ const clear = () => {
     fields.map((f) => f.name),
     fields.map((f) => (f.name === 'category' ? [] : f.value)),
   )
-  modelData.value.content = ''
+  // modelData.value.content = ''
   emit('update:modelValue', false)
 }
 const submit = async () => {
@@ -112,7 +114,7 @@ const submit = async () => {
     return
   }
   if (type.value == 'new') {
-    await dataStore.create(table, modelData.value)
+    await dataStore.create(table, { ...modelData.value, userid: userStore.info?.id })
   } else {
     await dataStore.update(table, id, { ...modelData.value }, 'admin')
   }
