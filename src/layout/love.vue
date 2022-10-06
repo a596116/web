@@ -3,14 +3,17 @@
     <div class="love" v-for="item in 67" :style="{ '--d': item * -1 * 0.3 }">
       <div class="love-hor">
         <div class="love-ver">
-          <div class="love-text">Love儒</div>
+          <div class="love-text">Love</div>
         </div>
       </div>
     </div>
-    <div class="love-loading">
-      <span></span>
-      <span></span>
-      <span></span>
+    <div class="">
+      <div class="love-loading">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="shadow"></div>
     </div>
   </div>
 </template>
@@ -71,6 +74,15 @@
         animation: animate3 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite;
       }
     }
+  }
+  .shadow {
+    position: relative;
+    width: 100px;
+    height: 20px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    top: 50px;
+    animation: shadow 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite;
   }
 }
 
@@ -174,6 +186,12 @@
   }
   100% {
     transform: rotate(720deg);
+  }
+}
+@keyframes shadow {
+  50% {
+    background-color: #f2f2f2;
+    transform: scale(0.5);
   }
 }
 </style>

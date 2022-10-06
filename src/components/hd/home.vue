@@ -5,7 +5,12 @@
         v-for="n in total"
         :key="n"
         :style="img(n - 1)"
-        :class="{ active: bgactive === n - 1 || bgpreactive === n - 1 }"></li>
+        :class="{ active: bgactive === n - 1 || bgpreactive === n - 1 }">
+        <div class="drop-shadow">
+          <div class="glass" :style="img(n - 1)"></div>
+          <span>HaoDai</span>
+        </div>
+      </li>
     </ul>
     <!-- <div class="homeTitle">
       <span class="typed"></span>
@@ -67,6 +72,9 @@ setInterval(() => {
     @apply opacity-0 absolute w-full h-full;
     background: center no-repeat;
     background-size: 150% auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &.active {
       animation: bgAnimate linear;
@@ -103,6 +111,55 @@ setInterval(() => {
   }
   .typed-cursor {
     font-size: 3.75rem !important;
+  }
+}
+
+.drop-shadow {
+  height: 90%;
+  width: 80%;
+  filter: drop-shadow(0px 20px 10px rgba(0, 0, 0, 0.3));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.glass {
+  height: 90%;
+  width: 80%;
+  background-size: cover;
+  background-position: center;
+  -webkit-clip-path: inset(10em);
+  clip-path: inset(10em);
+  filter: blur(15px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.7s ease-in-out;
+}
+.drop-shadow > span {
+  position: absolute;
+  z-index: 5;
+  color: white;
+  font-size: 4em;
+  letter-spacing: 0.5em;
+  padding-left: 0.375em;
+}
+
+.scroll .glass {
+  height: 0;
+  width: 0;
+}
+@media (max-width: 980px) {
+  .glass {
+    -webkit-clip-path: inset(5em);
+    clip-path: inset(5em);
+  }
+
+  .drop-shadow:before {
+    top: 5em;
+    width: calc(100% - 10em);
+  }
+  .drop-shadow > span {
+    font-size: 4em;
   }
 }
 </style>
