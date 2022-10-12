@@ -10,9 +10,9 @@
     <input type="checkbox" id="slideImg" />
 
     <div class="slider">
-      <label for="slide_1" class="slide slide_1"></label>
-      <label for="slide_2" class="slide slide_2"></label>
-      <label for="slide_3" class="slide slide_3"></label>
+      <label for="slide_1" class="slide slide_1 btn"></label>
+      <label for="slide_2" class="slide slide_2 btn"></label>
+      <label for="slide_3" class="slide slide_3 btn"></label>
     </div>
 
     <div class="inner_part">
@@ -58,7 +58,7 @@
               placement="bottom"
               v-for="item in skills"
               :key="item.name">
-              <img :src="item.img" alt="haodai" />
+              <img :src="item.img" alt="haodai" class="btn" />
             </el-tooltip>
           </div>
         </div>
@@ -233,7 +233,9 @@ const skills = [
   img {
     width: 70px;
     height: 70px;
-    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    // cursor: pointer;
   }
 }
 .slider {
@@ -256,7 +258,7 @@ const skills = [
   border-radius: 5px;
   display: inline-flex;
   margin: 0 3px;
-  cursor: pointer;
+  // cursor: pointer;
 }
 
 .slider .slide:before {
@@ -289,7 +291,7 @@ input {
   display: inline-block;
   color: $color;
   border-bottom: $width solid $color;
-  cursor: pointer;
+  // cursor: pointer;
   overflow: hidden;
   transition: color $time ease-in-out, background-color $time ease-in-out;
 

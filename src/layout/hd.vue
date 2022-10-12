@@ -5,7 +5,6 @@ const menulist: string[] = ['介紹', '作品', '資料', '照片']
 nextTick(() => {
   window.addEventListener('scroll', onScroll, false)
 })
-
 const onScroll = () => {
   const navContents = document.querySelectorAll('.et-slide') as NodeListOf<HTMLElement>
   const scrollTop: number = document.documentElement.scrollTop || document.body.scrollTop
@@ -70,7 +69,11 @@ const scrollTo = (index: number): void => {
   <div class="w-full min-h-screen relative pt-[55px] md:pt-0">
     <!-- top btn -->
     <el-affix position="top" :offset="15">
-      <a class="home_button" href="/"> 主 頁 </a>
+      <router-link
+        to="/"
+        class="btn home_button flex justify-center m-2 items-center absolute p-2 rounded-md text-hd-white hover:text-hd-black2">
+        <span>首頁</span>
+      </router-link>
     </el-affix>
     <!-- nav -->
     <section class="et-hero-tabs">
@@ -107,7 +110,7 @@ const scrollTo = (index: number): void => {
 
     <!-- top btn -->
     <el-affix position="bottom" :offset="70">
-      <a class="top_button" href="#">
+      <a class="top_button btn" href="#">
         <icon-arrow-up theme="outline" size="24" />
       </a>
     </el-affix>

@@ -44,7 +44,7 @@ img {
 }
 
 .title {
-  @apply text-white w-[50%] h-[50%] duration-300 relative cursor-pointer;
+  @apply text-white w-[50%] h-[50%] duration-300 relative;
 
   &::before {
     @apply content-[attr(data-text)] absolute top-[20%] left-[50%] text-[6vw] font-bold opacity-0;

@@ -12,10 +12,10 @@
         </div>
       </li>
     </ul>
-    <!-- <div class="homeTitle">
+  </div>
+  <!-- <div class="homeTitle">
       <span class="typed"></span>
     </div> -->
-  </div>
 </template>
 
 <script setup lang="ts">

@@ -2,7 +2,7 @@
   <div class="container relative">
     <router-link
       to="/"
-      class="flex justify-center items-center absolute p-2 text-hd-white hover:text-hd-black2">
+      class="btn flex justify-center m-2 items-center absolute p-2 rounded-md text-hd-white hover:text-hd-black2">
       <icon-left theme="outline" class="text-4xl" />
       <span>首頁</span>
     </router-link>

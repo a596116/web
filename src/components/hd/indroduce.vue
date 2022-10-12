@@ -21,10 +21,10 @@
           </p>
         </div>
         <div class="introduce-social">
-          <a href="https://line.me/ti/p/YXi16BOO8V" target="_blank">
+          <a href="https://line.me/ti/p/YXi16BOO8V" target="_blank" class="btn">
             <img src="/img/link/LINE.png" alt="haodai" />
           </a>
-          <a href="https://github.com/a596116" target="_blank">
+          <a href="https://github.com/a596116" target="_blank" class="btn">
             <img src="/img/link/GitHub.png" alt="haodai" />
           </a>
         </div>
@@ -56,12 +56,12 @@
         <div class="introduce-content">
           <div class="introduce-subtitle">聯絡資訊</div>
           <div class="introduce-contact-wrapper">
-            <div class="introduce-contact">
+            <div class="introduce-contact btn">
               <img src="/img/link/PHONE.png" alt="haodai" />
               <a href="tel:0988640301" target="_blank">0988640301 </a>
             </div>
             <div class="introduce-contact"></div>
-            <div class="introduce-contact">
+            <div class="introduce-contact btn">
               <img src="/img/link/MAIL.png" alt="haodai" />
               <a href="mailto:a596116@gmail.com" target="_blank"> a596116@gmail.com</a>
             </div>
@@ -289,7 +289,7 @@ const handleButtonClick = (e: any) => {
     font-size: 13px;
     border: 0;
     padding: 15px 5px;
-    cursor: pointer;
+    // cursor: pointer;
     color: #5c5c6d;
     transition: 0.3s;
     font-weight: 500;
@@ -393,7 +393,9 @@ const handleButtonClick = (e: any) => {
   font-size: 16px;
   color: #6f6f7b;
   line-height: 1.6;
-  cursor: pointer;
+  border-radius: 6px;
+  padding: 2px 4px;
+  // cursor: pointer;
 
   & + & {
     margin-top: 16px;

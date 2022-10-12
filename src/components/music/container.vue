@@ -17,25 +17,25 @@
 
       <div class="img-container">
         <img src="/img/maplestory.png" alt="music-cover" />
-        <button id="play" class="action-btn">
+        <button id="play" class="action-btn btn">
           <icon-play-one theme="outline" v-if="!play" @click="playSong" />
           <icon-pause theme="outline" v-else @click="pauseSong" />
         </button>
       </div>
 
       <div class="navigation">
-        <section id="prev" class="action-btn" @click="prevSong">
+        <section id="prev" class="action-btn btn" @click="prevSong">
           <icon-go-start theme="outline" />
         </section>
 
-        <button id="next" class="action-btn" @click="nextSong">
+        <button id="next" class="action-btn btn" @click="nextSong">
           <icon-go-end theme="outline" />
         </button>
 
-        <button id="list" class="other-btn list-btn" @click="openList = !openList">
+        <button id="list" class="other-btn list-btn btn" @click="openList = !openList">
           <icon-mindmap-list theme="outline" />
         </button>
-        <button id="random" class="other-btn random-btn">
+        <button id="random" class="other-btn list-btn btn">
           <icon-shuffle-one theme="outline" v-if="random" @click="randomSongs" />
           <icon-play-cycle theme="outline" v-else @click="randomSongs" />
         </button>
@@ -45,6 +45,7 @@
           v-for="(item, index) in songsList"
           :key="item"
           @click="playList(item)"
+          class="btn"
           :class="{ play: item == title }">
           {{ index + 1 + ' . ' + item.split('/', 2)[1] }}
         </li>
@@ -201,7 +202,7 @@ const setProgress = (e: any) => {
         @apply m-0 text-base;
       }
       .progress-container {
-        @apply bg-slate-200 rounded my-4 h-1 w-full cursor-pointer;
+        @apply bg-slate-200 rounded my-4 h-1 w-full;
         .progress {
           @apply bg-[#fe8daa] rounded h-full w-0;
           transition: width 0.1s linear;
@@ -217,14 +218,14 @@ const setProgress = (e: any) => {
     }
 
     .img-container {
-      @apply absolute flex justify-center items-center bottom-2 left-[30%] w-[110px] z-20;
+      @apply absolute flex justify-center items-center bottom-2 left-[20%] w-[110px] z-20;
       img {
         @apply object-cover h-[110px] w-[120px] relative bottom-0 left-0;
         animation: rotate 3s linear infinite;
         animation-play-state: paused;
       }
       #play {
-        @apply text-[#c9c1c1] text-4xl p-0 m-0 absolute bottom-5 opacity-0 z-[9];
+        @apply text-[#c9c1c1] text-4xl p-0 m-0 absolute rounded-md bottom-5 opacity-0 z-[9];
         &:hover {
           @apply text-[#6fbba2] scale-125 opacity-100;
         }
@@ -237,12 +238,12 @@ const setProgress = (e: any) => {
     .navigation {
       @apply flex justify-center items-center z-10;
       .action-btn {
-        @apply bg-transparent border-0 text-hd-black1 text-3xl p-2 cursor-pointer duration-200;
+        @apply bg-transparent border-0 text-hd-black1 rounded-md text-3xl p-2 duration-200;
         &:nth-child(1) {
-          margin: 0 60px 0 10px;
+          margin: 0 100px 0 0;
         }
         &:nth-child(2) {
-          margin: 0 10px 0 100px;
+          margin: 0 0 0 20px;
         }
         &:focus {
           outline: 0;
@@ -252,7 +253,7 @@ const setProgress = (e: any) => {
         }
       }
       .other-btn {
-        @apply bg-transparent border-0 text-[#a89d9d] text-lg p-2 mx-2 cursor-pointer duration-200;
+        @apply bg-transparent border-0 text-[#a89d9d] rounded-md text-lg p-2 mx-2 cursor-pointer duration-200;
         &.random-btn {
           @apply w-5 m-0;
         }
@@ -271,7 +272,7 @@ const setProgress = (e: any) => {
         @apply opacity-100 h-[300px];
       }
       li {
-        @apply text-xl px-4 my-2 rounded-lg cursor-pointer;
+        @apply text-xl px-4 my-2 rounded-lg;
         border-bottom: 1px solid #686868;
         &:hover {
           @apply bg-[#ece9e95b];

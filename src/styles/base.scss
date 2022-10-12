@@ -7,7 +7,15 @@
   // position: relative;
   font-weight: normal;
 }
-
+html,
+* {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: url("data:image/svg+xml,%3Csvg height='6' width='6' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' fill='%23414659' r='4'/%3E%3C/svg%3E") 3 3, auto;
+  // cursor: none !important;
+  user-select: none;
+  -webkit-user-drag: none;
+}
 body,
 html,
 #app {
@@ -40,5 +48,3 @@ $hd-text-white: #e0e0e0;
   --hd-bg-white: #f1f2f6;
   --hd-bg-black: #dfe4ea;
 }
-
-
