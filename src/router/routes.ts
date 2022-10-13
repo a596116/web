@@ -38,6 +38,16 @@ export const routes = [
         component: () => import('@/layout/love.vue'),
     },
     {
+        path: '/birthday',
+        name: 'birthday',
+        component: () => import('@/layout/birthday.vue'),
+    },
+    {
+        path: '/chart/:id?',
+        name: 'chart',
+        component: () => import('@/layout/chart.vue'),
+    },
+    {
         path: '/:any(.*)',
         name: 'notFound',
         component: () => import('../views/error/404.vue'),

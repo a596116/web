@@ -95,11 +95,11 @@ loadSong(songsList.value[songIndex.value])
 
 // Play song
 const playSong = () => {
-  ;(document.querySelector('#audio') as HTMLVideoElement).play()
+  document.querySelector<HTMLVideoElement>('#audio')?.play()
   play.value = true
 }
 const pauseSong = () => {
-  ;(document.querySelector('#audio') as HTMLVideoElement).pause()
+  document.querySelector<HTMLVideoElement>('#audio')?.pause()
   play.value = false
 }
 

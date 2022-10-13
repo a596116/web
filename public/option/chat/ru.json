@@ -1,0 +1,30 @@
+[
+  {
+    "msgs": ["你好"],
+    "msgInputSpeed": 80
+  },
+  {
+    "msgs": ["我是王教勛"],
+    "msgInputSpeed": 80
+  },
+  {
+    "msgs": ["很高興認識你"],
+    "msgInputSpeed": 80
+  },
+  {
+    "msgs": ["有這個榮幸跟你做朋友嗎？"],
+    "msgInputSpeed": 80,
+    "triggerNextAction": {
+      "type": "userInput",
+      "options": {
+        "resolveKeyTexts": ["可以", "好", "隨便", "可", "豪"],
+        "rejectKeyTexts": ["不要", "不", "不可以"],
+        "rejectHitTexts": ["好吧～"]
+      }
+    }
+  },
+  {
+    "msgs": ["滾"],
+    "msgInputSpeed": 80
+  }
+]
