@@ -14,5 +14,3 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 </script>
-
-<style></style>

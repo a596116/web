@@ -81,10 +81,10 @@ body {
 
     font-family: Lato;
     font-size: $font-size-basic;
-
-    background-color: lighten($clr-primary, 50%);
-    background-image: radial-gradient(ellipse farthest-corner at 50% 0,
-        #DBF5F1 0%, #9BE4D8 100%);
+    background-color: #21222c;
+    // background-color: lighten($clr-primary, 50%);
+    // background-image: radial-gradient(ellipse farthest-corner at 50% 0,
+    //     #DBF5F1 0%, #9BE4D8 100%);
 }
 
 ul {
@@ -102,5 +102,5 @@ img {
 
 
 .primary-bg {
-    background: linear-gradient(20deg, #3FD1E1 0%, #44D7CD 100%);
+    // background: linear-gradient(20deg, #3FD1E1 0%, #44D7CD 100%);
 }

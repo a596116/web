@@ -2,10 +2,10 @@
   <div :class="{ flap: flap }" class="animate__animated animate__zoomIn" @click="emit('open')">
     <div class="envelope">
       <div class="card">
-        <div class="close-icon">
+        <!-- <div class="close-icon">
           <icon-close theme="outline" size="28" fill="aliceblue" />
-        </div>
-        <div class="text">{{ openTip || 'opening....' }}</div>
+        </div> -->
+        <div class="text">{{ openTip || 'Opening....' }}</div>
       </div>
       <div class="heart"></div>
     </div>
@@ -22,7 +22,7 @@ const emit = defineEmits<{
 }>()
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .envelope {
   position: relative;
   width: 150px;

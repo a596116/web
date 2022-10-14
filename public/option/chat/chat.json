@@ -1,69 +1,43 @@
 [
-    {
-        "msgs": [
-            "<letter src='/letters/test.json'/>"
-        ],
-        "triggerNextAction": {
-            "type": "componentClose"
-        }
-    },
-    {
-        "msgs": [
-            "你猜我在想什么？"
-        ],
-        "msgInputSpeed": 80,
-        "triggerNextAction": {
-            "type": "userInput",
-            "options": {
-                "resolveKeyTexts": [
-                    "想我",
-                    "我"
-                ],
-                "rejectKeyTexts": [
-                    "不知道",
-                    "不",
-                    "不知"
-                ],
-                "rejectHitTexts": [
-                    "你猜错了～",
-                    [
-                        "给你提示一下～",
-                        "是个人~"
-                    ],
-                    "这都猜不中？？？",
-                    [
-                        "好吧，看图吧。",
-                        "<img src='/img/logo.png'>"
-                    ]
-                ]
-            }
-        }
-    },
-    {
-        "msgs": [
-            "我是在想打游戏",
-            "我是在想你呢"
-        ],
-        "msgInputSpeed": 80
-    },
-    {
-        "msgs": [
-            "看看这个视频"
-        ],
-        "msgInputSpeed": 80
-    },
-    {
-        "msgs": [
-            "<vlog src='/img/test.mp4'/>"
-        ],
-        "triggerNextAction": {
-            "type": "componentClose"
-        }
-    },
-    {
-        "msgs": [
-            "测试结束，广告位招租"
-        ],
-        "msgInputSpeed": 80
+  {
+    "msgs": ["<letter src='/option/letters/test.json'/>"],
+    "triggerNextAction": {
+      "type": "componentClose"
     }
+  },
+  {
+    "msgs": ["你猜我在想什么？"],
+    "msgInputSpeed": 80,
+    "triggerNextAction": {
+      "type": "userInput",
+      "options": {
+        "resolveKeyTexts": ["想我", "我"],
+        "rejectKeyTexts": ["不知道", "不", "不知"],
+        "rejectHitTexts": [
+          "你猜错了～",
+          ["给你提示一下～", "是个人~"],
+          "这都猜不中？？？",
+          ["好吧，看图吧。", "<img src='/img/logo.png'>"]
+        ]
+      }
+    }
+  },
+  {
+    "msgs": ["我是在想打游戏", "我是在想你呢"],
+    "msgInputSpeed": 80
+  },
+  {
+    "msgs": ["看看这个视频"],
+    "msgInputSpeed": 80
+  },
+  {
+    "msgs": ["<vlog src='/img/test.mp4'/>"],
+    "triggerNextAction": {
+      "type": "componentClose"
+    }
+  },
+  {
+    "msgs": ["测试结束，广告位招租"],
+    "msgInputSpeed": 80
+  }
 ]

@@ -1,80 +1,130 @@
-#mobile {
-    position: absolute;
-    left: 50%;
-    top: 30px;
-    bottom: 30px;
-    overflow: hidden;
-
-    width: $mobile-width;
-    margin-left: -$mobile-width / 2;
-
-    background-color: white;
-    border-radius: $radius-lg;
-    box-shadow: 0 0 30px 0 rgba(34, 195, 170, 0.5);
-
-    transform: translate3d(0, 0, 0);
+.iPhone-14-pro {
+  position: relative;
+  width: 291px;
+  height: 600px;
+  background-color: #998c9e;
+  border-radius: 48px;
 }
 
-    #mobile-head {
-        width: 100%;
-        height: $mobile-head-height - 1;
+/* 手机屏幕 */
+.iPhone-14-pro .screen {
+  position: absolute;
+  inset: 2px;
+  background-color: black;
+  border-radius: 48px;
+  /* 边框 */
+  // padding: 10px;
+}
 
-        background: white;
-    }
+/* 屏幕内容 */
+.iPhone-14-pro .screen .wrapper {
+  background: url(https://cdn.ytechb.com/wp-content/uploads/2022/09/iPhone-14-Pro-Wallpaper-purple.webp);
+  background-size: cover;
+  position: absolute;
+  inset: 8px;
+  border-radius: 40px;
+  transition: 0.5s;
+}
 
-        #mobile-head-title {
-            padding: 12px;
+#mobile {
+  position: relative;
+  height: 90vh;
+  width: $mobile-width;
+  background-color: white;
+  transform: translate3d(0, 0, 0);
+}
 
-            color: $clr-text-light;
-            text-align: center;
-        }
+#mobile-head {
+  width: 100%;
+  //   height: $mobile-head-height - 1;
+}
 
-    #mobile-foot {
-        position: absolute;
-        bottom: 0;
+#mobile-head-title {
+  //   padding: 12px;
 
-        width: 100%;
-        height: $mobile-foot-height - 1;
+  color: $clr-text-light;
+  text-align: center;
+}
 
-        background: #f7f8fa;
-        border-top: 1px solid $clr-border-light;
-    }
+#mobile-foot {
+  position: absolute;
+  bottom: 0;
 
-        .say-something {
-            padding: 0px 25px;
-            color: $clr-text-unimportant;
-        }
+  width: 100%;
+  height: $mobile-foot-height - 1;
 
-            #input-hint.clickable {
-                cursor: pointer;
-            }
+  //   background: #f7f8fa;
+  //   border-top: 1px solid $clr-border-light;
+}
 
+.say-something {
+  padding: 0px 25px;
+  color: $clr-text-unimportant;
+}
+
+#input-hint.clickable {
+  cursor: pointer;
+}
 
 @media (max-width: 480px) {
-    #mobile {
-        left: 0;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        margin-left: 0;
-        width: auto;
-
-        border-radius: 0;
-
-        &.has-prompt:after {
-            border-radius: 0 !important;
-        }
+  #mobile {
+    height: 100vh;
+    width: 100vw;
+    border-radius: 0;
+    &.has-prompt:after {
+      border-radius: 0 !important;
     }
+  }
 
-    #mobile-head {
-        display: none;
-    }
+  #mobile-head {
+    display: none;
+  }
 
-    #mobile-body {
-        top: 0 !important;
-    }
+  #mobile-body {
+    top: 0 !important;
+  }
 
-    #prompt-body {
-        border-radius: 0 !important;
-    }
+  #prompt-body {
+    border-radius: 0 !important;
+  }
+}
+/* 静音键 */
+.mute-btn {
+  position: absolute;
+  top: 100px;
+  left: -3px;
+  height: 20px;
+  width: 3px;
+  background: radial-gradient(#ccc, #666, #222);
+  z-index: 99999999;
+}
+
+/* 音量增大键 */
+.volume-up-btn {
+  position: absolute;
+  top: 145px;
+  left: -3px;
+  height: 40px;
+  width: 3px;
+  background: radial-gradient(#ccc, #666, #222);
+}
+
+/* 音量减小键 */
+.volume-down-btn {
+  position: absolute;
+  top: 205px;
+  left: -3px;
+  height: 40px;
+  width: 3px;
+  background: radial-gradient(#ccc, #666, #222);
+}
+
+/* 电源键 */
+.power-btn {
+  position: absolute;
+  top: 175px;
+  right: -3px;
+  height: 70px;
+  width: 3px;
+  background: radial-gradient(#ccc, #666, #222);
 }

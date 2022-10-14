@@ -7,12 +7,12 @@
       id="vlogPlayer"
       ref="vlogPlayer"
       class="vlog-player"
-      autoplay="autoplay"
+      autoplay="true"
       playsinline="true"
       webkit-playsinline="true"
       x-webkit-airplay="allow"
       airplay="allow"
-      loop="loop"
+      loop="true"
       x5-video-player-type="h5"
       x5-video-player-fullscreen="true"
       x5-video-orientation="portrait"
@@ -33,7 +33,7 @@ onMounted(() => {
 })
 </script>
 
-<style>
+<style scoped lang="scss">
 .vlog-cover-wapper {
   position: absolute;
   top: 0;

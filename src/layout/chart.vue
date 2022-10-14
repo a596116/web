@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex justify-center items-center h-full">
     <ChatDialog :options="chatOptions" :title="title" @msg-click="handleMsgClick" />
   </div>
 </template>
@@ -10,8 +10,6 @@ import axios from 'axios'
 const title = '浩呆'
 
 const chat = useRoute().params.id || 'chat'
-console.log(chat)
-
 const chatOptions = ref(await axios.get(`/option/chat/${chat}.json`, {}).then((r) => r.data))
 function handleMsgClick({ author, content, type }: any) {
   // console.log(author, content, type)

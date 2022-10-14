@@ -18,8 +18,7 @@
 import LetterCover from './cover.vue'
 import LetterContent from './content.vue'
 import axios from 'axios'
-const { type, src } = defineProps<{
-  type?: string
+const { src } = defineProps<{
   src?: any
 }>()
 const emit = defineEmits<{
@@ -47,7 +46,7 @@ onMounted(() => {
 })
 </script>
 
-<style>
+<style scoped lang="scss">
 .letter-cover-wapper {
   position: absolute;
   top: 0;

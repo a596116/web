@@ -38,7 +38,12 @@
     <div class="letter-action">
       <icon-close theme="outline" size="20" fill="aliceblue" @click="emit('close')" />
     </div>
-    <icon-to-top :duration="300" style="z-index: 2000" theme="outline" size="24" fill="#000000" />
+    <a href="#">
+      <icon-to-top
+        class="duration-300 z-[2000] text-2xl float-right"
+        theme="outline"
+        fill="#000000" />
+    </a>
   </div>
 </template>
 
@@ -79,7 +84,7 @@ const append = (ele: any, content: any) => {
 const lettertitle = ref()
 const divs = ref<any>([])
 const initContent = () => {
-  let paragraphChain = Promise.resolve()
+  let paragraphChain: Promise<any> = Promise.resolve()
   paragraphChain = paragraphChain.then(() => append(lettertitle.value, title))
   paragraphs?.forEach((paragraph: string, i: number) => {
     paragraphChain = paragraphChain.then(() => {
@@ -165,7 +170,7 @@ const computeDistance = () => {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
 .letter-title {
   font-size: 1.25rem;
   margin: 15px 0;

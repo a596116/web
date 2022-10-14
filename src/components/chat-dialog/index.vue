@@ -1,84 +1,102 @@
 <template>
-  <div id="mobile">
-    <div id="mobile-head">
-      <div id="mobile-head-title">{{ title }}</div>
-    </div>
-    <div id="mobile-body">
-      <div id="mobile-body-bg"></div>
-      <div id="mobile-body-content">
-        <div id="mock-msg-row" class="msg-row">
-          <div id="mock-msg" class="msg" v-html="latestMsgContent"></div>
+  <div id="mobile" class="iPhone-14-pro">
+    <!-- 手机屏幕 -->
+    <div class="screen">
+      <div id="screen-wrapper" class="wrapper">
+        <div id="mobile-head">
+          <ChatDialogIphone />
+          <!-- <div id="mobile-head-title">{{ title }}</div> -->
         </div>
-        <div
-          class="msg-row"
-          v-for="(msg, index) in messages"
-          :key="index"
-          :class="msg.author === 'author' ? 'msg-author' : 'msg-me'">
-          <div
-            class="msg"
-            :style="
-              msg.width &&
-              msg.height && { width: msg.width - 26 + 'px', height: msg.height - 18 + 'px' }
-            "
-            :class="{
-              'msg-bounce-in-left': msg.author === 'author',
-              'msg-bounce-in-right': msg.author === 'me',
-              animate_breathe: index === messages.length - 1 && status === 'componentClose',
-            }"
-            @click="emit('msg-click', msg)">
-            <span v-if="msg.type === 'text'" v-html="msg.content"></span>
-            <ChatDialogVlogCover
-              v-else-if="msg.type === 'vlog'"
-              v-bind="msg.props"
-              @open="handleComponentOpen(msg)"
-              @close="handleComponentClose" />
-            <ChatDialogLetterCover
-              v-else-if="msg.type === 'letter'"
-              v-bind="msg.props"
-              @open="handleComponentOpen(msg)"
-              @close="handleComponentClose" />
-            <component
-              v-else
-              :is="msg.type"
-              v-bind="msg.props"
-              @open="handleComponentOpen(msg)"
-              @close="handleComponentClose"></component>
+        <div id="mobile-body">
+          <div id="mobile-body-bg"></div>
+          <div id="mobile-body-content">
+            <div id="mock-msg-row" class="msg-row">
+              <div id="mock-msg" class="msg" v-html="latestMsgContent"></div>
+            </div>
+            <div
+              class="msg-row"
+              v-for="(msg, index) in messages"
+              :key="index"
+              :class="msg.author === 'author' ? 'msg-author' : 'msg-me'">
+              <div
+                class="msg"
+                :style="
+                  msg.width &&
+                  msg.height && { width: msg.width - 26 + 'px', height: msg.height - 18 + 'px' }
+                "
+                :class="{
+                  'msg-bounce-in-left': msg.author === 'author',
+                  'msg-bounce-in-right': msg.author === 'me',
+                  animate_breathe: index === messages.length - 1 && status === 'componentClose',
+                }"
+                @click="emit('msg-click', msg)">
+                <span v-if="msg.type === 'text'" v-html="msg.content"></span>
+                <ChatDialogVlogCover
+                  v-else-if="msg.type === 'vlog'"
+                  v-bind="msg.props"
+                  @open="handleComponentOpen(msg)"
+                  @close="handleComponentClose" />
+                <ChatDialogLetterCover
+                  v-else-if="msg.type === 'letter'"
+                  v-bind="msg.props"
+                  @open="handleComponentOpen(msg)"
+                  @close="handleComponentClose" />
+                <component
+                  v-else
+                  :is="msg.type"
+                  v-bind="msg.props"
+                  @open="handleComponentOpen(msg)"
+                  @close="handleComponentClose"></component>
+              </div>
+            </div>
           </div>
+        </div>
+        <div id="mobile-foot">
+          <el-row :gutter="10" style="height: 100%">
+            <el-col :span="19">
+              <div id="input-hint" class="say-something">
+                <div class="w-full h-8 leading-8 bg-white rounded-md">
+                  <span
+                    v-show="status === 'systemInput'"
+                    style="color: black"
+                    class="system-input-element"></span>
+                  <el-input
+                    ref="userMsgInputRef"
+                    v-show="status === 'userInput'"
+                    class="animate_breathe h-full"
+                    :hint="false"
+                    :line="false"
+                    v-model="inputMessage"
+                    @keyup.enter="sendUserMsg" />
+                </div>
+              </div>
+            </el-col>
+            <el-col :span="4" style="padding: 0">
+              <el-button
+                ref="sendMsgBtnRef"
+                type="success"
+                size="small"
+                :disabled="sendBtnDisabled"
+                @click="sendUserMsg"
+                >傳送</el-button
+              >
+            </el-col>
+          </el-row>
         </div>
       </div>
     </div>
-    <div id="mobile-foot">
-      <el-row :gutter="10" style="height: 100%">
-        <el-col :span="20">
-          <div id="input-hint" class="say-something">
-            <div style="background: white; width: 100%; height: 32px; line-height: 32px">
-              <span
-                v-show="status === 'systemInput'"
-                style="color: black"
-                class="system-input-element"></span>
-              <el-input
-                ref="userMsgInputRef"
-                v-show="status === 'userInput'"
-                class="animate_breathe"
-                :hint="false"
-                :line="false"
-                v-model="inputMessage"
-                @keyup.enter="sendUserMsg" />
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="4" style="padding: 0">
-          <el-button
-            ref="sendMsgBtnRef"
-            type="success"
-            size="small"
-            :disabled="sendBtnDisabled"
-            @click="sendUserMsg"
-            >发送</el-button
-          >
-        </el-col>
-      </el-row>
-    </div>
+
+    <!-- 静音键 -->
+    <div class="mute-btn"></div>
+
+    <!-- 音量增大键 -->
+    <div class="volume-up-btn"></div>
+
+    <!-- 音量减小键 -->
+    <div class="volume-down-btn"></div>
+
+    <!-- 电源键 -->
+    <div class="power-btn"></div>
   </div>
   <MessageDetail
     v-if="currentOpenComponent"
@@ -112,7 +130,7 @@ const emit = defineEmits<{
 // 已经展示的消息
 const messages = ref<any>([])
 // 消息链条
-const msgChain = ref(Promise.resolve())
+const msgChain = ref<Promise<any>>(Promise.resolve())
 // 输入消息
 const inputMessage = ref<string>('')
 // 用户交互触发器
@@ -191,10 +209,6 @@ const sendSysMsgInner = (messages: any, inputSpeed: any, author: any) => {
     if (messageType === 'text') {
       let strings = ['']
       Array.isArray(messages) ? (strings = strings.concat(messages)) : strings.push(messages)
-      // pushMsg(message, author || AUTHOR.AUTHOR, messageType)
-      // setTimeout(() => {
-      //   resolve(1)
-      // }, 1500)
       const typed = new Typed('.system-input-element', {
         strings: strings,
         typeSpeed: inputSpeed,
@@ -228,7 +242,7 @@ const sendUserMsg = () => {
     if (rejectNextMsg(message, resolveKeyTexts, rejectKeyTexts)) {
       const rejectDisabled = tryCnt >= rejectHitTexts.length - 1
       const rejectText = rejectHitTexts[Math.min(tryCnt, rejectHitTexts.length - 1)]
-      let rejectSysMsgChain = Promise.resolve()
+      let rejectSysMsgChain: Promise<any> = Promise.resolve()
       if (Array.isArray(rejectText)) {
         // 多条回复
         rejectText.forEach((text) => {
@@ -345,19 +359,6 @@ const getMsgType = (message: any) => {
   return 'text'
 }
 
-const markMsgSize = (msg: any, content = null) => {
-  latestMsgContent.value = content || msg.content
-  return (
-    delay(0)
-      // .then(() => msg.type === 'img' && onImageLoad($('#mock-msg img')))
-      .then(() => msg.type === 'img')
-      .then(() => {
-        Object.assign(msg, getMockMsgSize())
-        messages.value = [...messages.value]
-      })
-  )
-}
-
 /**
  * UI updating when new message is sending
  */
@@ -403,19 +404,9 @@ const getMockMsgSize = () => {
     height: $mockMsg.style.height,
   }
 }
-
-const onImageLoad = ($img: any) => {
-  return new Promise((resolve) => {
-    $img.addEventListener('load', resolve)
-    // $img.one('load', resolve).each((index: any, target: any) => {
-    //   // trigger load when the image is cached
-    //   target.complete && document.querySelector(target).trigger('load')
-    // })
-  })
-}
 </script>
 
-<style>
+<style scoped lang="scss">
 .animate_breathe {
   -webkit-animation-timing-function: ease-in-out;
   -webkit-animation-name: breathe;
