@@ -22,5 +22,5 @@
       "path": "./tsconfig.vite-config.json"
     }
   ],
-  "types": ["element-plus/global", "echarts", "lodash"]
+  "types": ["element-plus/global", "echarts", "lodash-es"]
 }

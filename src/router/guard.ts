@@ -1,4 +1,5 @@
 import { CacheEnum } from '@/enum/cacheEnum'
+import { userStores } from '@/stores/userStore'
 import { store } from '@/utils'
 import type { RouteLocationNormalized, Router } from 'vue-router'
 import router from '.'
@@ -16,6 +17,7 @@ class Guard {
       return { name: 'login' }
     }
     if (to.meta.guest && this.token()) return from
+
   }
 
   private token(): string | null {

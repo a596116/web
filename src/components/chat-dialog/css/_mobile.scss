@@ -1,9 +1,13 @@
 .iPhone-14-pro {
   position: relative;
+  left: 50%;
+  top: 30px;
+  margin-left: -$mobile-width / 2;
   width: 291px;
   height: 600px;
   background-color: #998c9e;
   border-radius: 48px;
+  overflow: hidden;
 }
 
 /* 手机屏幕 */
@@ -27,21 +31,17 @@
 }
 
 #mobile {
-  position: relative;
+  position: absolute;
   height: 90vh;
   width: $mobile-width;
-  background-color: white;
   transform: translate3d(0, 0, 0);
 }
 
 #mobile-head {
   width: 100%;
-  //   height: $mobile-head-height - 1;
 }
 
 #mobile-head-title {
-  //   padding: 12px;
-
   color: $clr-text-light;
   text-align: center;
 }
@@ -49,12 +49,8 @@
 #mobile-foot {
   position: absolute;
   bottom: 0;
-
   width: 100%;
   height: $mobile-foot-height - 1;
-
-  //   background: #f7f8fa;
-  //   border-top: 1px solid $clr-border-light;
 }
 
 .say-something {
@@ -66,28 +62,6 @@
   cursor: pointer;
 }
 
-@media (max-width: 480px) {
-  #mobile {
-    height: 100vh;
-    width: 100vw;
-    border-radius: 0;
-    &.has-prompt:after {
-      border-radius: 0 !important;
-    }
-  }
-
-  #mobile-head {
-    display: none;
-  }
-
-  #mobile-body {
-    top: 0 !important;
-  }
-
-  #prompt-body {
-    border-radius: 0 !important;
-  }
-}
 /* 静音键 */
 .mute-btn {
   position: absolute;
@@ -127,4 +101,37 @@
   height: 70px;
   width: 3px;
   background: radial-gradient(#ccc, #666, #222);
+}
+
+@media (max-width: 480px) {
+  #mobile {
+    height: 100vh;
+    width: 100vw;
+    left: 0;
+    top: 0;
+    margin-left: 0;
+    // border-radius: 0;
+    &.has-prompt:after {
+      border-radius: 0 !important;
+    }
+  }
+
+  #mobile-head {
+    display: none;
+  }
+
+  #mobile-body {
+    top: 0 !important;
+  }
+
+  #prompt-body {
+    border-radius: 0 !important;
+  }
+
+  .mute-btn,
+  .volume-up-btn,
+  .volume-down-btn,
+  .power-btn {
+    display: none;
+  }
 }

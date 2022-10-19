@@ -68,7 +68,7 @@
 <script setup lang="ts">
 import type { formColumnsType } from '@/config/form'
 import router from '@/router'
-import _ from 'lodash'
+import { zipObject } from 'lodash-es'
 const {
   fields,
   model: PropsModel,
@@ -80,7 +80,7 @@ const {
 }>()
 const model = ref(
   PropsModel ||
-    _.zipObject(
+    zipObject(
       fields.map((f) => f.name),
       fields.map((f) => f.value ?? ''),
     ),

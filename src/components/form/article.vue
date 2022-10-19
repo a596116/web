@@ -71,7 +71,7 @@
 import { ElDrawer, ElMessageBox } from 'element-plus'
 import { dataStores } from '@/stores/dataStore'
 import type { formColumnsType } from '@/config/form'
-import _ from 'lodash'
+import { zipObject } from 'lodash-es'
 import { userStores } from '@/stores/userStore'
 
 const { modelValue, fields, table } = defineProps<{
@@ -85,7 +85,7 @@ const emit = defineEmits<{
 
 const type = ref('new')
 const modelData = ref(
-  _.zipObject(
+  zipObject(
     fields.map((f) => f.name),
     fields.map((f) => (f.name === 'category' ? [] : f.value)),
   ),
@@ -99,7 +99,7 @@ const drawerRef = ref<InstanceType<typeof ElDrawer>>()
 
 // 版面關閉時清空表單
 const clear = () => {
-  modelData.value = _.zipObject(
+  modelData.value = zipObject(
     fields.map((f) => f.name),
     fields.map((f) => (f.name === 'category' ? [] : f.value)),
   )

@@ -38,7 +38,7 @@ export const routes = [
         component: () => import('@/layout/love.vue'),
     },
     {
-        path: '/birthday',
+        path: '/birthday/:id?',
         name: 'birthday',
         component: () => import('@/layout/birthday.vue'),
     },

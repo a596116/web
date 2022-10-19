@@ -5,7 +5,7 @@ specifiers:
   '@toast-ui/editor': ^3.1.5
   '@types/echarts': ^4.9.15
   '@types/firebase': ^3.2.1
-  '@types/lodash': ^4.14.182
+  '@types/lodash-es': ^4.17.6
   '@types/mockjs': ^1.0.6
   '@types/node': ^16.11.27
   '@types/tailwindcss': ^3.0.10
@@ -22,7 +22,7 @@ specifiers:
   element-plus: ^2.2.6
   firebase: ^9.8.3
   gsap: ^3.10.4
-  lodash: ^4.17.21
+  lodash-es: ^4.17.21
   mockjs: ^1.1.0
   pinia: ^2.0.13
   postcss: ^8.4.13
@@ -50,7 +50,7 @@ dependencies:
   '@toast-ui/editor': 3.1.5
   '@types/echarts': 4.9.15
   '@types/firebase': 3.2.1
-  '@types/lodash': 4.14.182
+  '@types/lodash-es': 4.17.6
   '@types/tailwindcss': 3.0.10
   '@vueuse/core': 8.7.5_vue@3.2.33
   '@wangeditor/editor': 5.0.1
@@ -61,7 +61,7 @@ dependencies:
   element-plus: 2.2.6_vue@3.2.33
   firebase: 9.8.3
   gsap: 3.10.4
-  lodash: 4.17.21
+  lodash-es: 4.17.21
   mockjs: 1.1.0
   pinia: 2.0.14_ytvqwwdyss532bvoq2clv4ed5m
   rollup: 2.72.1
@@ -84,7 +84,7 @@ devDependencies:
   autoprefixer: 10.4.7_postcss@8.4.13
   postcss: 8.4.13
   rollup-plugin-visualizer: 5.6.0_rollup@2.72.1
-  tailwindcss: 3.0.24
+  tailwindcss: 3.0.24_postcss@8.4.13
   typescript: 4.6.4
   unplugin-auto-import: 0.7.1_2h5hqrmiyzyib3tfj56lkaboe4
   unplugin-vue-components: 0.19.5_cl2x44h42klyn5cmzvrg6kdvva
@@ -3582,10 +3582,12 @@ packages:
       strip-ansi: 6.0.1
     dev: false
 
-  /tailwindcss/3.0.24:
+  /tailwindcss/3.0.24_postcss@8.4.13:
     resolution: {integrity: sha512-H3uMmZNWzG6aqmg9q07ZIRNIawoiEcNFKDfL+YzOPuPsXuDXxJxB9icqzLgdzKNwjG3SAro2h9SYav8ewXNgig==}
     engines: {node: '>=12.13.0'}
     hasBin: true
+    peerDependencies:
+      postcss: ^8.0.9
     dependencies:
       arg: 5.0.1
       chokidar: 3.5.3

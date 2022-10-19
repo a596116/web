@@ -33,7 +33,7 @@ onMounted(() => {
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .vlog-cover-wapper {
   position: absolute;
   top: 0;

@@ -22,7 +22,7 @@ const emit = defineEmits<{
 }>()
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .envelope {
   position: relative;
   width: 150px;

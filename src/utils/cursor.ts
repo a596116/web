@@ -15,8 +15,8 @@ export const cursor = async () => {
         const defaultState = {
             x: e.clientX,
             y: e.clientY,
-            width: 40,
-            height: 40,
+            width: 30,
+            height: 30,
             radius: '12px',
             scale: 1,
         }

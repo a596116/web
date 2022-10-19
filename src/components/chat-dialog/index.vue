@@ -125,7 +125,6 @@ const { title, options } = defineProps<{
 const emit = defineEmits<{
   (e: 'msg-click', d: any): void
 }>()
-
 //data
 // 已经展示的消息
 const messages = ref<any>([])
@@ -406,7 +405,7 @@ const getMockMsgSize = () => {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .animate_breathe {
   -webkit-animation-timing-function: ease-in-out;
   -webkit-animation-name: breathe;

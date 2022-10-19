@@ -155,10 +155,7 @@ const computeDistance = () => {
       return
     }
     const content = contents.value[lastContentIndex]
-    const p = document.querySelectorAll('p')
-    let h = 0
     if (content.type === 'img') {
-      const imgDom = content.dom.children[0]
       const $img = document.querySelector<HTMLImageElement>('img:last-child')!
       setTimeout(() => {
         resolve($img.naturalHeight)
@@ -170,7 +167,7 @@ const computeDistance = () => {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .letter-title {
   font-size: 1.25rem;
   margin: 15px 0;
@@ -227,6 +224,9 @@ const computeDistance = () => {
   display: block;
   margin-block-start: 2rem;
   margin-block-end: 2rem;
+}
+img {
+  max-width: 100% !important;
 }
 @media only screen and (max-width: 600px) {
   .letter-content:after {

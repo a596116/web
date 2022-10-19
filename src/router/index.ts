@@ -11,7 +11,9 @@ const router = createRouter({
 })
 
 export const setupRouter = async (app: App) => {
-  await userStores().getUserInfo()
+  if (window.location.href.match(/admin/ig)) {
+    await userStores().getUserInfo()
+  }
   autoload(router)
   guard(router)
   app.use(router)

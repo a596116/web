@@ -1,5 +1,6 @@
-import _ from 'lodash'
-const env: any = _.cloneDeep(import.meta.env)
+import { cloneDeep } from "lodash-es"
+
+const env: any = cloneDeep(import.meta.env)
 Object.entries(import.meta.env as Record<string, any>).forEach(([key, value]) => {
   if (value == 'true' || value == 'false') {
     env[key] = value == 'true' ? true : false

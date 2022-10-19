@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center items-center h-full">
+  <div class="">
     <ChatDialog :options="chatOptions" :title="title" @msg-click="handleMsgClick" />
   </div>
 </template>
@@ -15,5 +15,3 @@ function handleMsgClick({ author, content, type }: any) {
   // console.log(author, content, type)
 }
 </script>
-
-<style scoped></style>

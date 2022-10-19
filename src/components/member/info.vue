@@ -33,14 +33,14 @@ import type { IAlterUser } from '@/apis/userApi'
 import { userForm } from '@/config/form'
 import { userStores } from '@/stores/userStore'
 import { userInfoFormRules } from '@/config/formRules'
-import _ from 'lodash'
 import userApi from '@/apis/userApi'
 import { store } from '@/utils'
 import { CacheEnum } from '@/enum/cacheEnum'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { cloneDeep } from 'lodash-es'
 
 const userStore = userStores()
-const user = ref(_.cloneDeep(userStore.info))
+const user = ref(cloneDeep(userStore.info))
 
 const avatarDialog = ref(false)
 

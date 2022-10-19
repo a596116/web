@@ -11,7 +11,9 @@ html,
 * {
   outline: none;
   -webkit-tap-highlight-color: transparent;
-  cursor: url("data:image/svg+xml,%3Csvg height='6' width='6' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' fill='%23414659' r='4'/%3E%3C/svg%3E") 3 3, auto;
+  cursor: url("data:image/svg+xml,%3Csvg height='6' width='6' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' fill='%23414659' r='4'/%3E%3C/svg%3E")
+      3 3,
+    auto;
   // cursor: none !important;
   user-select: none;
   -webkit-user-drag: none;
@@ -27,9 +29,9 @@ html,
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
 }
-img {
-  max-width: none;
-}
+// img {
+//   max-width: none;
+// }
 
 $hd-bg-white: #f1f6f6;
 $hd-text-black: #6b7280;
@@ -47,4 +49,51 @@ $hd-text-white: #e0e0e0;
 
   --hd-bg-white: #f1f2f6;
   --hd-bg-black: #dfe4ea;
+}
+
+// 鼠標
+.cursor {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999999 !important;
+  width: var(--width);
+  height: var(--height);
+  transform: translate(calc(var(--x) - var(--width) / 2), calc(var(--y) - var(--height) / 2));
+  transition-duration: 125ms;
+  transition-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
+  transition-property: width, height, transform;
+  transition: 150ms width cubic-bezier(0.39, 0.575, 0.565, 1),
+    150ms height cubic-bezier(0.39, 0.575, 0.565, 1),
+    100ms transform cubic-bezier(0.39, 0.575, 0.565, 1);
+  pointer-events: none;
+  will-change: transform;
+}
+@media (pointer: fine) {
+  .cursor {
+    display: block;
+  }
+}
+.cursor::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: var(--radius);
+  border: 1.5px solid #414659;
+  opacity: var(--scale);
+  pointer-events: none;
+  -webkit-transform: scale(var(--scale));
+  transform: scale(var(--scale));
+  transition: 300ms opacity cubic-bezier(0.39, 0.575, 0.565, 1),
+    300ms transform cubic-bezier(0.39, 0.575, 0.565, 1),
+    150ms border-radius cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+
+html:not(html:hover) .cursor::after {
+  opacity: 0;
+  transform: scale(0);
 }

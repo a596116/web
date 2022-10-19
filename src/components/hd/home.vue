@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ scroll }" class="relative w-full h-screen flex justify-center">
+  <div :class="{ scroll }" class="relative w-full h-screen flex justify-center items-center">
     <ul class="bgList">
       <li
         v-for="n in total"
@@ -9,6 +9,12 @@
         <div class="drop-shadow">
           <div class="glass" :style="img(n - 1)"></div>
           <span>HaoDai</span>
+        </div>
+        <div
+          :class="{ 'mouse-show': scroll }"
+          class="absolute bottom-[80px] flex flex-col justify-center items-center">
+          <div class="mouse"></div>
+          <p class="mouse-text">Scroll</p>
         </div>
       </li>
     </ul>
@@ -64,6 +70,7 @@ setInterval(() => {
 </script>
 
 <style scoped lang="scss">
+@import '@/styles/mouse.scss';
 .bgList {
   @apply absolute w-full h-full top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] duration-500 z-10 bg-transparent;
   list-style: none;
@@ -73,6 +80,7 @@ setInterval(() => {
     background: center no-repeat;
     background-size: 150% auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 

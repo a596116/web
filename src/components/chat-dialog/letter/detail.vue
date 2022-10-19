@@ -46,7 +46,7 @@ onMounted(() => {
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .letter-cover-wapper {
   position: absolute;
   top: 0;

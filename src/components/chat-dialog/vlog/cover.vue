@@ -17,7 +17,7 @@ const emit = defineEmits<{
 }>()
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .vlog-cover {
   position: relative;
   top: 0;
