@@ -35,9 +35,9 @@
 <style scoped lang="scss">
 .candle {
   .floor {
-    position: absolute;
-    left: 50%;
-    top: 50%;
+    position: relative;
+    // left: 50%;
+    // top: calc(60% - 78px);
     width: 350px;
     height: 5px;
     background: #673c63;
@@ -49,7 +49,7 @@
   .candles {
     position: absolute;
     left: 50%;
-    top: 50%;
+    // top: calc(60% - 78px);
     width: 250px;
     height: 150px;
     transform: translate(-50%, -100%);

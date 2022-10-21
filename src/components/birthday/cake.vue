@@ -224,13 +224,14 @@
 <style scoped lang="scss">
 #cake {
   position: absolute;
-  top: -170px;
+  top: calc(-700px + 60%);
 }
 
 .velas {
   position: absolute;
   width: 154px;
   height: 135px;
+  top: calc(60% - 120px);
   -webkit-transform: translateY(-300px);
   -ms-transform: translateY(-300px);
   transform: translateY(-300px);
