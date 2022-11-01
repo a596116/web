@@ -42,6 +42,11 @@
                   class="w-[200px] rounded-sm" />
               </div>
             </template>
+            <!-- <template v-else-if="f.type == 'link'">
+              <div class="flex flex-col">
+                <a :href="model[f.name]" target="_blank">{{ model[f.name] }}</a>
+              </div>
+            </template> -->
             <template v-else-if="f.name === 'password'">
               <el-button type="info" @click="router.push('password')">修改密碼</el-button>
             </template>

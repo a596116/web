@@ -60,6 +60,8 @@ export const userStores = defineStore({
       }
       await userApi.login(user)
         .then(async (res) => {
+          console.log(res)
+
           if (res.code == 20000) {
             store.set(CacheEnum.TOKEN_NAME, res.data.token)
             store.set(CacheEnum.USER_NAME, res.data.userPhone)

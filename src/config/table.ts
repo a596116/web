@@ -3,7 +3,7 @@ export type tableColumnsType = {
   title: string
   width?: number
   align?: 'left' | 'center' | 'right'
-  type?: 'image' | 'date' | 'input' | 'tag' | 'alert' | 'switch' | 'preview' | 'category'
+  type?: 'image' | 'date' | 'input' | 'tag' | 'alert' | 'switch' | 'preview' | 'category' | 'link' | 'list'
   options: any
   search?: boolean
   fixed?: boolean
@@ -34,6 +34,17 @@ export const userTableColumns = [
   { prop: 'avatar', title: '頭像', type: 'image', align: 'center', width: 140 },
 ] as tableColumnsType[]
 
+
+export const birthdayTableColumns = [
+  { prop: 'name', title: '名字', align: 'center' },
+  { prop: 'url', title: '網址', width: 260, align: 'center', type: 'link' },
+  {
+    prop: 'gift', title: '禮物', align: 'center', type: 'list'
+  }
+] as tableColumnsType[]
+
+
+
 export const topicTableColumns = [
   // { prop: 'id', title: '編號', width: 80, align: 'center' },
   { prop: 'title', title: '標題', align: 'center' },
@@ -48,6 +59,28 @@ export const topicTableColumns = [
   },
   { prop: 'image', title: '封面', width: 140, align: 'center', type: 'image' },
 ] as tableColumnsType[]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export const roleTableColumns = [
   { prop: 'id', title: '编号', width: 80, align: 'center' },

@@ -48,10 +48,11 @@ const starBg = () => {
     d.style.zIndex = '99999999'
   })
 }
-
+let timer: NodeJS.Timeout
 onMounted(() => {
-  setTimeout(() => {
+  timer = setTimeout(() => {
     ok()
+    clearTimeout(timer)
   }, 6000)
   starBg()
 })
@@ -59,7 +60,6 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .bg {
-  //   @apply flex justify-center items-center;
   position: relative;
   width: 100vw;
   height: 100vh;

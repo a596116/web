@@ -72,14 +72,16 @@ const openGift = async () => {
   } catch {}
 }
 
-const open = async () => {
+const open = () => {
   const check = store.get('gift')
-  if (check && check.length) {
-    await openGift()
-  } else {
-    await openGift()
-    store.set('gift', userGift.value)
-  }
+  setTimeout(async () => {
+    if (check && check.length) {
+      await openGift()
+    } else {
+      await openGift()
+      store.set('gift', userGift.value, 30)
+    }
+  }, Math.random() * 3000)
 }
 </script>
 

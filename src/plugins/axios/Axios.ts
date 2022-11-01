@@ -2,7 +2,7 @@ import axios, { type AxiosRequestConfig } from 'axios'
 import { CacheEnum } from '@/enum/cacheEnum'
 import { store } from '@/utils'
 import router from '@/router'
-import { ElLoading } from 'element-plus'
+import { ElLoading, ElMessage } from 'element-plus'
 import errorStore from '@/stores/errorStore'
 import { HttpStatus } from '@/enum/HttpStatus'
 

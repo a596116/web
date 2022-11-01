@@ -38,6 +38,16 @@ class dataApi {
     })
   }
 
+  // birthday列表
+  birthdayList<T>(page = 1, query?: any) {
+    const p = page || 1
+    return http.request<Data<IUser>>({
+      method: 'post',
+      url: `data/birthday/${p}`,
+      data: { ...query }
+    })
+  }
+
   // 上傳檔案（圖片）
   upload(data: FormData, folder: string, id: string) {
     return http.request<Upload>({

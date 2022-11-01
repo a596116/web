@@ -39,7 +39,7 @@ export default ({ command }: ConfigEnv): any => {
       },
     },
     server: {
-      port: 8000,
+      port: 8010,
       // base: "./ ", //生产环境路径
       // proxy: {
       //   '/api': {

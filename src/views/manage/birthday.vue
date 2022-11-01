@@ -1,11 +1,9 @@
 <template>
   <div>
-    <el-button type="primary" @click="newBtn" class="m-3">新增文章</el-button>
-    <table-search :columns="topicSearchForm" table-name="topic"> </table-search>
+    <el-button type="primary" @click="newBtn" class="m-3">新增壽星</el-button>
     <table-list
-      :columns="topicTableColumns"
-      table-name="topic"
-      :edit-form="userEditForm"
+      :columns="birthdayTableColumns"
+      table-name="birthday"
       permission="admin"
       @action="tableButtonAction"
       :buttons="[
@@ -17,19 +15,19 @@
     <form-article
       ref="formRef"
       v-model="visible"
-      :fields="topicForm"
+      :list="birthdayGiftForm"
+      :fields="birthdayForm"
       @action="formButtonAction"
-      table="topic" />
+      table="birthday" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { userEditForm, topicForm } from '@/config/form'
-import { topicTableColumns } from '@/config/table'
-import { topicSearchForm } from '@/config/search'
+import { birthdayForm, birthdayGiftForm } from '@/config/form'
+import { birthdayTableColumns } from '@/config/table'
 import { dataStores } from '@/stores/dataStore'
-import { ElMessageBox } from 'element-plus'
 import { userStores } from '@/stores/userStore'
+import { ElMessageBox } from 'element-plus'
 
 const dataStore = dataStores()
 const visible = ref(false)
@@ -40,10 +38,9 @@ const tableButtonAction = async (model: any, command: string) => {
     case 'edit':
       formRef.value.modelData = {
         id: model.id,
-        title: model.title,
-        category: model.category,
-        content: model.content,
-        image: model.image,
+        name: model.name,
+        url: model.url,
+        gift: model.gift,
       }
       formRef.value.type = 'edit'
       visible.value = true
@@ -55,7 +52,7 @@ const tableButtonAction = async (model: any, command: string) => {
         type: 'warning',
       })
         .then(async () => {
-          await dataStore.delete('topic', model.id)
+          await dataStore.delete('birthday', model.id)
         })
         .catch(() => {
           return
@@ -73,18 +70,18 @@ const userStore = userStores()
 const formButtonAction = async (model: any, command: string) => {
   const id = model.id
   delete model.id
-  if (model.title == '' || model.content == '') {
-    ElMessage.warning('標題和內容需填寫！')
-    return
-  }
+  // if (model.title == '' || model.content == '') {
+  //   ElMessage.warning('標題和內容需填寫！')
+  //   return
+  // }
   switch (command) {
     case 'new':
-      console.log({ ...model, userid: userStore.info?.id })
+      console.log({ ...model })
 
-      await dataStore.create('topic', { ...model, userid: userStore.info?.id })
+      await dataStore.create('birthday', { ...model })
       break
     case 'edit':
-      await dataStore.update('topic', id, { ...model }, 'admin')
+      await dataStore.update('birthday', id, { ...model }, 'admin')
       break
   }
 }

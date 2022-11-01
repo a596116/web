@@ -2,7 +2,7 @@ export type formColumnsType = {
   title: string
   name: string
   error_name?: string
-  type?: 'input' | 'textarea' | 'image' | 'preview' | 'radio' | 'checkbox' | 'tag' | 'password' | 'select'
+  type?: 'input' | 'textarea' | 'image' | 'preview' | 'radio' | 'checkbox' | 'tag' | 'password' | 'select' | 'content' | 'list'
   options?: any
   readonly?: boolean
   disabled?: boolean
@@ -60,14 +60,25 @@ export const userForm = [
 
 /**
  * 新增表單區
- * content和image不用寫,其他需要填寫的要放
  **/
 // Topic新增表單
 export const topicForm = [
+  { title: '圖片', name: 'image', type: 'image' },
   { title: '標題', name: 'title', type: 'input' },
-  { title: '圖片', name: 'image' },
-  { title: '文章', name: 'content' },
   { title: '類別', name: 'category', options: ['HTML', 'JS', 'CSS'], type: 'select' },
+  { title: '文章', name: 'content', type: 'content' },
+] as formColumnsType[]
+
+// Bitrhday新增表單
+export const birthdayForm = [
+  { title: '名字', name: 'name', type: 'input' },
+  { title: '網址', name: 'url', type: 'input' },
+  { title: '禮物', name: 'gift', type: 'list' },
+] as formColumnsType[]
+// Bitrhday禮物新增表單
+export const birthdayGiftForm = [
+  { title: '圖片', name: 'img', type: 'image' },
+  { title: '機率', name: 'p' },
 ] as formColumnsType[]
 
 //系统配置

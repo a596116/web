@@ -4,16 +4,16 @@ export default {
         auth: true,
         name: 'admin',
         menu: {
-            title: '文章',
-            icon: 'Book',
+            title: '管理',
+            icon: 'MoreApp',
         },
     },
     children: [
         {
-            name: 'admin/topic',
-            path: 'topic/:id?',
-            component: () => import('@/views/article/topic.vue'),
-            meta: { menu: { title: 'Topic' }, number: 3, permission: 'user' },
+            name: 'admin/birthday',
+            path: 'birthday',
+            component: () => import('@/views/manage/birthday.vue'),
+            meta: { menu: { title: 'Birthday' }, number: 4, permission: 'user' },
         },
         // {
         //     name: 'admin/article',

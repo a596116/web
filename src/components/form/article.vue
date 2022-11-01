@@ -25,14 +25,17 @@
 
       <section class="flex flex-col">
         <div class="flex w-full">
-          <div class="flex items-center" @click="uploadDialog = true">
-            <div class="upload-img" v-if="modelData.image == ''">上傳圖片</div>
-            <el-image v-else :src="modelData.image" fit="cover" class="upload-img editor">
-            </el-image>
-          </div>
           <div class="flex flex-col w-full">
             <div v-for="f of fields" :key="f.name" :prop="f.name">
-              <section v-if="f.type == 'select'" class="flex mb-5">
+              <div
+                class="flex items-center mb-5"
+                v-if="f.type == 'image'"
+                @click="uploadDialog = true">
+                <div class="upload-img" v-if="modelData.image == ''">上傳圖片</div>
+                <el-image v-else :src="modelData.image" fit="cover" class="upload-img editor">
+                </el-image>
+              </div>
+              <section v-else-if="f.type == 'select'" class="flex mb-5">
                 <span class="w-[100px] flex justify-end items-center mr-3">{{ f.title }} :</span>
                 <el-select
                   v-model="modelData[f.name]"
@@ -43,16 +46,27 @@
                   <el-option v-for="o in f.options" :label="o" :value="o" />
                 </el-select>
               </section>
+              <section v-else-if="f.type == 'list'">
+                <form-many-list
+                  ref="manyListRef"
+                  :fields="list!"
+                  :table="table"
+                  v-model:model="modelData[f.name]"
+                  class="flex-1"></form-many-list>
+              </section>
               <section v-else-if="f.type == 'radio'"></section>
               <section v-else-if="f.type == 'input'" class="flex mb-5">
                 <span class="w-[100px] flex justify-end items-center mr-3">{{ f.title }} :</span>
                 <el-input v-model="modelData[f.name]" class="flex-1 border rounded-md" />
               </section>
+              <WangEditor
+                v-model="modelData.content"
+                v-else-if="f.type == 'content'"
+                folder="topic"
+                class="mt-5" />
             </div>
           </div>
         </div>
-
-        <WangEditor v-model="modelData.content" folder="topic" class="mt-5" />
       </section>
 
       <upload-img
@@ -69,31 +83,32 @@
 
 <script setup lang="ts">
 import { ElDrawer, ElMessageBox } from 'element-plus'
-import { dataStores } from '@/stores/dataStore'
 import type { formColumnsType } from '@/config/form'
 import { zipObject } from 'lodash-es'
-import { userStores } from '@/stores/userStore'
 
-const { modelValue, fields, table } = defineProps<{
+const { modelValue, fields, table, list } = defineProps<{
   modelValue: boolean
   fields: formColumnsType[]
   table: string
+  list?: formColumnsType[]
 }>()
 const emit = defineEmits<{
   (e: 'update:modelValue', d: boolean): void
+  (e: 'action', model: any, command: string): void
 }>()
 
-const type = ref('new')
+const type = ref('none')
 const modelData = ref(
   zipObject(
     fields.map((f) => f.name),
     fields.map((f) => (f.name === 'category' ? [] : f.value)),
   ),
 )
+
 defineExpose({ modelData, type })
 
-const dataStore = dataStores()
-const userStore = userStores()
+const manyListRef = ref()
+
 const uploadDialog = ref(false)
 const drawerRef = ref<InstanceType<typeof ElDrawer>>()
 
@@ -103,21 +118,17 @@ const clear = () => {
     fields.map((f) => f.name),
     fields.map((f) => (f.name === 'category' ? [] : f.value)),
   )
-  // modelData.value.content = ''
+  manyListRef.value[0].list = []
+  type.value = 'none'
   emit('update:modelValue', false)
 }
+
+/**
+ * 提交表單
+ * @date 2022-10-31
+ */
 const submit = async () => {
-  const id = modelData.value.id
-  delete modelData.value.id
-  if (modelData.value.title == '' || modelData.value.content == '') {
-    ElMessage.warning('標題和內容需填寫！')
-    return
-  }
-  if (type.value == 'new') {
-    await dataStore.create(table, { ...modelData.value, userid: userStore.info?.id })
-  } else {
-    await dataStore.update(table, id, { ...modelData.value }, 'admin')
-  }
+  emit('action', modelData.value, type.value)
   clear()
   drawerRef.value!.close()
 }
@@ -141,6 +152,19 @@ const cancelForm = () => {
   clear()
   clearTimeout(timer)
 }
+
+watch(type, () => {
+  let l: any = fields.filter((i) => {
+    return i.type === 'list'
+  })
+  if (type.value !== 'none' && manyListRef.value) {
+    if (type.value === 'new') {
+      manyListRef.value[0].list = []
+    } else {
+      manyListRef.value[0].list = [...modelData.value[l[0].name]]
+    }
+  }
+})
 </script>
 
 <style scoped lang="scss">

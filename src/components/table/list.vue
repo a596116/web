@@ -51,6 +51,12 @@
             :disabled="row.name === 'admin'"
             @change="changeSwitch(row, col.prop)" />
         </template>
+        <template v-else-if="col.type === 'list'">
+          <span>{{ row[col.prop].length }}</span>
+        </template>
+        <template v-else-if="col.type === 'link'">
+          <a :href="row[col.prop]" target="_blank">{{ row[col.prop] }}</a>
+        </template>
         <template v-else>
           {{ row[col.prop] }}
         </template>
