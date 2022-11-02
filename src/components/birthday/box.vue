@@ -77,7 +77,7 @@ const open = async () => {
     await openGift()
   } else {
     await openGift()
-    store.set('gift', userGift.value, 10)
+    store.set('gift', userGift.value, 60)
   }
 }
 </script>
