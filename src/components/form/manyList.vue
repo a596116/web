@@ -43,7 +43,7 @@
         </el-form-item>
       </el-form>
       <section
-        @click="del"
+        @click="del(index)"
         class="bg-red-300 hover:bg-red-400 ml-2 px-1 text-center text-white"
         style="writing-mode: vertical-lr">
         刪除欄位
@@ -76,6 +76,9 @@ const uploadDialog = ref(false)
 
 defineExpose({ list })
 
+/**
+ * list數組添加欄位
+ */
 const addList = () => {
   list.value = [
     ...list.value,
@@ -86,6 +89,10 @@ const addList = () => {
   ]
 }
 
+/**
+ * 監聽list變化，更新emit.model數據
+ * @date 2022-11-02
+ */
 const watchList = computed(() => {
   return cloneDeep(list.value)
 })
@@ -93,7 +100,11 @@ watch(watchList, () => {
   emit('update:model', list.value)
 })
 
-const del = () => {
-  console.log(list.value)
+/**
+ * 刪除list裡的數據
+ * @date 2022-11-02
+ */
+const del = (index: number) => {
+  list.value.splice(index, 1)
 }
 </script>
