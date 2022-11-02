@@ -43,11 +43,13 @@ const getItemByChange = () => {
       item = _
       break
     } else {
+      item = _
       count = count + _.p
     }
   }
   return item
 }
+
 const userGift = ref()
 
 const openGift = async () => {
@@ -75,7 +77,7 @@ const open = async () => {
     await openGift()
   } else {
     await openGift()
-    store.set('gift', userGift.value, 30)
+    store.set('gift', userGift.value, 10)
   }
 }
 </script>

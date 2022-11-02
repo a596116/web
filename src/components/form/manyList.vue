@@ -59,7 +59,7 @@
 
 <script setup lang="ts">
 import type { formColumnsType } from '@/config/form'
-import { zipObject } from 'lodash-es'
+import { cloneDeep, zipObject } from 'lodash-es'
 const { fields, model, formRules, table } = defineProps<{
   fields: formColumnsType[]
   model: any
@@ -77,22 +77,23 @@ const uploadDialog = ref(false)
 defineExpose({ list })
 
 const addList = () => {
-  list.value.push(
+  list.value = [
+    ...list.value,
     zipObject(
       fields.map((f) => f.name),
       fields.map((f) => f.value ?? ''),
     ),
-  )
+  ]
 }
-// console.log(model)
-watch(list.value, () => {
-  console.log(list.value)
 
+const watchList = computed(() => {
+  return cloneDeep(list.value)
+})
+watch(watchList, () => {
   emit('update:model', list.value)
 })
 
 const del = () => {
-  // console.log(model)
-  console.log(model)
+  console.log(list.value)
 }
 </script>

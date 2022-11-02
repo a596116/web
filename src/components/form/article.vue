@@ -118,7 +118,6 @@ const clear = () => {
     fields.map((f) => f.name),
     fields.map((f) => (f.name === 'category' ? [] : f.value)),
   )
-  manyListRef.value[0].list = []
   type.value = 'none'
   emit('update:modelValue', false)
 }
@@ -153,10 +152,10 @@ const cancelForm = () => {
   clearTimeout(timer)
 }
 
+const l: any = fields.filter((i) => {
+  return i.type === 'list'
+})
 watch(type, () => {
-  let l: any = fields.filter((i) => {
-    return i.type === 'list'
-  })
   if (type.value !== 'none' && manyListRef.value) {
     if (type.value === 'new') {
       manyListRef.value[0].list = []
