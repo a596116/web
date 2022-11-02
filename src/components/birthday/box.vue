@@ -27,22 +27,18 @@
 <script setup lang="ts">
 import { store } from '@/utils'
 import { ElMessageBox } from 'element-plus'
+import dataApi from '@/apis/dataApi'
 
-let gift = [
-  { id: 1, gift: '/img/gift/星巴克100.JPG', p: 0.3 },
-  { id: 2, gift: '/img/gift/星巴克135.JPG', p: 0.2 },
-  { id: 3, gift: '/img/gift/星巴克150.JPG', p: 0.2 },
-  { id: 4, gift: '/img/gift/星巴克200.JPG', p: 0.06 },
-  { id: 5, gift: '/img/gift/麥當勞177.JPG', p: 0.1 },
-  { id: 6, gift: '/img/gift/爭鮮300.JPG', p: 0.04 },
-  { id: 7, gift: '/img/gift/85度160.JPG', p: 0.1 },
-]
+const route = useRoute()
+
+let gift = ref()
+
 const getItemByChange = () => {
   const r = Math.random()
   let count = 0
   let item
-  for (let i = 0; i < gift.length; i++) {
-    let _ = gift[i]
+  for (let i = 0; i < gift.value.length; i++) {
+    let _ = gift.value[i]
     if (r >= count && r <= count + _.p) {
       item = _
       break
@@ -52,7 +48,7 @@ const getItemByChange = () => {
   }
   return item
 }
-const userGift = ref(store.get('gift') ? store.get('gift') : getItemByChange()?.gift!)
+const userGift = ref()
 
 const openGift = async () => {
   try {
@@ -71,17 +67,16 @@ const openGift = async () => {
     )
   } catch {}
 }
-
-const open = () => {
+const open = async () => {
+  gift.value = await (await dataApi.birthdayList(1, { name: route.params.id })).data.rows[0].gift
+  userGift.value = store.get('gift') ? store.get('gift') : getItemByChange()?.img!
   const check = store.get('gift')
-  setTimeout(async () => {
-    if (check && check.length) {
-      await openGift()
-    } else {
-      await openGift()
-      store.set('gift', userGift.value, 30)
-    }
-  }, Math.random() * 3000)
+  if (check && check.length) {
+    await openGift()
+  } else {
+    await openGift()
+    store.set('gift', userGift.value, 30)
+  }
 }
 </script>
 

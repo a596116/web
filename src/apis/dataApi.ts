@@ -9,15 +9,13 @@ export interface Upload {
   url: string
 }
 
+export interface Birthday {
+  name: string
+  url: string
+  gift: any
+}
+
 class dataApi {
-  // 修改資料data(table哪張表, id哪筆資料, data要修改的資料)
-  update(table: string, id: string, data: any) {
-    return http.request({
-      url: `data/${table}?id=${id}`,
-      method: 'put',
-      data,
-    })
-  }
   // 用戶列表
   userList<IUser>(page = 1, query?: any) {
     const p = page || 1
@@ -41,10 +39,19 @@ class dataApi {
   // birthday列表
   birthdayList<T>(page = 1, query?: any) {
     const p = page || 1
-    return http.request<Data<IUser>>({
+    return http.request<Data<Birthday>>({
       method: 'post',
       url: `data/birthday/${p}`,
       data: { ...query }
+    })
+  }
+
+  // 修改資料data(table哪張表, id哪筆資料, data要修改的資料)
+  update(table: string, id: string, data: any) {
+    return http.request({
+      url: `data/${table}?id=${id}`,
+      method: 'put',
+      data,
     })
   }
 
