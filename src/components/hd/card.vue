@@ -235,7 +235,7 @@ const skills = [
     height: 70px;
     padding: 8px;
     border-radius: 8px;
-    // cursor: pointer;
+    cursor: pointer;
   }
 }
 .slider {
@@ -258,7 +258,7 @@ const skills = [
   border-radius: 5px;
   display: inline-flex;
   margin: 0 3px;
-  // cursor: pointer;
+  cursor: pointer;
 }
 
 .slider .slide:before {
@@ -291,7 +291,7 @@ input {
   display: inline-block;
   color: $color;
   border-bottom: $width solid $color;
-  // cursor: pointer;
+  cursor: pointer;
   overflow: hidden;
   transition: color $time ease-in-out, background-color $time ease-in-out;
 

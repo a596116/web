@@ -76,6 +76,7 @@ declare module '@vue/runtime-core' {
     IconFullScreen: typeof import('@icon-park/vue-next')['FullScreen']
     IconHome: typeof import('@icon-park/vue-next')['Home']
     IconHomeTwo: typeof import('@icon-park/vue-next')['HomeTwo']
+    IconLinkTwo: typeof import('@icon-park/vue-next')['LinkTwo']
     IconLogout: typeof import('@icon-park/vue-next')['Logout']
     IconOffScreen: typeof import('@icon-park/vue-next')['OffScreen']
     IconPlus: typeof import('@icon-park/vue-next')['Plus']

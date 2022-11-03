@@ -1,6 +1,5 @@
 <template>
   <div class="cursor"></div>
-  <!-- <div class="cursor-f"></div> -->
   <suspense>
     <!-- <template #default> -->
     <router-view class=""></router-view>
@@ -20,12 +19,12 @@
 import { cursor } from './utils'
 
 const route = useRoute()
-onMounted(() => {
-  cursor()
-})
-watch(route, () => {
-  cursor()
-})
+// onMounted(() => {
+//   cursor()
+// })
+// watch(route, () => {
+//   cursor()
+// })
 </script>
 
 <style lang="scss">

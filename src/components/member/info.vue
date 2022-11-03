@@ -9,7 +9,11 @@
       <template #image>
         <div class="flex items-center mb-4">
           <section class="w-[200px] bg-hd-theme-color" @click="avatarDialog = true">
-            <el-image :src="userAvatar" fit="cover" class="user_avatar"> </el-image>
+            <el-image
+              :src="userAvatar !== '0' ? userAvatar : '/img/haodai.png'"
+              fit="cover"
+              class="user_avatar">
+            </el-image>
           </section>
         </div>
         <upload-img

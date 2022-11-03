@@ -55,7 +55,9 @@
           <span>{{ row[col.prop].length }}</span>
         </template>
         <template v-else-if="col.type === 'link'">
-          <a :href="row[col.prop]" target="_blank">{{ row[col.prop] }}</a>
+          <a :href="row[col.prop]" target="_blank" class="flex justify-center"
+            >{{ row[col.prop] }} <icon-link-two theme="outline" size="24"
+          /></a>
         </template>
         <template v-else>
           {{ row[col.prop] }}

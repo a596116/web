@@ -289,7 +289,7 @@ const handleButtonClick = (e: any) => {
     font-size: 13px;
     border: 0;
     padding: 15px 5px;
-    // cursor: pointer;
+    cursor: pointer;
     color: #5c5c6d;
     transition: 0.3s;
     font-weight: 500;
@@ -395,7 +395,7 @@ const handleButtonClick = (e: any) => {
   line-height: 1.6;
   border-radius: 6px;
   padding: 2px 4px;
-  // cursor: pointer;
+  cursor: pointer;
 
   & + & {
     margin-top: 16px;

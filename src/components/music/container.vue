@@ -24,9 +24,9 @@
       </div>
 
       <div class="navigation">
-        <section id="prev" class="action-btn btn" @click="prevSong">
+        <button id="prev" class="action-btn btn" @click="prevSong">
           <icon-go-start theme="outline" />
-        </section>
+        </button>
 
         <button id="next" class="action-btn btn" @click="nextSong">
           <icon-go-end theme="outline" />
@@ -45,7 +45,7 @@
           v-for="(item, index) in songsList"
           :key="item"
           @click="playList(item)"
-          class="btn"
+          class="btn cursor-pointer"
           :class="{ play: item == title }">
           {{ index + 1 + ' . ' + item.split('/', 2)[1] }}
         </li>

@@ -31,7 +31,7 @@ class userApi {
   // 用戶資訊
   info() {
     return http.request<IUser>({
-      url: `user/info?phone=${store.get(CacheEnum.USER_NAME)}`,
+      url: `data/user/info?phone=${store.get(CacheEnum.USER_NAME)}`,
     })
   }
   /**
