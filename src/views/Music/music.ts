@@ -19,3 +19,4 @@ export const songs = ['2wrpshxc2sll0cl/楓之谷主題曲（舊版）', 'x283t7h
     'eedt5owp2cna304/鯨魚號 - 內部', 'asm7o67kiyei0dy/鯨魚號 - 碼頭', '0bsw8rf3cx29r8c/魔法森林 - 外部', 'knkftxwlvmd4dkk/魔法森林 - 訓練場', '7hvlfe3ykeka08h/魔法森林主城區',
     '2m487nt59nawm6r/靈藥幻境 - 金勾海賊團基地', 'ie8shls358frlas/靈藥幻境主城區'
 ]
+

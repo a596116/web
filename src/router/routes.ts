@@ -38,6 +38,11 @@ export const routes = [
         component: () => import('@/layout/love.vue'),
     },
     {
+        path: '/music',
+        name: 'music',
+        component: () => import('@/layout/music.vue'),
+    },
+    {
         path: '/birthday/:id?',
         name: 'birthday',
         component: () => import('@/layout/birthday.vue'),

@@ -67,7 +67,7 @@ const sticky = computed(() => {
       position: static !important;
     }
     &.bg {
-      background: url('/img/楓谷.png');
+      background: url('/img/maplestory/楓谷.png');
       background-size: cover;
       background-position: calc(var(--i) * -100vw);
     }

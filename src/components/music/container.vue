@@ -1,6 +1,6 @@
 <template>
   <div class="musicbg">
-    <img src="/img/maplestory_logo.jpg" />
+    <!-- <img src="/img/maplestory/maplestory_logo.jpg" class="bg-transparent" /> -->
     <div class="music-container" :class="{ play }" id="music-container">
       <div class="music-info">
         <h4 id="title">{{ title.split('/', 2)[1] }}</h4>
@@ -15,18 +15,17 @@
 
       <audio :src="music" id="audio" @timeupdate="updateProgress" @ended="nextSong"></audio>
 
-      <div class="img-container">
-        <img src="/img/maplestory.png" alt="music-cover" />
-        <button id="play" class="action-btn btn">
-          <icon-play-one theme="outline" v-if="!play" @click="playSong" />
-          <icon-pause theme="outline" v-else @click="pauseSong" />
-        </button>
-      </div>
-
-      <div class="navigation">
+      <div class="navigation gap-5">
         <button id="prev" class="action-btn btn" @click="prevSong">
           <icon-go-start theme="outline" />
         </button>
+
+        <div class="img-container">
+          <button id="play" class="action-btn btn">
+            <icon-play-one theme="outline" v-if="!play" @click="playSong" />
+            <icon-pause theme="outline" v-else @click="pauseSong" />
+          </button>
+        </div>
 
         <button id="next" class="action-btn btn" @click="nextSong">
           <icon-go-end theme="outline" />
@@ -174,6 +173,7 @@ const updateProgress = (e: any) => {
 
   get_sec_d(duration)
   totalSec.value = min_d + ':' + sec_d
+  console.log(currentTime)
 }
 const setProgress = (e: any) => {
   const width = document.querySelector('#progress-container')?.clientWidth!
@@ -186,9 +186,12 @@ const setProgress = (e: any) => {
 
 <style scoped lang="scss">
 .musicbg {
-  @apply bg-white h-full flex flex-col items-center justify-start m-0 pt-10;
+  background: url('/img/maplestory/maplestory_bg.png') no-repeat;
+  background-size: cover;
+  background-position: 100% 100%;
+  @apply h-full flex flex-col items-center justify-center m-0 pt-10;
   .music-container {
-    @apply bg-white rounded-2xl flex px-7 py-5 relative mt-32 z-10;
+    @apply bg-white rounded-2xl flex px-7 py-2 relative z-10;
     box-shadow: 0 20px 20px 0 rgba(252, 169, 169, 0.6);
 
     .music-info {
@@ -217,34 +220,38 @@ const setProgress = (e: any) => {
       transform: translateY(-100%);
     }
 
-    .img-container {
-      @apply absolute flex justify-center items-center bottom-2 left-[20%] w-[110px] z-20;
-      img {
-        @apply object-cover h-[110px] w-[120px] relative bottom-0 left-0;
-        animation: rotate 3s linear infinite;
-        animation-play-state: paused;
-      }
-      #play {
-        @apply text-[#c9c1c1] text-4xl p-0 m-0 absolute rounded-md bottom-5 opacity-0 z-[9];
-        &:hover {
-          @apply text-[#6fbba2] scale-125 opacity-100;
-        }
-      }
-    }
-    &.play .img-container img {
+    &.play .navigation .img-container {
       animation-play-state: running;
     }
 
     .navigation {
       @apply flex justify-center items-center z-10;
+
+      .img-container {
+        background: url('/img/maplestory/maplestory.png') no-repeat;
+        background-size: cover;
+        @apply h-[80px] w-[87px] flex justify-center items-center bottom-2
+          z-20;
+        animation: rotate 3s linear infinite;
+        animation-play-state: paused;
+        // img {
+        //   @apply object-cover h-[110px] w-[120px] relative bottom-0 left-0;
+        // }
+        #play {
+          @apply text-[#c9c1c1] text-4xl p-0 m-0 rounded-md opacity-0 z-[9];
+          &:hover {
+            @apply text-[#6fbba2] scale-125 opacity-100;
+          }
+        }
+      }
       .action-btn {
         @apply bg-transparent border-0 text-hd-black1 rounded-md text-3xl p-2 duration-200;
-        &:nth-child(1) {
-          margin: 0 100px 0 0;
-        }
-        &:nth-child(2) {
-          margin: 0 0 0 20px;
-        }
+        // &:nth-child(1) {
+        //   margin: 0 100px 0 0;
+        // }
+        // &:nth-child(2) {
+        //   margin: 0 0 0 20px;
+        // }
         &:focus {
           outline: 0;
         }
