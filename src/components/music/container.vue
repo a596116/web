@@ -23,7 +23,7 @@
       </div>
     </el-drawer>
     <div class="music-footer" @click="state.openMenu = !state.openMenu">
-      <div class="song-cover">
+      <div class="song-cover hidden md:block">
         <img class="audioCover" :src="state.songInfo.cover" alt="" />
       </div>
       <div class="play-icon-container">
@@ -64,7 +64,7 @@
         </div>
       </div>
       <div class="action-container">
-        <div class="cursor-pointer text-lg">
+        <div class="cursor-pointer text-lg mr-3">
           <icon-play-cycle
             theme="outline"
             v-if="state.playType === 1"
@@ -109,7 +109,7 @@ const state = reactive({
   volume: 100,
   playStatus: false, // 搜索或者历史播放完成后关闭播放状态按钮
   mouseTime: '00:00',
-  openMenu: false,
+  openMenu: true,
 })
 let track = ref(null)
 // let rotate = ref(null);
@@ -351,15 +351,9 @@ watch(
   }
 
   .music-footer {
-    width: 100%;
-    height: 72px;
-    padding: 0 24px;
-    box-sizing: border-box;
-    display: flex;
-    position: fixed;
+    @apply w-full h-[72px] fixed bottom-0 flex justify-between box-border px-0 md:px-[24px];
     background-color: rgba(161, 161, 161, 0.4);
     z-index: 9999;
-    bottom: 0;
     box-shadow: -5px 0 20px rgb(83, 80, 80);
     .play-icon-container {
       width: 240px;
@@ -389,15 +383,13 @@ watch(
       }
     }
     .music-speed {
-      width: calc(100% - 520px);
-      height: 100%;
-      position: relative;
+      @apply absolute md:relative h-6 md:h-full top-[-15px] md:top-0 w-full md:w-[calc(100%-520px)];
       .name-time {
+        @apply hidden md:flex;
         width: 100%;
         height: 36px;
         line-height: 36px;
         color: #fff;
-        display: flex;
         justify-content: space-between;
         font-size: 14px;
       }
@@ -405,11 +397,9 @@ watch(
         width: 100%;
         height: 24px;
         margin-top: 12px;
-        position: relative;
         .process-bar {
-          position: absolute;
+          @apply relative;
           z-index: 10;
-          top: -5px;
           width: 100%;
           height: 5px;
           background: rgba(255, 255, 255, 0.5);
@@ -448,7 +438,7 @@ watch(
       }
     }
     .action-container {
-      width: 200px;
+      width: auto;
       display: flex;
       align-items: center;
       justify-content: space-between;

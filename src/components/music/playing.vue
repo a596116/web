@@ -48,35 +48,34 @@ const PlayThisMusic = (index: number) => {
 
 <style lang="scss" scoped>
 .song-cover-lyric {
+  @apply flex flex-wrap md:flex-nowrap content-start;
   position: relative;
   width: 100%;
   height: 100%;
   padding-bottom: 72px;
   box-sizing: border-box;
-  display: flex;
   overflow: hidden;
   // background: url('/img/maplestory/maplestory_bg.png');
   background: transparent;
 
   .disc-continer {
-    width: 60%;
-    height: 100%;
+    @apply flex justify-center items-center flex-col h-[30%] md:h-full w-full md:w-[60%];
     position: relative;
 
     .poster {
+      @apply h-full md:h-[280px];
       position: relative;
       max-width: 380px;
-      height: 280px;
       border-radius: 16px;
       background: rgba(255, 255, 255, 0.3);
-      left: 50%;
-      top: 80px;
-      margin-left: -140px;
+      // left: 50%;
+      // top: 80px;
+      // margin-left: -140px;
       box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6);
       animation: animations1 12s linear infinite forwards;
       animation-play-state: paused;
       overflow: hidden;
-      margin-bottom: 120px;
+      // margin-bottom: 120px;
 
       img {
         width: 100%;
@@ -85,24 +84,23 @@ const PlayThisMusic = (index: number) => {
     }
 
     .song-name {
+      @apply text-xl md:text-3xl mt-1 md:mt-6;
       width: 100%;
       height: 40px;
       text-align: center;
-      font-size: 32px;
       font-weight: 600;
       color: #fff;
       line-height: 40px;
     }
 
     .song-artistsName {
+      @apply text-xl md:text-2xl mt-1 md:mt-6;
       width: 100%;
       height: 40px;
       text-align: center;
-      font-size: 28px;
       font-weight: 600;
       color: #fff;
       line-height: 40px;
-      margin-top: 24px;
     }
 
     @keyframes animations1 {
@@ -117,11 +115,8 @@ const PlayThisMusic = (index: number) => {
   }
 
   .list-box {
-    height: calc(100% - 80px);
-    width: 40%;
+    @apply w-full md:w-[40%] p-5 m-0 md:m-6 h-[calc(70%-72px)] md:h-[calc(100%-80px)];
     overflow: auto;
-    margin: 26px;
-    padding: 20px;
     border-radius: 16px;
     box-sizing: border-box;
     background-color: rgba(0, 0, 0, 0.423);
