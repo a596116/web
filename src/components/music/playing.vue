@@ -55,10 +55,11 @@ const PlayThisMusic = (index: number) => {
   box-sizing: border-box;
   display: flex;
   overflow: hidden;
-  background: url('/img/maplestory/maplestory_bg.png');
+  // background: url('/img/maplestory/maplestory_bg.png');
+  background: transparent;
 
   .disc-continer {
-    width: 50%;
+    width: 60%;
     height: 100%;
     position: relative;
 
@@ -116,8 +117,8 @@ const PlayThisMusic = (index: number) => {
   }
 
   .list-box {
-    height: auto;
-    width: 50%;
+    height: calc(100% - 80px);
+    width: 40%;
     overflow: auto;
     margin: 26px;
     padding: 20px;
@@ -125,6 +126,23 @@ const PlayThisMusic = (index: number) => {
     box-sizing: border-box;
     background-color: rgba(0, 0, 0, 0.423);
     color: rgb(205, 205, 205);
+    overflow-y: overlay;
+
+    &::-webkit-scrollbar {
+      width: 1px;
+      height: 1px;
+    }
+    &:hover::-webkit-scrollbar {
+      width: 12px;
+      border-radius: 10px;
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: rgb(133, 129, 129);
+    }
+
     .list {
       width: 100%;
       padding: 4px 0px;

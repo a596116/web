@@ -52,8 +52,8 @@ let timer: NodeJS.Timeout
 onMounted(() => {
   timer = setTimeout(() => {
     ok()
-    clearTimeout(timer)
   }, 6000)
+  // clearTimeout(timer)
   starBg()
 })
 </script>

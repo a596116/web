@@ -10,11 +10,6 @@ export const routes = [
         component: () => import('../layout/hd.vue'),
     },
     {
-        path: '/maplestory',
-        name: 'maplestory',
-        component: () => import('../views/Music/music.vue'),
-    },
-    {
         path: '/admin',
         name: 'admin',
         redirect: '/admin/home',

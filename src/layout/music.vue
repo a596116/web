@@ -1,468 +1,85 @@
 <template>
-  <div class="music">
-    <audio :src="state.songInfo.url" id="audio"></audio>
-    <el-drawer
-      v-model="state.openMenu"
-      :modal="false"
-      :show-close="false"
-      :with-header="false"
-      direction="btt"
-      size="100%">
-      <div class="main-container">
-        <MusicPlaying
-          v-show="state.openMenu"
-          :songList="state.songList"
-          :playStatus="state.playStatus"
-          :model-value="state.songInfo"
-          @PlayThisMusic="PlayThisMusic"></MusicPlaying>
-      </div>
-    </el-drawer>
-    <div class="music-footer" @click="state.openMenu = !state.openMenu">
-      <div class="song-cover">
-        <img class="audioCover" :src="state.songInfo.cover" alt="" />
-      </div>
-      <div class="play-icon-container">
-        <img class="play-icon" src="/img/music/arrow_01.png" alt="上一曲" @click.stop="prevSong" />
-        <img
-          v-show="!state.playing"
-          @click.stop="playMusic"
-          class="play-icon"
-          src="/img/music/play_01.png"
-          alt="播放" />
-        <img
-          v-show="state.playing"
-          @click.stop="playMusic"
-          class="play-icon"
-          src="/img/music/play_02.png"
-          alt="暂停" />
-        <img class="play-icon" src="/img/music/arrow_02.png" alt="下一曲" @click.stop="nextSong" />
-      </div>
-      <div class="music-speed">
-        <div class="name-time">
-          <div>{{ state.songInfo.name }}</div>
-          <div>{{ state.currentTime }}/{{ state.audioTime }}</div>
-        </div>
-        <div class="process-container" @click.stop="setProgress">
-          <div class="process-bar" ref="track" id="audio-bar">
-            <div class="progress-box relative" :style="{ width: audioProgressPercent }">
-              <div
-                class="play-point"
-                :style="{ transform: 'translateX(' + state.thumbTranslateX + 'px)' }">
-                <img src="/img/music/dot_01.png" alt="" />
-              </div>
-              <span
-                class="mouse_time relative w-[52px] top-[-40px] hidden bg-gray-500 bg-opacity-70 rounded-md p-1"
-                >{{ state.mouseTime }}</span
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="action-container">
-        <div class="cursor-pointer text-lg">
-          <icon-shuffle-one
-            theme="outline"
-            v-if="state.playType === 1"
-            @click.stop="state.playType = 2" />
-          <icon-play-cycle
-            theme="outline"
-            v-else-if="state.playType === 2"
-            @click.stop="state.playType = 1" />
-        </div>
-        <!-- <el-dropdown>
-          <span class="el-dropdown-link"> 模式 </span>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item @click.stop="state.playType = 1">列表循环</el-dropdown-item>
-              <el-dropdown-item @click.stop="state.playType = 2">随机播放</el-dropdown-item>
-              <el-dropdown-item @click.stop="state.playType = 3">单曲循环</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown> -->
-        <div class="volume" @click.stop="">
-          <el-slider v-model="state.volume"></el-slider>
-        </div>
-      </div>
+  <div class="container relative">
+    <router-link
+      to="/"
+      class="btn flex justify-center m-2 items-center absolute p-2 rounded-md text-hd-white hover:text-hd-black2">
+      <icon-left theme="outline" class="text-4xl" />
+      <span>首頁</span>
+    </router-link>
+    <MusicContainer />
+
+    <MusicPhoto />
+
+    <!-- <div id="section2" class="section" :class="{ sticky }">
+      <div class="section bg" style="--i: 0" :class="{ static: sticky }"></div>
+      <div class="section bg" style="--i: 1" :class="{ static: sticky }"></div>
+      <div class="section bg" style="--i: 2" :class="{ static: sticky }"></div>
+      <div class="section bg" style="--i: 3" :class="{ static: sticky }"></div>
+      <div class="section bg" style="--i: 4" :class="{ static: sticky }"></div>
+      <div class="section bg" style="--i: 5" :class="{ static: sticky }"></div>
     </div>
+    <div class="section bg" style="--i: 1" :class="{ static: sticky }"></div>
+    <div class="section bg" style="--i: 2" :class="{ static: sticky }"></div>
+    <div class="section bg" style="--i: 3" :class="{ static: sticky }"></div>
+    <div class="section bg" style="--i: 4" :class="{ static: sticky }"></div>
+    <div class="section bg" style="--i: 5" :class="{ static: sticky }"></div> -->
   </div>
 </template>
 
 <script setup lang="ts">
-import axios from 'axios'
-
-const state = reactive({
-  backgroundUrl: 'https://peiyinimg.qupeiyin.cn/1629950282884-288.jpg',
-  menuList: ['正在播放', '推荐', '搜索', '播放历史'],
-  activeIndex: 2, // 选中
-  playing: false,
-  songList: [
-    {
-      cover: 'https://p2.music.126.net/pOR45DW9BfLSQ2JDJJeUgQ==/109951165714496390.jpg',
-      name: '楓之谷主題曲（舊版）',
-      url: 'https://dl.getdropbox.com/s/2wrpshxc2sll0cl/楓之谷主題曲（舊版）.mp3',
-    },
-  ],
-  audioProgress: 0, // 进度
-  playType: 1, // 播放类型，单曲循环还是顺序播放
-  playIndex: 0, // 当前播放哪一首
-  thumbTranslateX: '0',
-  currentTime: '0', // 当前播放进度
-  progressL: 0, // 进度条总长度
-  songInfo: <any>{},
-  lyricInfo: [],
-  audioTime: '00:00',
-  volume: 100,
-  playStatus: false, // 搜索或者历史播放完成后关闭播放状态按钮
-  mouseTime: '00:00',
-  openMenu: true,
-})
-let track = ref(null)
-// let rotate = ref(null);
-const audio = ref<HTMLAudioElement>()
-onMounted(async () => {
-  state.songList = await axios.get(`/songs/songs.json`, {}).then((r) => r.data)
-  audio.value = document.querySelector<HTMLAudioElement>('#audio')!
-  // state.progressL = track.value.offsetHeight;
-  //   console.log(state.progressL) //取元素宽高等属性操作
-  let bar = document.querySelector<HTMLElement>('#audio-bar')!
-  //   console.log('bar', bar?.offsetWidth)
-  state.progressL = bar?.offsetWidth!
-  // window.addEventListener("resize", function () {
-  //   // 变化后需要做的事
-  //   state.progressL = track.value.offsetHeight;
-  // });
-  Init() // 初始化
-})
-const Init = () => {
-  if (localStorage.getItem('historyList')) {
-    state.songList = JSON.parse(localStorage.getItem('historyList')!)
-  }
-  GetSongInfo()
-}
-const GetSongInfo = () => {
-  let myList = state.songList
-  state.songInfo = myList[0]
-  state.backgroundUrl = state.songInfo.cover
-  audioInit()
-  //   GetLyric(state.songInfo.id)
-}
-const audioInit = () => {
-  // let progressL = track.value.offsetWidth; // 进度条总长
-  audio.value?.addEventListener('canplay', () => {
-    state.audioTime = TimeToString(audio.value?.duration!)!
-  })
-  audio.value?.addEventListener('timeupdate', () => {
-    // 当前播放时间
-    state.currentTime = TimeToString(audio.value?.currentTime!)!
-    state.audioProgress = audio.value?.currentTime! / audio.value?.duration!
-    state.thumbTranslateX = (state.audioProgress * state.progressL).toFixed(3)
-  })
-  audio.value?.addEventListener('ended', () => {
-    songMode('next')
-    state.songInfo = state.songList[state.playIndex]
-    state.backgroundUrl = state.songInfo.cover
-    // GetLyric(state.songInfo.id)
-    state.playStatus = false
-    setTimeout(() => {
-      // rotate.style.animationPlayState = "running";
-      audio.value?.play()
-    }, 100)
-  })
-
-  const width = document.querySelector('.process-container')?.clientWidth!
-  let mouseTimeBox = document.querySelector<HTMLElement>('.mouse_time')!
-  document.querySelector('.process-container')?.addEventListener(
-    'mousemove',
-    (e: any) => {
-      const duration = audio.value?.duration!
-      state.mouseTime = TimeToString((e.offsetX / width) * duration)
-      if (e.offsetX > 1) {
-        mouseTimeBox.style.left = `${e.offsetX}px`
-        mouseTimeBox.style.display = 'block'
-      }
-    },
-    false,
-  )
-  document.querySelector('.process-container')?.addEventListener('mouseleave', () => {
-    mouseTimeBox.style.display = 'none'
-  })
-}
-Init()
-
-/**
- * 模式
- * @date 2022-11-07
- */
-const songMode = (mode: string) => {
-  switch (state.playType) {
-    case 1: // 列表循環
-      if (mode === 'next') {
-        state.playIndex = state.playIndex + 1 >= state.songList.length ? 0 : state.playIndex + 1
-      } else {
-        state.playIndex = state.playIndex - 1 < 0 ? state.songList.length - 1 : state.playIndex - 1
-      }
-      break
-    case 2: // 隨機播放
-      state.playIndex = Math.floor(Math.random() * state.songList.length)
-      break
-    case 3: // 單曲循環
-      break
-  }
-}
-
-const PlayThisMusic = (data: any) => {
-  state.playStatus = true
-  localStorage.setItem('historyList', JSON.stringify(state.songList))
-  state.songInfo = data
-  audioInit()
-  setTimeout(() => {
-    // rotate.style.animationPlayState = "running";
-    state.playing = true
-    audio.value?.play()
-  }, 100)
-}
-
-/**
- * 時間轉換
- * @date 2022-11-07
- */
-const TimeToString = (seconds: number) => {
-  let min_d = isNaN(seconds) === true ? '0' : Math.floor(seconds / 60)
-  let sec_d
-  min_d = min_d < 10 ? '0' + min_d : min_d
-  function get_sec_d(x: number) {
-    if (Math.floor(x) >= 60) {
-      for (var i = 1; i <= 60; i++) {
-        if (Math.floor(x) >= 60 * i && Math.floor(x) < 60 * (i + 1)) {
-          sec_d = Math.floor(x) - 60 * i
-          sec_d = sec_d < 10 ? '0' + sec_d : sec_d
-        }
-      }
+// 背景區
+const progress = ref(0)
+const scroll = ref(false)
+onMounted(() => {
+  const container = document.querySelector('.container')!
+  const section = document.querySelector('#section2')!
+  const bg = document.querySelectorAll('#section2 .bg')
+  container.addEventListener('scroll', function () {
+    if (container.scrollTop < 0) {
+      progress.value = 0
+    } else if (container.scrollTop > window.innerHeight * bg.length) {
+      progress.value = 1
     } else {
-      sec_d = isNaN(seconds) === true ? '0' : Math.floor(x)
-      sec_d = sec_d < 10 ? '0' + sec_d : sec_d
+      progress.value = container.scrollTop / (window.innerHeight * bg.length)
     }
-  }
-  get_sec_d(seconds)
-  return `${min_d}:${sec_d}`
-}
-
-const playMusic = () => {
-  if (state.playing) {
-    // 播放中,点击则为暂停
-    state.playing = false
-    state.playStatus = true
-    // rotate.style.animationPlayState = "paused";
-    audio.value?.pause()
-  } else {
-    // 暂停中,点击则为播放
-    state.playing = true
-    state.playStatus = true
-    // rotate.style.animationPlayState = "running";
-    audio.value?.play()
-  }
-}
-
-/**
- * 下一首
- */
-const nextSong = () => {
-  songMode('next')
-  state.songInfo = state.songList[state.playIndex]
-  state.backgroundUrl = state.songInfo.cover
-  state.thumbTranslateX = '0'
-  state.audioProgress = 0
-  state.playing = true
-  state.playStatus = true
-  //   audio.value.
-  setTimeout(() => {
-    audio.value?.play()
-  }, 100)
-}
-
-/**
- * 上一首
- */
-const prevSong = () => {
-  songMode('prev')
-  state.songInfo = state.songList[state.playIndex]
-  state.backgroundUrl = state.songInfo.cover
-  state.thumbTranslateX = '0'
-  state.audioProgress = 0
-  state.playing = true
-  state.playStatus = true
-  setTimeout(() => {
-    audio.value?.play()
-  }, 100)
-}
-
-const audioProgressPercent = computed(() => {
-  return `${state.audioProgress * 100}%`
+    let position = (section.scrollWidth - window.innerWidth) * progress.value
+    section.scrollTo({ left: position })
+    scroll.value = container.scrollTop > 150
+  })
 })
 
-const setProgress = (e: any) => {
-  const width = document.querySelector('.process-container')?.clientWidth!
-  const clickX = e.offsetX
-
-  let audioDiv = <HTMLAudioElement>document.querySelector('#audio')
-  const duration = audioDiv.duration!
-  audioDiv.currentTime = (clickX / width) * duration
-  console.log(width)
-}
-
-/**
- * 調整音量
- * @date 2022-11-07
- */
-watch(
-  () => state.volume,
-  () => {
-    let audioDiv = <HTMLAudioElement>document.querySelector('#audio')
-    audioDiv.volume = state.volume / 100
-  },
-)
-// const a = []
-// const s = await axios.get(`/songs/songs.json`, {}).then((r) => r.data)
-// s.forEach((i, index) => {
-//   a.push({
-//     id: index,
-//     cover: i.cover,
-//     name: i.name,
-//     url: i.url,
-//     artistsName: '楓之谷',
-//   })
-// })
-// console.log(a)
+const sticky = computed(() => {
+  return progress.value < 1
+})
 </script>
 
 <style scoped lang="scss">
-.music {
-  @apply h-screen w-screen relative;
-  //   background: url('/img/maplestory/maplestory_bg.png') no-repeat;
-  background-color: #5a5a5a;
-  background-position: 100% 100%;
-  background-size: cover;
-  .main-container {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    bottom: 0;
-    transition: all 0.5s ease-in-out;
-    &.show {
-      width: 1px;
+.container {
+  @apply w-screen h-screen overflow-auto;
+  min-width: 100vw;
+  // background-image: url('https://i.beauty321.com/816x/https://il.beauty321.com/gallery/articleIMG/AL_25347.jpg?t=20191115112028');
+  /* 背景 */
+  .section {
+    @apply relative  h-full bg-white overflow-hidden;
+    &.sticky {
+      position: sticky !important;
+      top: 0;
+      left: 0;
+    }
+    &.static {
+      position: static !important;
+    }
+    &.bg {
+      background: url('/img/maplestory/楓谷.png');
+      background-size: cover;
+      background-position: calc(var(--i) * -100vw);
     }
   }
-
-  .music-footer {
-    width: 100%;
-    height: 72px;
-    padding: 0 24px;
-    box-sizing: border-box;
-    display: flex;
-    position: fixed;
-    z-index: 9999;
-    bottom: 0;
-    box-shadow: -5px 0 20px rgb(83, 80, 80);
-    .play-icon-container {
-      width: 240px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      box-sizing: border-box;
-      .play-icon {
-        width: 42px;
-        height: 42px;
-        display: block;
-        cursor: pointer;
-      }
-    }
-    .song-cover {
-      width: 80px;
-      padding: 9px 16px 9px 10px;
-      box-sizing: border-box;
-      .audioCover {
-        display: block;
-        widows: 54px;
-        height: 54px;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-    }
-    .music-speed {
-      width: calc(100% - 520px);
-      height: 100%;
-      position: relative;
-      .name-time {
-        width: 100%;
-        height: 36px;
-        line-height: 36px;
-        color: #fff;
-        display: flex;
-        justify-content: space-between;
-        font-size: 14px;
-      }
-      .process-container {
-        width: 100%;
-        height: 24px;
-        margin-top: 12px;
-        position: relative;
-        .process-bar {
-          position: absolute;
-          z-index: 10;
-          top: -5px;
-          width: 100%;
-          height: 5px;
-          background: rgba(255, 255, 255, 0.5);
-          border-radius: 5px;
-          cursor: pointer;
-          .progress-box {
-            height: 100%;
-            background: #40ce8f;
-            position: relative;
-            border-radius: 5px;
-            .play-point {
-              transition: -webkit-transform 0.2s linear;
-              transition: transform 0.2s linear;
-              transition: transform 0.2s linear, -webkit-transform 0.2s linear;
-              position: absolute;
-              width: 18px;
-              height: 18px;
-              border-radius: 9px;
-              top: -4px;
-              cursor: pointer;
-              user-select: none;
-              img {
-                user-select: none;
-                display: block;
-                position: absolute;
-                top: -2px;
-                width: 18px;
-                height: 18px;
-                background: #fff;
-                border-radius: 9px;
-                margin-left: -9px;
-              }
-            }
-          }
-        }
-      }
-    }
-    .action-container {
-      width: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: #fff;
-      padding: 0 20px;
-      box-sizing: border-box;
-      .el-dropdown-link {
-        color: #fff;
-      }
-      .volume {
-        width: 100px;
-      }
+  #section2 {
+    @apply flex flex-nowrap overflow-hidden;
+    .section {
+      width: 100vw;
+      min-width: 100vw;
     }
   }
 }

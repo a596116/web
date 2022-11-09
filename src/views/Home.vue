@@ -21,9 +21,9 @@ useTitle('浩呆')
         href="https://wanghaodai.com/"
         target="_blank"></a>
       <div
-        data-text="MapleStory"
+        data-text="Music"
         class="title hover:bg-teal-200"
-        @click="router.push({ name: 'maplestory' })"></div>
+        @click="router.push({ name: 'music' })"></div>
       <div
         data-text="後台管理"
         class="title hover:bg-rose-200"

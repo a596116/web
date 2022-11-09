@@ -59,11 +59,9 @@
   padding: 0 !important;
 }
 
-
 .el-message-box__input .el-input__wrapper {
-  border-width:1px;
+  border-width: 1px;
 }
-
 
 .el-loading-spinner {
   background: url('/img/logo.png') no-repeat;
@@ -87,6 +85,10 @@
   position: absolute;
   top: 60%;
 }
-.el-loading-spinner .circular{
+.el-loading-spinner .circular {
   display: none !important;
+}
+
+.el-drawer__body {
+  padding: 0 !important;
 }
