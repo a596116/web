@@ -28,6 +28,7 @@ declare module '@vue/runtime-core' {
     ChatDialogVlogDetail: typeof import('./../src/components/chat-dialog/vlog/detail.vue')['default']
     Dialog: typeof import('./../src/components/dialog.vue')['default']
     ElDrawer: typeof import('element-plus/es')['ElDrawer']
+    ElImage: typeof import('element-plus/es')['ElImage']
     ElSlider: typeof import('element-plus/es')['ElSlider']
     FormArticle: typeof import('./../src/components/form/article.vue')['default']
     FormList: typeof import('./../src/components/form/list.vue')['default']

@@ -6,9 +6,11 @@ useTitle('浩呆')
   <div class="h-screen w-screen bg-gray-600 flex justify-center items-center relative">
     <div class="description">請點選四周</div>
     <div class="w-80 h-80 rounded-full border-8 border-white z-10 flex justify-center items-center">
-      <img
+      <el-image
         src="/img/logo.png"
-        class="w-72 h-72 object-contain rounded-full animate__animated animate__bounce animate__infinite" />
+        fit="contain"
+        :lazy="true"
+        class="w-72 h-72 rounded-full animate__animated animate__bounce animate__infinite"></el-image>
     </div>
     <div class="absolute top-0 left-0 w-full h-full flex flex-wrap">
       <div

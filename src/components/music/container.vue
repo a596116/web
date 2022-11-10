@@ -47,20 +47,17 @@
           <div>{{ state.songInfo.name }}</div>
           <div>{{ state.currentTime }}/{{ state.audioTime }}</div>
         </div>
-        <div class="process-container" @click.stop="setProgress">
-          <div class="process-bar" ref="track" id="audio-bar">
-            <div class="progress-box relative" :style="{ width: audioProgressPercent }">
-              <div
-                class="play-point"
-                :style="{ transform: 'translateX(' + state.thumbTranslateX + 'px)' }">
-                <img src="/img/music/dot_01.png" alt="" />
-              </div>
-              <span
-                class="mouse_time relative w-[52px] top-[-40px] hidden bg-gray-500 bg-opacity-70 rounded-md p-1"
-                >{{ state.mouseTime }}</span
-              >
-            </div>
-          </div>
+        <div id="audio-bar">
+          <el-slider
+            v-model="state.thumbTranslateX"
+            @click.stop=""
+            :max="state.audioDuration"
+            :format-tooltip="formatTime"
+            @input="setProgress"></el-slider>
+          <!-- <span
+            class="mouse_time relative w-[52px] top-[-60px] hidden bg-gray-500 bg-opacity-70 rounded-md p-1"
+            >{{ state.mouseTime }}</span -->
+          >
         </div>
       </div>
       <div class="action-container">
@@ -84,11 +81,10 @@
 
 <script setup lang="ts">
 import axios from 'axios'
+import type { Ref } from 'vue'
 
 const state = reactive({
   backgroundUrl: 'https://peiyinimg.qupeiyin.cn/1629950282884-288.jpg',
-  menuList: ['正在播放', '推荐', '搜索', '播放历史'],
-  activeIndex: 2, // 选中
   playing: false,
   songList: [
     {
@@ -97,35 +93,25 @@ const state = reactive({
       url: 'https://dl.getdropbox.com/s/2wrpshxc2sll0cl/楓之谷主題曲（舊版）.mp3',
     },
   ],
-  audioProgress: 0, // 进度
   playType: 1, // 播放类型，单曲循环还是顺序播放
   playIndex: 0, // 当前播放哪一首
-  thumbTranslateX: '0',
+  thumbTranslateX: 0,
   currentTime: '0', // 当前播放进度
-  progressL: 0, // 进度条总长度
   songInfo: <any>{},
-  lyricInfo: [],
   audioTime: '00:00',
+  audioDuration: 0,
   volume: 100,
   playStatus: false, // 搜索或者历史播放完成后关闭播放状态按钮
   mouseTime: '00:00',
-  openMenu: true,
+  openMenu: false,
 })
+
 let track = ref(null)
-// let rotate = ref(null);
-const audio = ref<HTMLAudioElement>()
+const audio: Ref<HTMLAudioElement | null> = ref(null)
 onMounted(async () => {
   state.songList = await axios.get(`/songs/songs.json`, {}).then((r) => r.data)
   audio.value = document.querySelector<HTMLAudioElement>('#audio')!
-  // state.progressL = track.value.offsetHeight;
-  //   console.log(state.progressL) //取元素宽高等属性操作
   let bar = document.querySelector<HTMLElement>('#audio-bar')!
-  //   console.log('bar', bar?.offsetWidth)
-  state.progressL = bar?.offsetWidth!
-  // window.addEventListener("resize", function () {
-  //   // 变化后需要做的事
-  //   state.progressL = track.value.offsetHeight;
-  // });
   Init() // 初始化
 })
 const Init = () => {
@@ -139,48 +125,41 @@ const GetSongInfo = () => {
   state.songInfo = myList[0]
   state.backgroundUrl = state.songInfo.cover
   audioInit()
-  //   GetLyric(state.songInfo.id)
 }
 const audioInit = () => {
-  // let progressL = track.value.offsetWidth; // 进度条总长
   audio.value?.addEventListener('canplay', () => {
     state.audioTime = TimeToString(audio.value?.duration!)!
+    state.audioDuration = audio.value?.duration!
   })
   audio.value?.addEventListener('timeupdate', () => {
     // 当前播放时间
     state.currentTime = TimeToString(audio.value?.currentTime!)!
-    state.audioProgress = audio.value?.currentTime! / audio.value?.duration!
-    state.thumbTranslateX = (state.audioProgress * state.progressL).toFixed(3)
   })
   audio.value?.addEventListener('ended', () => {
     songMode('next')
     state.songInfo = state.songList[state.playIndex]
     state.backgroundUrl = state.songInfo.cover
-    // GetLyric(state.songInfo.id)
     state.playStatus = false
     setTimeout(() => {
-      // rotate.style.animationPlayState = "running";
       audio.value?.play()
     }, 100)
   })
 
-  const width = document.querySelector('.process-container')?.clientWidth!
   let mouseTimeBox = document.querySelector<HTMLElement>('.mouse_time')!
-  document.querySelector('.process-container')?.addEventListener(
-    'mousemove',
-    (e: any) => {
-      const duration = audio.value?.duration!
-      state.mouseTime = TimeToString((e.offsetX / width) * duration)
-      if (e.offsetX > 1) {
-        mouseTimeBox.style.left = `${e.offsetX}px`
-        mouseTimeBox.style.display = 'block'
-      }
-    },
-    false,
-  )
-  document.querySelector('.process-container')?.addEventListener('mouseleave', () => {
-    mouseTimeBox.style.display = 'none'
-  })
+  // document.querySelector('#audio-bar')?.addEventListener(
+  //   'mousemove',
+  //   (e: any) => {
+  //     const duration = audio.value?.duration!
+  //     state.mouseTime = TimeToString((e.offsetX / e.clientX) * duration)
+  //     mouseTimeBox.style.left = `${e.offsetX}px`
+  //     mouseTimeBox.style.display = 'block'
+  //     console.log(e.offsetX, e.clientX)
+  //   },
+  //   false,
+  // )
+  // document.querySelector('#audio-bar')?.addEventListener('mouseleave', () => {
+  //   mouseTimeBox.style.display = 'none'
+  // })
 }
 Init()
 
@@ -211,7 +190,6 @@ const PlayThisMusic = (data: any) => {
   state.songInfo = data
   audioInit()
   setTimeout(() => {
-    // rotate.style.animationPlayState = "running";
     state.playing = true
     audio.value?.play()
   }, 100)
@@ -247,13 +225,11 @@ const playMusic = () => {
     // 播放中,点击则为暂停
     state.playing = false
     state.playStatus = true
-    // rotate.style.animationPlayState = "paused";
     audio.value?.pause()
   } else {
     // 暂停中,点击则为播放
     state.playing = true
     state.playStatus = true
-    // rotate.style.animationPlayState = "running";
     audio.value?.play()
   }
 }
@@ -265,11 +241,9 @@ const nextSong = () => {
   songMode('next')
   state.songInfo = state.songList[state.playIndex]
   state.backgroundUrl = state.songInfo.cover
-  state.thumbTranslateX = '0'
-  state.audioProgress = 0
+  state.thumbTranslateX = 0
   state.playing = true
   state.playStatus = true
-  //   audio.value.
   setTimeout(() => {
     audio.value?.play()
   }, 100)
@@ -282,8 +256,7 @@ const prevSong = () => {
   songMode('prev')
   state.songInfo = state.songList[state.playIndex]
   state.backgroundUrl = state.songInfo.cover
-  state.thumbTranslateX = '0'
-  state.audioProgress = 0
+  state.thumbTranslateX = 0
   state.playing = true
   state.playStatus = true
   setTimeout(() => {
@@ -291,18 +264,13 @@ const prevSong = () => {
   }, 100)
 }
 
-const audioProgressPercent = computed(() => {
-  return `${state.audioProgress * 100}%`
-})
-
 const setProgress = (e: any) => {
-  const width = document.querySelector('.process-container')?.clientWidth!
-  const clickX = e.offsetX
-
   let audioDiv = <HTMLAudioElement>document.querySelector('#audio')
-  const duration = audioDiv.duration!
-  audioDiv.currentTime = (clickX / width) * duration
-  console.log(width)
+  audioDiv.currentTime = (e / state.audioDuration) * state.audioDuration
+}
+
+const formatTime = (val: number) => {
+  return TimeToString(val)
 }
 
 /**

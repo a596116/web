@@ -2,8 +2,21 @@
   <div class="w-screen h-screen overflow-auto photo-bg">
     <div class="external">
       <div class="horizontal-scroll-wrapper">
-        <div class="img-wrapper" v-for="song of sonList" :key="song.id" :class="randomCss(song.id)">
-          <a :href="song.cover" target="_blank" rel="noopener"> <img :src="song.cover" alt="" /></a>
+        <div
+          class="img-wrapper"
+          v-for="song of songList"
+          :key="song.id"
+          :class="randomCss(song.id)">
+          <el-image
+            class="img"
+            :src="song.cover"
+            :z-index="9999"
+            :preview-teleported="true"
+            :preview-src-list="photoList"
+            :initial-index="song.id" />
+          <!-- <a :href="song.cover" target="_blank" rel="noopener">
+            <img :src="song.cover" alt="" />
+          </a> -->
         </div>
       </div>
     </div>
@@ -48,11 +61,17 @@ onMounted(() => {
   })
 })
 
-const sonList = await axios.get(`/songs/photo.json`, {}).then((r) => r.data)
+const songList = await axios.get(`/songs/photo.json`, {}).then((r) => r.data)
+
+const photoList = ref([])
+songList.forEach((i: any) => {
+  photoList.value.push(i.cover)
+})
 
 const sticky = computed(() => {
   return progress.value < 1
 })
+
 const randomCss = (id: number) => {
   let css = [
     'slower',
@@ -174,7 +193,7 @@ h1 {
   background: #efecdb;
   box-shadow: 0 10px 50px #5f2f1182;
 }
-img {
+.img {
   max-width: 45vh;
   max-height: 50vh;
   transition: 0.5s;
