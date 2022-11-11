@@ -4,7 +4,7 @@
     <BirthdayCake />
     <div class="name" style="z-index: 100">{{ user || '浩呆' }}</div>
     <div class="happy" style="z-index: 100">
-      <img src="/img/birthday/HappyBirthday.png" />
+      <el-image class="img" src="/img/birthday/HappyBirthday.png" :lazy="true"></el-image>
     </div>
     <BirthdayBallons />
     <BirthdayBox class="birthday-box" />
@@ -108,7 +108,7 @@ onMounted(() => {
   transform: translateX(-50%);
   transition: all 0.3s ease-in-out;
   animation-delay: 0s;
-  img {
+  .img {
     width: 350px;
   }
   &.on {

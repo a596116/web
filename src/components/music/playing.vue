@@ -2,7 +2,7 @@
   <div class="song-cover-lyric">
     <div class="disc-continer">
       <div class="poster" ref="rotate">
-        <img :src="props.modelValue.cover" alt="" />
+        <el-image :src="props.modelValue.cover" class="w-full h-full" :lazy="true"></el-image>
       </div>
       <div class="song-name">{{ props.modelValue.name }}</div>
       <div class="song-artistsName">{{ props.modelValue.artistsName }}</div>
@@ -17,13 +17,13 @@
         @click="PlayThisMusic(index)">
         <div class="song-index">{{ index + 1 }}</div>
         <div class="song-name">{{ item.name }}</div>
-        <img class="cover" :src="item.cover" />
+        <el-image class="cover" :src="item.cover" :lazy="true"></el-image>
         <div class="play-icon">
-          <img
+          <el-image
             class="wava"
             v-show="props.modelValue.id == index && props.playStatus"
             src="/img/music/wave.gif"
-            alt="" />
+            :lazy="true"></el-image>
         </div>
         <div class="arties">{{ item.artistsName }}</div>
       </div>
@@ -76,11 +76,6 @@ const PlayThisMusic = (index: number) => {
       animation-play-state: paused;
       overflow: hidden;
       // margin-bottom: 120px;
-
-      img {
-        width: 100%;
-        height: 100%;
-      }
     }
 
     .song-name {

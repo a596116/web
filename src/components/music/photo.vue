@@ -14,9 +14,6 @@
             :preview-teleported="true"
             :preview-src-list="photoList"
             :initial-index="song.id" />
-          <!-- <a :href="song.cover" target="_blank" rel="noopener">
-            <img :src="song.cover" alt="" />
-          </a> -->
         </div>
       </div>
     </div>

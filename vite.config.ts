@@ -24,6 +24,11 @@ export default ({ command }: ConfigEnv): any => {
           // },
         },
       },
+      cssCodeSplit: true,
+      chunkSizeWarningLimit: 2000,
+      sourcemap: false,
+      minify: false,
+      assetsInLineLimit: 5000
     },
     css: {
       preprocessorOptions: {

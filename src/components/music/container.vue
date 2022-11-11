@@ -24,7 +24,7 @@
     </el-drawer>
     <div class="music-footer" @click="state.openMenu = !state.openMenu">
       <div class="song-cover hidden md:block">
-        <img class="audioCover" :src="state.songInfo.cover" alt="" />
+        <el-image class="audioCover" :src="state.songInfo.cover" :lazy="true"></el-image>
       </div>
       <div class="play-icon-container">
         <img class="play-icon" src="/img/music/arrow_01.png" alt="上一曲" @click.stop="prevSong" />

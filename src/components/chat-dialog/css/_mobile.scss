@@ -2,7 +2,7 @@
   position: relative;
   left: 50%;
   top: 30px;
-  margin-left: -$mobile-width / 2;
+  margin-left: calc($mobile-width / -2);
   width: 291px;
   height: 600px;
   background-color: #998c9e;
