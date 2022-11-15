@@ -54,10 +54,6 @@
             :max="state.audioDuration"
             :format-tooltip="formatTime"
             @input="setProgress"></el-slider>
-          <!-- <span
-            class="mouse_time relative w-[52px] top-[-60px] hidden bg-gray-500 bg-opacity-70 rounded-md p-1"
-            >{{ state.mouseTime }}</span -->
-          >
         </div>
       </div>
       <div class="action-container">

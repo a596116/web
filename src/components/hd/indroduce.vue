@@ -4,10 +4,11 @@
       <div
         class="introduce-cover"
         style="background-image: url('https://upload.cc/i1/2022/09/22/i0q7uW.jpg')"></div>
-      <img
+      <el-image
         class="introduce-avatar"
         src="https://upload.cc/i1/2022/09/22/SAVIGt.jpeg"
-        alt="avatar" />
+        :lazy="true"></el-image>
+
       <h1 class="introduce-fullname">Wang HaoDai</h1>
     </div>
     <div class="introduce-main">
