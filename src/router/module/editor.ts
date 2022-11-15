@@ -21,5 +21,17 @@ export default {
     //   component: () => import('@/views/editor/markdown.vue'),
     //   meta: { menu: { title: 'markdown' }, number: 5 },
     // },
+    {
+      name: 'admin/calendar',
+      path: 'calendar',
+      component: () => import('@/views/calendar/calendar.vue'),
+      meta: { menu: { title: 'calendar' }, number: 5 },
+    },
+    {
+      name: 'admin/toast',
+      path: 'toast',
+      component: () => import('@/views/calendar/toast.vue'),
+      meta: { menu: { title: 'toast' }, number: 6 },
+    },
   ],
 } as { page: any, children: RouteRecordRaw[] }

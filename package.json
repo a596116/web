@@ -9,7 +9,14 @@
     "deploy": "sh deploy.sh"
   },
   "dependencies": {
+    "@fullcalendar/core": "^5.11.3",
+    "@fullcalendar/daygrid": "^5.11.3",
+    "@fullcalendar/interaction": "^5.11.3",
+    "@fullcalendar/timegrid": "^5.11.3",
+    "@fullcalendar/vue": "^5.11.2",
+    "@fullcalendar/vue3": "^5.11.2",
     "@icon-park/vue-next": "^1.3.6",
+    "@toast-ui/calendar": "^2.1.3",
     "@toast-ui/editor": "^3.1.5",
     "@types/echarts": "^4.9.15",
     "@types/firebase": "^3.2.1",
@@ -31,6 +38,8 @@
     "sass": "^1.51.0",
     "stylelint": "^14.9.0",
     "stylelint-config-standard": "^26.0.0",
+    "tui-date-picker": "^4.3.1",
+    "tui-time-picker": "^2.1.4",
     "typed.js": "^2.0.12",
     "vite-plugin-cdn-import": "^0.3.5",
     "vite-plugin-mock": "^2.9.6",
