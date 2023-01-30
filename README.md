@@ -6,6 +6,8 @@
 <!-- <img align= "right" src='./public/img/logo.png' alt='haodai' style='width:200px;'/>
 <br><br><br><br> -->
 
+
+### 預覽:[https://haodai-web.web.app]
 <!-- ### 網站：[https://haodai.tw](https://haodai.tw)
 
 ### 後台：[https://haodai.tw/admin](https://haodai.tw/admin)
