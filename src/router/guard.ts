@@ -1,9 +1,6 @@
 import { CacheEnum } from '@/enum/cacheEnum'
-import { userStores } from '@/stores/userStore'
 import { store } from '@/utils'
 import type { RouteLocationNormalized, Router } from 'vue-router'
-import router from '.'
-import autoload from './autoload'
 
 class Guard {
   constructor(private router: Router) { }

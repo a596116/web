@@ -1,25 +1,28 @@
 <template>
   <div>
-    <div class="flex items-center gap-6 my-4">
-      <el-select
-        v-model="selectedView"
-        :collapse-tags="true"
-        class="border border-slate-500 rounded-md w-auto!"
-        placeholder="Select">
-        <el-option v-for="item in viewOptions" :key="item.value" :value="item.value" />
-      </el-select>
-      <div class="buttons">
-        <el-button type="primary" @click="onClickTodayButton" round>Today</el-button>
-        <el-button type="info" @click="onClickMoveButton(-1)" round>
-          <icon-left theme="outline" />
-        </el-button>
-        <el-button type="info" @click="onClickMoveButton(1)" round>
-          <icon-right theme="outline" />
-        </el-button>
+    <el-card shadow="never" :body-style="{ padding: '20px' }">
+      <div class="flex items-center gap-6 my-4">
+        <el-select
+          v-model="selectedView"
+          :collapse-tags="true"
+          @change="changMode"
+          class="border border-slate-500 rounded-md w-auto!"
+          placeholder="Select">
+          <el-option v-for="item in viewOptions" :key="item.value" :value="item.value" />
+        </el-select>
+        <div class="buttons">
+          <el-button type="primary" @click="onClickTodayButton" round>Today</el-button>
+          <el-button type="info" @click="onClickMoveButton(-1)" round>
+            <icon-left theme="outline" />
+          </el-button>
+          <el-button type="info" @click="onClickMoveButton(1)" round>
+            <icon-right theme="outline" />
+          </el-button>
+        </div>
+        <span class="text-lg">{{ dateRangeText }}</span>
       </div>
-      <span class="text-lg">{{ dateRangeText }}</span>
-    </div>
-    <div id="calendar" style="height: 800px"></div>
+      <div id="calendar" style="height: 800px"></div>
+    </el-card>
   </div>
 </template>
 
@@ -52,6 +55,11 @@ nextTick(() => {
   // 初始化
   calendar = new Calendar('#calendar', {
     defaultView: 'month',
+    isReadOnly: false,
+    useDetailPopup: true,
+    useFormPopup: true,
+    theme: theme,
+    gridSelection: true,
     calendars: [
       {
         id: '1',
@@ -68,7 +76,6 @@ nextTick(() => {
         dragBackgroundColor: '#00a9ff',
       },
     ],
-    theme: theme,
     week: {
       narrowWeekend: true,
       showTimezoneCollapseButton: true,
@@ -80,20 +87,12 @@ nextTick(() => {
       startDayOfWeek: 1,
       dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
     },
-    isReadOnly: false,
-    useDetailPopup: true,
-    useFormPopup: true,
     timezone: {
       zones: [
         {
           timezoneName: 'Asia/Seoul',
           displayLabel: 'Seoul',
           tooltip: 'UTC+09:00',
-        },
-        {
-          timezoneName: 'Pacific/Guam',
-          displayLabel: 'Guam',
-          tooltip: 'UTC+10:00',
         },
       ],
     },
@@ -127,7 +126,6 @@ nextTick(() => {
         return '刪除'
       },
     },
-    gridSelection: true,
   })
   /**
    * on 事件
@@ -172,6 +170,9 @@ nextTick(() => {
     calendar.setTheme(newTheme)
   })
 
+  /**
+   * 預設事件
+   */
   calendar.createEvents([
     {
       id: '1',
@@ -221,17 +222,19 @@ const setDateRangeText = () => {
       }${end.getMonth() + 1}.${end.getDate()}`
   }
 }
-watch(selectedView, (newView) => {
-  calendar.changeView(newView as 'month' | 'week' | 'day')
-  setDateRangeText()
-})
 
 const onClickTodayButton = () => {
   calendar.today()
   setDateRangeText()
 }
+
 const onClickMoveButton = (offset: any) => {
   calendar.move(offset)
+  setDateRangeText()
+}
+
+const changMode = (v: 'month' | 'week' | 'day') => {
+  calendar.changeView(v)
   setDateRangeText()
 }
 </script>

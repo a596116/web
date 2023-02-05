@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import router from '@/router'
+
 useTitle('浩呆')
 </script>
 <template>

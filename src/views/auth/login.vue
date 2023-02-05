@@ -69,10 +69,17 @@ watch(
   { immediate: true },
 )
 
-const loginForm = reactive<ILoginUser>({
-  phone: '0911111111',
-  password: '123456',
-})
+const loginForm = reactive<ILoginUser>(
+  env.VITE_APP_TITLE == 'dev'
+    ? {
+        phone: '0911111111',
+        password: '123456',
+      }
+    : {
+        phone: '0912345678',
+        password: '123456',
+      },
+)
 const RegiserForm = reactive<IRegisterUser>({
   phone: '',
   password: '',

@@ -1,368 +1,397 @@
 <template>
-  <div ref="elementRef" class="calendar-info">
-    <el-row>
-      <el-col :span="24">
-        <el-card>
-          <el-row>
-            <el-col :span="6">
-              <el-button
-                type="primary"
-                style="width: 258.25px; height: 42px"
-                @click="handleCreateEvent">
-                創建新的事件</el-button
-              >
-              <div>
-                <br />
-                <p class="text-muted text-left">拖放事件或在日曆中點擊</p>
-              </div>
-              <div ref="containerRef">
-                <div
-                  v-for="item in taskList"
-                  :key="item.id"
-                  class="external-events"
-                  :class="[item.classNames]">
-                  <i class="list-circle"></i>{{ item.title }}
-                </div>
-              </div>
-              <div style="text-align: left">
-                <el-checkbox v-model="checked" label="remove after drop" size="large"></el-checkbox>
-              </div>
-              <div style="text-align: left">
-                <el-checkbox
-                  v-model="togglechecked"
-                  label="weekends toggle"
-                  size="large"
-                  @change="handleWeekendsToggle"></el-checkbox>
-              </div>
-            </el-col>
-            <el-col :span="18">
-              <FullCalendar ref="calendarRef" class="demo-app-calendar" :options="calendarOptions">
-                <template #eventContent="arg">
-                  <b>{{ arg.timeText }}</b>
-                  <i>{{ arg.event.title }}</i>
-                </template>
-              </FullCalendar>
-            </el-col>
-          </el-row>
-        </el-card>
-      </el-col>
-    </el-row>
-    <el-dialog v-model="dialogFormVisible" title="添加事项" width="450px">
-      <el-form ref="ruleFormRef" :model="form" :rules="rules">
-        <el-form-item label="请输入事项" :label-width="formLabelWidth" prop="title">
-          <el-input v-model="form.title" autocomplete="off" style="width: 189.5px"></el-input>
-        </el-form-item>
-        <el-form-item label="选择事项颜色" :label-width="formLabelWidth" prop="className">
-          <el-select v-model="form.className" placeholder="Please select category color">
-            <el-option label="Success" value="bg-success"></el-option>
-            <el-option label="Danger" value="bg-danger"></el-option>
-            <el-option label="Info" value="bg-info"></el-option>
-            <el-option label="Warning" value="bg-warning"></el-option>
-            <el-option label="Dark" value="bg-dark"></el-option>
-          </el-select>
-        </el-form-item>
-      </el-form>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">关闭</el-button>
-          <el-button type="primary" @click="handleSaveCategory(ruleFormRef)">保存</el-button>
-        </span>
-      </template>
-    </el-dialog>
+  <div class="business-bg">
+    <div class="calendar-title">
+      <div @click="getPrev">
+        <icon-plus theme="outline" size="30" />
+      </div>
+      <p>{{ title }}</p>
+      <div @click="getNext">
+        <icon-plus theme="outline" size="30" />
+      </div>
+    </div>
+
+    <div class="calendar-button">
+      <div style="width: 80px">
+        <el-select v-model="value" placeholder="日" @change="change(value)">
+          <el-option
+            v-for="item in options1"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value" />
+        </el-select>
+      </div>
+      <div style="width: 50px">
+        <el-button size="small" @click="getToday">今日</el-button>
+      </div>
+      <div>
+        <el-button type="primary" size="small" @click="add">新增</el-button>
+        <el-button type="primary" size="small" @click="report">回報</el-button>
+      </div>
+    </div>
+    <div ref="elementRef" class="calendar">
+      <FullCalendar :options="options" ref="calendarRef" />
+    </div>
+
+    <div class="schedule-list" v-if="hasNotReport.length">
+      <!-- <p v-if="!test3.length">尚無資料</p> -->
+      <p>未回報</p>
+      <el-card
+        class="box-card"
+        v-model="hasNotReport"
+        v-for="(r, index) of hasNotReport"
+        :key="index">
+        <div class="card-header">
+          <span>{{ r.start.split(' ')[0] }}{{ r.title }} </span>
+          <el-button class="button" text @click="report(r.id)">回報</el-button>
+        </div>
+      </el-card>
+    </div>
+    <div class="schedule-list" v-if="hasReport.length">
+      <p>已回報</p>
+      <el-card
+        class="box-card"
+        v-model:model-value="hasReport"
+        v-for="(r, index) of hasReport"
+        :key="index">
+        <div class="card-header">
+          <span>{{ r.start.split(' ')[0] }} {{ r.title }}</span>
+          <el-button class="button" text @click="report(r.id)">回報</el-button>
+        </div>
+      </el-card>
+    </div>
   </div>
 </template>
-<script setup lang="ts">
-import '@fullcalendar/core/vdom' // solve problem with Vite
-import FullCalendar, { EventApi } from '@fullcalendar/vue3'
-import type { CalendarOptions, DateSelectArg, EventClickArg } from '@fullcalendar/vue3'
+
+<script lang="ts" setup>
+import '@fullcalendar/core/vdom'
+import type { CalendarOptions } from '@fullcalendar/vue3'
+import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin, { Draggable, type DropArg } from '@fullcalendar/interaction'
-import { ElMessageBox, ElMessage } from 'element-plus'
-import { onMounted, reactive, ref } from 'vue'
-import type { ElForm } from 'element-plus'
-import { INITIAL_EVENTS, createEventId } from './calendar'
-type FormInstance = InstanceType<typeof ElForm>
-type task = {
-  title: string
-  classNames: string
-  id: string
-}
-interface ITaskList {
-  [index: number]: task
-}
-// eslint-disable-next-line no-unused-vars
-let currentEvents: EventApi[]
-const containerRef = ref()
-// const calendarRef = ref()
-const pickDate = ref('')
-const checked = ref(false)
-const togglechecked = ref(false)
-const dialogFormVisible = ref(false)
-const formLabelWidth = ref(120)
-const ruleFormRef = ref<FormInstance>()
-const form = reactive({
-  title: '',
-  className: 'bg-success',
-})
-const rules = reactive({
-  title: [
-    {
-      required: true,
-      message: 'Please input event title',
-      trigger: 'blur',
-    },
-  ],
-  className: [
-    {
-      required: true,
-      message: 'Please select category color',
-      trigger: 'blur',
-    },
-  ],
-})
-const taskList = reactive<ITaskList>([
-  { title: 'meet manger', classNames: 'bg-danger', id: createEventId() },
-  { title: 'interview for front-end', classNames: 'bg-success', id: createEventId() },
-  { title: 'studying', classNames: 'bg-info', id: createEventId() },
-  { title: 'dead line ', classNames: 'bg-warning', id: createEventId() },
-  { title: 'go to sleep', classNames: 'bg-dark', id: createEventId() },
-])
-/**
- * @description 选中某天处理事件
- */
-const handleDateSelect = (selectInfo: DateSelectArg) => {
-  // eslint-disable-next-line no-alert
-  const title = prompt('请输入任务标题')
-  const calendarApi = selectInfo.view.calendar
-  calendarApi.unselect() // clear date selection
-  if (title) {
-    calendarApi.addEvent({
-      id: createEventId(),
-      title,
-      start: selectInfo.startStr,
-      end: selectInfo.endStr,
-      allDay: selectInfo.allDay,
-    })
-  }
-}
-/**
- * @description 创建事件框
- *
- */
-const handleCreateEvent = () => {
-  dialogFormVisible.value = true
-}
-/**
- * @description 保存事项
- *
- */
-const handleSaveCategory = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  // eslint-disable-next-line consistent-return
-  formEl.validate((valid) => {
-    if (valid) {
-      taskList.push({ id: createEventId(), title: form.title, classNames: form.className })
-      dialogFormVisible.value = false
-    } else {
-      console.log('error submit!')
-      return false
-    }
-  })
-}
-/**
- * @description 选中当前任务事件
- */
-const handleEventClick = (clickInfo: EventClickArg) => {
-  ElMessageBox.confirm('确定删除当前任务吗？', '温馨提示', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning',
-  })
-    .then(() => {
-      clickInfo.event.remove()
-      ElMessage({
-        type: 'success',
-        message: '删除成功',
-      })
-    })
-    .catch(() => {
-      ElMessage({
-        type: 'info',
-        message: '已取消删除',
-      })
-    })
-}
-/**
- * @description 选中当前事件
- */
-const handleEvents = (events: EventApi[]) => {
-  currentEvents = events
-}
+import listPlugin from '@fullcalendar/list'
+import interactionPlugin from '@fullcalendar/interaction'
+import { INITIAL_EVENTS } from './calendarSet'
 
-/**
- * @calendar配置
- */
-const calendarOptions = reactive({
-  plugins: [
-    dayGridPlugin,
-    timeGridPlugin,
-    interactionPlugin, // needed for dateClick
-  ],
-  headerToolbar: {
-    left: 'prev,next today',
-    center: 'title',
-    right: 'dayGridMonth,timeGridWeek,timeGridDay',
+const value = ref('')
+const options1 = [
+  {
+    value: 'Option1',
+    label: '月',
   },
-  locale: 'zh-cn',
-  height: '100%',
-  droppable: true,
-  drop(info: DropArg) {
-    if (checked.value) {
-      info.draggedEl.parentNode?.removeChild(info.draggedEl)
-    }
+  {
+    value: 'Option2',
+    label: '週',
   },
-  initialView: 'dayGridMonth',
-  initialEvents: INITIAL_EVENTS, // 可选项，可以从远程接口返回初始化数据
-  editable: true,
-  selectable: true,
-  selectMirror: true,
-  dayMaxEvents: true,
-  weekends: true,
-  select: handleDateSelect,
-  eventClick: handleEventClick,
-  eventsSet: handleEvents,
-  /* 可以通过触发以下事件来更新远程数据库
-        eventAdd:
-        eventChange:
-        eventRemove:
-        */
-} as CalendarOptions)
+  {
+    value: 'Option3',
+    label: '日',
+  },
+  {
+    value: 'Option4',
+    label: '清單',
+  },
+]
 
-const calendarRef = ref()
+const test3 = ref<any>([])
+const hasReport = reactive<any>([])
+const hasNotReport = ref<any>([])
+
+// const test1 = businessStores();
+
+const router = useRouter()
+// const id = ref()
+// 讓行事曆可以在各種視窗自動調整大小
 const elementRef = ref()
-
-/**
- * 監聽尺寸
- */
-const resize = new ResizeObserver((entries) => {
-  calendarRef.value.getApi().updateSize()
+const calendarRef = ref<InstanceType<typeof FullCalendar>>()
+const resize = new ResizeObserver(() => {
+  calendarRef.value?.getApi().updateSize()
 })
 
-// eslint-disable-next-line no-new
-const handleWeekendsToggle = () => {
-  calendarOptions.weekends = !calendarOptions.weekends // update a property
+// 取得當天行程
+const getDaySchedule = () => {
+  hasReport.length = 0
+  hasNotReport.value = []
+  let curSchedule = INITIAL_EVENTS.filter((sche) => {
+    let date = title.value.split('/').join('')
+    let scheDate = sche.start?.split(' ')[0].split('-').join('')
+    return scheDate == date ? true : false
+  })
+  curSchedule.forEach((sche) => {
+    if (sche.position) {
+      hasReport.push(sche)
+    } else {
+      hasNotReport.value.push(sche)
+    }
+  })
+}
+
+// 取得當週行程
+const getWeekSchedule = () => {
+  hasReport.length = 0
+  hasNotReport.value = []
+  let startDate = parseInt(title.value.split('-')[0].split('/').join(''))
+  let endDate = parseInt(title.value.split('-')[1].split('/').join(''))
+  let curSchedule = INITIAL_EVENTS.filter((sche) => {
+    let scheDate = parseInt(sche.start?.split(' ')[0].split('-').join(''))
+    return scheDate >= startDate && scheDate <= endDate ? true : false
+  })
+  let a = []
+  curSchedule.forEach((sche) => {
+    if (sche.position) {
+      hasReport.push(sche)
+    } else {
+      hasNotReport.value.push(sche)
+    }
+  })
+}
+
+// 取得當月行程
+const getMonthSchedule = () => {
+  // hasReport.length = 0
+  hasNotReport.value = []
+  let startDate = parseInt(title.value.split('-')[0].split('/').join(''))
+  let endDate = parseInt(title.value.split('-')[1].split('/').join(''))
+  let curSchedule = INITIAL_EVENTS.filter((sche) => {
+    let scheDate = parseInt(sche.start?.split(' ')[0].split('-').join(''))
+    return scheDate >= startDate && scheDate <= endDate ? true : false
+  })
+  curSchedule.forEach((sche) => {
+    if (sche.position) {
+      hasReport.push(sche)
+    } else {
+      hasNotReport.value.push(sche)
+    }
+  })
 }
 onMounted(() => {
   //綁定組件監聽尺寸變化
   resize.observe(elementRef.value)
+  getTitle()
+  getDaySchedule()
+})
 
-  // eslint-disable-next-line no-new
-  new Draggable(containerRef.value, {
-    itemSelector: '.external-events',
-    eventData(eventEl) {
-      const className = eventEl.className.split(' ')[1]
-      return {
-        title: eventEl.innerText,
-        classNames: [className],
+const curView = ref('')
+// 切換日、週、月選擇框
+const change = (value: string) => {
+  // 月
+  if (value == 'Option1') {
+    curView.value = value
+    calendarRef.value?.getApi().changeView('dayGridMonth')
+    getTitle()
+    getMonthSchedule()
+  }
+  // 週
+  else if (value == 'Option2') {
+    curView.value = value
+    calendarRef.value?.getApi().changeView('dayGridWeek')
+    getTitle()
+    getWeekSchedule()
+  }
+  // 日
+  else if (value == 'Option3') {
+    curView.value = value
+    calendarRef.value?.getApi().changeView('timeGridDay')
+    getTitle()
+    getDaySchedule()
+  }
+  // 清單
+  else if (value == 'Option4') {
+    curView.value = value
+    calendarRef.value?.getApi().changeView('listMonth')
+    getTitle()
+    getMonthSchedule()
+  }
+}
+
+// 日曆時間
+const title = ref('')
+const getTitle = () => {
+  title.value = calendarRef.value?.getApi().view.title
+}
+
+// 切換到今天時間
+const getToday = () => {
+  calendarRef.value?.getApi().today()
+  getTitle()
+  if (curView.value == 'Option1') {
+    getMonthSchedule()
+  }
+  if (curView.value == 'Option2') {
+    getWeekSchedule()
+  }
+  if (curView.value == '' || 'Option3') {
+    getDaySchedule()
+  }
+  if (curView.value == 'Option4') {
+    getMonthSchedule()
+  }
+}
+
+// 切換到上一月/天
+const getPrev = () => {
+  calendarRef.value?.getApi().prev()
+  getTitle()
+  if (curView.value == 'Option1') {
+    getMonthSchedule()
+  }
+  if (curView.value == 'Option2') {
+    getWeekSchedule()
+  }
+  if (curView.value == '' || 'Option3') {
+    getDaySchedule()
+  }
+  if (curView.value == 'Option4') {
+    getMonthSchedule()
+  }
+}
+
+// 切換到下一月/天
+const getNext = () => {
+  calendarRef.value?.getApi().next()
+  getTitle()
+  switch (curView.value) {
+    case 'Option1':
+      getMonthSchedule()
+      console.log('mon')
+      break
+    case 'Option2':
+      getWeekSchedule()
+      console.log('week')
+      break
+    case '' || 'Option3':
+      getDaySchedule()
+      console.log('day')
+      break
+    case '' || 'Option4':
+      getMonthSchedule()
+      break
+    default:
+      break
+  }
+}
+
+// const handleDateSelect = (selectInfo) => {
+//   // eslint-disable-next-line no-alert
+//   const title = prompt('請輸入標題')
+//   const calendarApi = selectInfo.view.calendar
+//   calendarApi.unselect() // clear date selection
+//   if (title) {
+//     calendarApi.addEvent({
+//       id: createEventId(),
+//       title,
+//       start: selectInfo.startStr,
+//       end: selectInfo.endStr,
+//       allDay: selectInfo.allDay
+//     })
+//   }
+// }
+
+const add = () => {
+  router.push({ name: 'newSchedule' })
+}
+const report = (info: string) => {
+  router.push({ name: 'editSchedule', params: { id: info } })
+}
+
+// 判斷行程是否回報
+INITIAL_EVENTS.filter((list) => {
+  if (list.position) {
+    list.backgroundColor = '#93cabd'
+  } else {
+    list.backgroundColor = '#ddb26b'
+  }
+})
+
+const options = reactive<CalendarOptions>({
+  plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin],
+  initialView: 'timeGridDay',
+  headerToolbar: false,
+  titleFormat: {
+    year: 'numeric',
+    month: 'numeric',
+    day: '2-digit',
+  },
+  locale: 'zn-ch',
+  buttonText: {
+    today: '今日',
+    month: '月',
+    week: '週',
+    day: '日',
+    list: '清單',
+  },
+  editable: true,
+  selectable: true,
+  weekends: true,
+  dayMaxEventRows: true,
+  // navLinks: true,
+  moreLinkContent: '...',
+  eventDisplay: 'list-item',
+  titleRangeSeparator: '-',
+  longPressDelay: 800,
+  weekText: '周',
+  dayHeaderContent(item) {
+    return item.text.split('（')[0]
+  },
+  // navLinkDayClick: (date, jsEvent) => {
+  // },
+
+  eventClick: (info) => {
+    // change the border color just for fun
+    // info.el.style.borderColor = 'red'
+  },
+  dateClick: (info) => {
+    // hasReport.length = 0
+    hasNotReport.value = []
+    // let schedule = JSON.parse(JSON.stringify(options.events))
+    let curSchedule = INITIAL_EVENTS.filter((sche) => {
+      let date = info.dateStr
+      return sche.start?.split(' ')[0] == date ? true : false
+    })
+    curSchedule.forEach((sche) => {
+      if (sche.position) {
+        hasReport.push(sche)
+      } else {
+        hasNotReport.value.push(sche)
       }
-    },
-  })
+    })
+    report
+    test3.value.push(...curSchedule)
+  },
+  // select: handleDateSelect,
+  events: INITIAL_EVENTS,
 })
 </script>
 
 <style lang="scss" scoped>
-.calendar-info {
-  height: 100%;
-  color: black;
-  padding: 0px 20px;
-  background-color: #fafbfe;
-  .page-title-box {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    color: #6c757d;
-    .page-title {
-      font-size: 18px;
-      margin: 0;
-      line-height: 85px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      color: inherit;
-      font-weight: 700;
-    }
-    .page-title-right {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      align-items: center;
-    }
-  }
-  .text-muted {
-    color: #98a6ad;
-  }
-  .text-left {
-    text-align: left;
-  }
-}
-:deep(.fc .fc-daygrid-day.fc-day-today) {
-  background: #f3f6f8;
-}
-:deep(.fc .fc-button-primary) {
-  background-color: #409effab;
-  border-color: transparent;
-}
-:deep(.fc .fc-button-primary:not(:disabled).fc-button-active) {
-  background-color: #409eff;
-  border-color: transparent;
-}
-:deep(.fc .fc-daygrid-day-number) {
-  float: right;
-  height: 20px;
-  width: 20px;
-  text-align: center;
-  line-height: 20px;
-  background-color: #f1f3fa;
-  border-radius: 50%;
-  margin: 5px;
-  font-size: 11px;
-  display: inline-table;
-}
-:deep(.bg-success) {
-  background-color: #0acf97 !important;
-}
-:deep(.bg-info) {
-  background-color: #39afd1 !important;
-}
-:deep(.bg-danger) {
-  background-color: #fa5c7c !important;
-}
-:deep(.bg-dark) {
-  background-color: #313a46 !important;
-}
-:deep(.bg-warning) {
-  background-color: #ffbc00 !important;
-}
-:deep(.external-events) {
-  cursor: move;
-  margin: 10px 0;
-  padding: 8px 10px;
-  color: #fff;
-  text-align: left;
-  width: 258.25px;
+.business-bg {
+  width: 98%;
+  min-height: 80vh;
+  padding-right: 2.5%;
+  padding-left: 2.5%;
+  margin: 30px auto 60px auto;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  .list-circle {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background-color: white;
-    display: inline-block;
-    margin-right: 10px;
-  }
+  background-color: #fff;
+  border: solid 1px #ebeef5;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+}
+.calendar-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+}
+.calendar-button {
+  display: flex;
+  margin-top: 0px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.schedule-list {
+  margin-top: 10px;
+}
+.calendar {
+  margin-top: 10px;
 }
 </style>

@@ -1,6 +1,6 @@
 {
-  "name": "web",
-  "version": "0.0.0",
+  "name": "haodai-web",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -12,6 +12,7 @@
     "@fullcalendar/core": "^5.11.3",
     "@fullcalendar/daygrid": "^5.11.3",
     "@fullcalendar/interaction": "^5.11.3",
+    "@fullcalendar/list": "^5.11.3",
     "@fullcalendar/timegrid": "^5.11.3",
     "@fullcalendar/vue": "^5.11.2",
     "@fullcalendar/vue3": "^5.11.2",

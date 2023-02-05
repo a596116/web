@@ -4,6 +4,7 @@ specifiers:
   '@fullcalendar/core': ^5.11.3
   '@fullcalendar/daygrid': ^5.11.3
   '@fullcalendar/interaction': ^5.11.3
+  '@fullcalendar/list': ^5.11.3
   '@fullcalendar/timegrid': ^5.11.3
   '@fullcalendar/vue': ^5.11.2
   '@fullcalendar/vue3': ^5.11.2
@@ -58,6 +59,7 @@ dependencies:
   '@fullcalendar/core': 5.11.3
   '@fullcalendar/daygrid': 5.11.3
   '@fullcalendar/interaction': 5.11.3
+  '@fullcalendar/list': 5.11.3
   '@fullcalendar/timegrid': 5.11.3
   '@fullcalendar/vue': 5.11.2_vue@3.2.33
   '@fullcalendar/vue3': 5.11.2_vue@3.2.33
@@ -735,6 +737,13 @@ packages:
 
   /@fullcalendar/interaction/5.11.3:
     resolution: {integrity: sha512-L955wkDjza62K96ndstvYs2Fd4V0kayTDpqW8W7huFG3Ox8MutpLqKAa2SCaTvcNIlWS4oexGQRiQAaJG7u47A==}
+    dependencies:
+      '@fullcalendar/common': 5.11.3
+      tslib: 2.4.0
+    dev: false
+
+  /@fullcalendar/list/5.11.3:
+    resolution: {integrity: sha512-6m9rJPzB5XfJZg+MlgVpha1cI3NUDeyV3GOmojJWZuti05NfDP4f0lzFUul8W7m1DQcjGS2UPRNE8HouA3guEA==}
     dependencies:
       '@fullcalendar/common': 5.11.3
       tslib: 2.4.0
