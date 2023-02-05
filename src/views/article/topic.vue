@@ -41,7 +41,7 @@ const tableButtonAction = async (model: any, command: string) => {
       formRef.value.modelData = {
         id: model.id,
         title: model.title,
-        category: model.category,
+        TopicTag: model.TopicTag,
         content: model.content,
         image: model.image,
       }

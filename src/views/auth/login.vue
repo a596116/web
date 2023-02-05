@@ -76,7 +76,7 @@ const loginForm = reactive<ILoginUser>(
         password: '123456',
       }
     : {
-        phone: '0912345678',
+        phone: '0911111111',
         password: '123456',
       },
 )

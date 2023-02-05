@@ -29,7 +29,7 @@ export const userSearchForm = [
 export const topicSearchForm = [
     { title: '標題', name: 'title', type: 'input' },
     {
-        title: '類別', name: 'category', type: 'radio',
+        title: '類別', name: 'TopicTag', type: 'radio',
         options: ['HTML', 'JS', 'CSS'],
     },
 ] as searchColumnsType[]

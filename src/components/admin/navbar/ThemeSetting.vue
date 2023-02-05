@@ -22,7 +22,6 @@
           <el-switch
             v-model="menuStore.isBreadcrumbCollapse"
             class="ml-2"
-            inline-prompt
             active-color="#6BDBED"
             active-text="開"
             inactive-text="關"
@@ -34,7 +33,6 @@
           <el-switch
             v-model="menuStore.isHistoryCollapse"
             class="ml-2"
-            inline-prompt
             active-color="#6BDBED"
             active-text="開"
             inactive-text="關"

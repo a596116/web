@@ -65,7 +65,7 @@ export const userForm = [
 export const topicForm = [
   { title: '圖片', name: 'image', type: 'image' },
   { title: '標題', name: 'title', type: 'input' },
-  { title: '類別', name: 'category', options: ['HTML', 'JS', 'CSS'], type: 'select' },
+  { title: '類別', name: 'TopicTag', options: ['HTML', 'JS', 'CSS'], type: 'select' },
   { title: '文章', name: 'content', type: 'content' },
 ] as formColumnsType[]
 
