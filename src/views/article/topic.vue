@@ -73,19 +73,18 @@ const userStore = userStores()
 const formButtonAction = async (model: any, command: string) => {
   const id = model.id
   delete model.id
-  if (model.title == '' || model.content == '') {
+  console.log(model)
+  if (model.title !== undefined || model.content !== undefined) {
+    switch (command) {
+      case 'new':
+        await dataStore.create('topic', { ...model, userid: userStore.info?.id })
+        break
+      case 'edit':
+        await dataStore.update('topic', id, { ...model }, 'admin')
+        break
+    }
+  } else {
     ElMessage.warning('標題和內容需填寫！')
-    return
-  }
-  switch (command) {
-    case 'new':
-      console.log({ ...model, userid: userStore.info?.id })
-
-      await dataStore.create('topic', { ...model, userid: userStore.info?.id })
-      break
-    case 'edit':
-      await dataStore.update('topic', id, { ...model }, 'admin')
-      break
   }
 }
 </script>

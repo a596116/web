@@ -101,7 +101,7 @@ const type = ref('none')
 const modelData = ref(
   zipObject(
     fields.map((f) => f.name),
-    fields.map((f) => (f.name === 'category' ? [] : f.value)),
+    fields.map((f) => (f.name === 'TopicTag' ? [] : f.value)),
   ),
 )
 
@@ -116,7 +116,7 @@ const drawerRef = ref<InstanceType<typeof ElDrawer>>()
 const clear = () => {
   modelData.value = zipObject(
     fields.map((f) => f.name),
-    fields.map((f) => (f.name === 'category' ? [] : f.value)),
+    fields.map((f) => (f.name === 'TopicTag' ? [] : f.value)),
   )
   type.value = 'none'
   emit('update:modelValue', false)

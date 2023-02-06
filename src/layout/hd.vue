@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const active = ref<number>(0)
 const menutoggle = ref<boolean>(false)
-const menulist: string[] = ['介紹', '作品', '資料', '照片']
+const menulist: string[] = ['介紹', '作品', '照片']
 nextTick(() => {
   window.addEventListener('scroll', onScroll, false)
 })
@@ -98,7 +98,7 @@ const scrollTo = (index: number): void => {
         <hd-card />
       </section>
       <section class="et-slide">
-        <h1>作品</h1>
+        <hd-article />
       </section>
       <section class="et-slide">
         <h1>資料</h1>

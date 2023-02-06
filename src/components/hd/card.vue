@@ -17,7 +17,7 @@
 
     <div class="inner_part">
       <div class="content content_1">
-        <div class="title">作品</div>
+        <div class="title text-3xl">作品</div>
         <div class="text">
           <a class="btn-draw" href="https://github.com/a596116/web" target="_blank"
             ><span>前端網頁和後台管理系統</span></a
@@ -40,7 +40,7 @@
 
     <div class="inner_part">
       <div class="content content_2">
-        <div class="title">競賽</div>
+        <div class="title text-xl">2021金象盃全國大數據實務能力競賽</div>
         <div class="text">
           參與成大資通安全研究與教學中心特與國網中心、嘉南藥理大學多媒體與遊戲發展系、中國文化大學推廣教育部、國立虎尾科技大學、國立高雄科技大學智慧商務系、中臺科技大學人工智慧健康管理系、台灣數位安全聯盟、Honeypot台灣分會、OWASP台灣分會、台灣學術網路危機處理中心等單位合作舉辦2021金象盃全國大數據實務能力競賽，決賽獲得全國大專院校組-優勝。
         </div>
@@ -49,7 +49,7 @@
 
     <div class="inner_part">
       <div class="content content_3">
-        <div class="title">技能</div>
+        <div class="title text-2xl">技能</div>
         <div class="text">
           <div class="skill">
             <el-tooltip
@@ -197,7 +197,7 @@ const skills = [
 
 .content .title {
   height: 15%;
-  font-size: 30px;
+  // font-size: 30px;
   font-weight: 700;
   color: #0d0925;
   display: flex;

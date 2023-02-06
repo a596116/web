@@ -34,7 +34,7 @@
         <div class="introduce-content">
           <div class="introduce-subtitle">學歷</div>
           <div class="introduce-timeline">
-            <div class="introduce-item" data-year="2022">
+            <div class="introduce-item" data-year="2023">
               <div class="introduce-item-title">求職中</div>
               <div class="introduce-item-desc">尋找工作...</div>
             </div>
