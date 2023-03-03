@@ -100,9 +100,9 @@ const scrollTo = (index: number): void => {
       <section class="et-slide">
         <hd-article />
       </section>
-      <section class="et-slide">
+      <!-- <section class="et-slide">
         <h1>資料</h1>
-      </section>
+      </section> -->
       <section class="et-slide">
         <hd-photo />
       </section>

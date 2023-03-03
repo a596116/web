@@ -9,7 +9,7 @@
         src="https://upload.cc/i1/2022/09/22/SAVIGt.jpeg"
         :lazy="true"></el-image>
 
-      <h1 class="introduce-fullname">Wang HaoDai</h1>
+      <h1 class="introduce-fullname">王教勛</h1>
     </div>
     <div class="introduce-main">
       <div class="introduce-section is-active" id="about">

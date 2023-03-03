@@ -6,6 +6,7 @@ import { autoImport } from './autoImport'
 import { setupMockPlugin } from './mock'
 import { setupCdnPlugin } from './importcdn'
 export const setupPlugins = (isBuild: boolean) => {
+
     const plugins: Plugin[] = [vue(), visualizer()]
     setupMockPlugin(plugins, isBuild)
     autoImport(plugins)

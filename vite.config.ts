@@ -3,6 +3,7 @@ import type { ConfigEnv } from 'vite'
 import { setupPlugins } from './vite/plugins'
 export default ({ command }: ConfigEnv): any => {
   const isBuild = command === 'build'
+
   return {
     plugins: [...setupPlugins(isBuild)],
     resolve: {
