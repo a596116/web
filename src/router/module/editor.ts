@@ -9,18 +9,18 @@ export default {
     },
   },
   children: [
-    // {
-    //   name: 'admin/wang',
-    //   path: 'wang',
-    //   component: () => import('@/views/editor/wang.vue'),
-    //   meta: { menu: { title: '富文本' }, permission: 'user', number: 4 },
-    // },
-    // {
-    //   name: 'admin/markdown',
-    //   path: 'markdown',
-    //   component: () => import('@/views/editor/markdown.vue'),
-    //   meta: { menu: { title: 'markdown' }, number: 5 },
-    // },
+    {
+      name: 'admin/wang',
+      path: 'wang',
+      component: () => import('@/views/editor/wang.vue'),
+      meta: { menu: { title: '富文本' }, permission: 'user', number: 4 },
+    },
+    {
+      name: 'admin/markdown',
+      path: 'markdown',
+      component: () => import('@/views/editor/markdown.vue'),
+      meta: { menu: { title: 'markdown' }, number: 5 },
+    },
     {
       name: 'admin/calendar',
       path: 'calendar',

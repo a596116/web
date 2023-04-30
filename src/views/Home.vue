@@ -4,16 +4,16 @@ import router from '@/router'
 useTitle('浩呆')
 </script>
 <template>
-  <div class="h-screen w-screen bg-gray-600 flex justify-center items-center relative">
+  <div class="relative flex items-center justify-center w-screen h-screen bg-gray-600">
     <div class="description">請點選四周</div>
-    <div class="w-80 h-80 rounded-full border-8 border-white z-10 flex justify-center items-center">
+    <div class="z-10 flex items-center justify-center border-8 border-white rounded-full w-80 h-80">
       <el-image
         src="/img/logo.png"
         fit="contain"
         :lazy="true"
-        class="w-72 h-72 rounded-full animate__animated animate__bounce animate__infinite"></el-image>
+        class="rounded-full w-72 h-72 animate__animated animate__bounce animate__infinite"></el-image>
     </div>
-    <div class="absolute top-0 left-0 w-full h-full flex flex-wrap">
+    <div class="absolute top-0 left-0 flex flex-wrap w-full h-full">
       <div
         data-text="網站首頁"
         class="title hover:bg-orange-200"
@@ -23,10 +23,7 @@ useTitle('浩呆')
         class="title hover:bg-green-200"
         href="https://wanghaodai.com/"
         target="_blank"></a>
-      <div
-        data-text="Music"
-        class="title hover:bg-teal-200"
-        @click="router.push({ name: 'music' })"></div>
+      <div data-text="Music" class="title hover:bg-teal-200" @click=""></div>
       <div
         data-text="後台管理"
         class="title hover:bg-rose-200"

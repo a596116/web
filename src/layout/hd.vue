@@ -71,13 +71,13 @@ const scrollTo = (index: number): void => {
     <el-affix position="top" :offset="15">
       <router-link
         to="/"
-        class="btn home_button flex justify-center m-2 items-center absolute p-2 rounded-md text-hd-white hover:text-hd-black2">
+        class="absolute flex items-center justify-center p-2 m-2 rounded-md btn home_button text-hd-white hover:text-hd-black2">
         <span>首頁</span>
       </router-link>
     </el-affix>
     <!-- nav -->
     <section class="et-hero-tabs">
-      <hd-home class="cursor-default hidden md:block" />
+      <hd-home class="hidden cursor-default md:block" />
       <el-affix :offset="0" class="affix">
         <div class="et-hero-tabs-container">
           <span

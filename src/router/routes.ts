@@ -2,6 +2,7 @@ export const routes = [
     {
         path: '/',
         name: 'home',
+        redirect: '/admin/home',
         component: () => import('../views/Home.vue'),
     },
     {
@@ -31,11 +32,6 @@ export const routes = [
         path: '/love',
         name: 'love',
         component: () => import('@/layout/love.vue'),
-    },
-    {
-        path: '/music',
-        name: 'music',
-        component: () => import('@/layout/music.vue'),
     },
     {
         path: '/birthday/:id?',
