@@ -52,7 +52,7 @@ class userApi {
     return http.request({
       url: 'auth/regist',
       method: 'post',
-      data: { ...userForm, active: '1', avatar: '0', permissions: userForm.name === 'admin' ? ['admin', 'user'] : ['user'] }
+      data: { ...userForm, active: '1', avatar: '0', permissions: ['user'] }
     })
   }
 

@@ -34,13 +34,12 @@
         <el-upload
           class="upload"
           action="#"
-          :disabled="true"
           :show-file-list="false"
           :auto-upload="false"
           :on-change="handleAvatarSuccess">
           <icon-plus theme="outline" size="30" />
         </el-upload>
-        <div class="flex flex-row justify-center items-center mt-5">
+        <div class="flex flex-row items-center justify-center mt-5">
           <span>圖片網址：</span>
           <el-input v-model.trim="inputUrl" class="flex-1 border rounded-md" />
         </div>

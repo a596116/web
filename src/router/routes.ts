@@ -19,13 +19,13 @@ export const routes = [
     {
         path: '/login',
         name: 'login',
-        component: () => import('../views/auth/login.vue'),
+        component: () => import('../views/Auth/Login.vue'),
         meta: { guest: true },
     },
     {
         path: '/regist',
         name: 'regist',
-        component: () => import('../views/auth/login.vue'),
+        component: () => import('../views/Auth/Login.vue'),
         meta: { guest: true },
     },
     {

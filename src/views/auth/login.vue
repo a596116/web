@@ -16,7 +16,7 @@
             :rules="loginRules"
             type="login">
             <template #button>
-              <div class="flex gap-4 justify-center items-center mt-5">
+              <div class="flex items-center justify-center gap-4 mt-5">
                 <span class="other" @click="router.push({ name: 'home' })">網站首頁</span>
                 <span class="text-base">|</span>
                 <span class="other" @click="sigin = !sigin">會員註冊</span>
@@ -33,7 +33,7 @@
             :rules="registRules"
             type="register">
             <template #button>
-              <div class="flex gap-4 justify-center items-center mt-5">
+              <div class="flex items-center justify-center gap-4 mt-5">
                 <span class="other" @click="router.push({ name: 'home' })">網站首頁</span>
                 <span class="text-base">|</span>
                 <span class="other">找回密碼</span>
@@ -76,7 +76,7 @@ const loginForm = reactive<ILoginUser>(
         password: '123456',
       }
     : {
-        phone: '0911111111',
+        phone: '0999999999',
         password: '123456',
       },
 )
